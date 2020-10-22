@@ -18,5 +18,7 @@ namespace Store.API.Models.Operator
         [Required]
         public string StatusId { get; set; }
         public string Password { get; set; }
+        public string Address { get; internal set; }
+        public string AccountTypeId { get; internal set; }
     }
 }

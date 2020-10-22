@@ -62,7 +62,7 @@ body {
       padding: 13px 25px;
       transition: all 0.5s ease; }
       .sidebar .nav .nav-item .nav-link .menu-title {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: normal;
         padding-top: 4px; }
       .sidebar .nav .nav-item .nav-link i.menu-icon {
@@ -311,7 +311,7 @@ select.form-control {
 
 .form-group label {
   padding-top: 5px;
-  font-size: 12px;
+  font-size: 15px;
   padding-bottom: 0;
   margin-bottom: 0;
   font-weight: 600; }
@@ -756,3 +756,18 @@ table.nowrap td {
 
 #tbPassenger .dropdown-menu ul {
   transform: translate3d(0px, 0px, 0px); }
+/*Trang thai don hang*/
+.progress-bar-order .progress-bar-item 
+    .progress-bar-item-ico 
+       .progress-bar-item-ico-in {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: #cecece;
+    margin: 0 auto;
+    border-radius: 100%;
+    line-height: 23px;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid #d4d4d4;
+}

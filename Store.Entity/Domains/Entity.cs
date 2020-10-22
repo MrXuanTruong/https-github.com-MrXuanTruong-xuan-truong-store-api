@@ -13,7 +13,7 @@ namespace Store.Entity.Domains
         public DateTime? UpdatedDate { get; set; }
 
         [ForeignKey("CreatedBy")]
-        public Account CreatedAccount { get; set; }
+        public Account CreatedProduct { get; set; }
 
         [ForeignKey("UpdatedBy")]
         public Account UpdatedAccount { get; set; }

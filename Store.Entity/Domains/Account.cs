@@ -38,8 +38,13 @@ namespace Store.Entity.Domains
         [StringLength(50)]
         public string AccountTypeId { get; set; }
 
-        [NotMapped]
         [ForeignKey("AccountTypeId")]
         public AccountType AccountType { get; set; }
+
+        [StringLength(50)]
+        public string BranchId { get; set; }
+
+        [ForeignKey("BranchId")]
+        public Branch Branch { get; set; }
     }
 }

@@ -11,7 +11,13 @@ const _AREA = area; // apiUrl from AppSettings
 const API_OPERATOR_SEARCH = 'operator/search';
 const API_OPERATOR_CRUD = 'operator';
 
-const API_POPULAR_USER_STATUSES = 'popular/userStatuses';
+const API_ORDERS_SEARCH = 'orders/search';
+const API_ORDERS_CRUD = 'orders';
+
+const API_PRODUCT_SEARCH = 'product/search';
+const API_PRODUCT_CRUD = 'product';
+
+const API_POPULAR_USER_STATUSES = 'populate/userStatuses';
 
 const API_UPLOAD_FILES = 'uploadfile/uploads';
 const API_GET_CURRENT_USER = 'account/me';

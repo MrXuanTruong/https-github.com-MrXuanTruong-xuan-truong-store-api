@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Cập nhập thông tin người dùng";
+}
+    <div class="row" v-if="operator">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <h4 class="card-title">@ViewBag.Title</h4>
+                <div class="card-body">
+                    <form class="forms-sample" id="operator-form">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group row">
+                                    <label for="user-name" class="col-sm-3 col-form-label">Tên đăng nhập</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="user-name" v-model="operator.UserName" required :disabled="isEdit">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="full-name" class="col-sm-3 col-form-label">Tên</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="full-name" v-model="operator.FullName" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" id="email" v-model="operator.Email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" id="phone" v-model="operator.Phone">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="password" class="col-sm-3 col-form-label">Mật khẩu</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" id="password" v-model="operator.Password">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="confirmed-password" class="col-sm-3 col-form-label">Xác nhận mật khẩu</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" id="confirmed-password" v-model="operator.ConfirmedPassword">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="operator-status-id" class="col-sm-3 col-form-label">Trạng thái</label>
+                                    <div class="col-sm-9">
+                                        <v-select v-model="operator.OStatusId"
+                                                  :options="operatorStatuses"
+                                                  :reduce="item => item.OperatorStatusId"
+                                                  label="OperatorStatusName" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12 row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <error-list :errors="errors"></error-list>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <button type="button" v-on:click="onClickUpdate" class="btn btn-primary btn-sm">
+                                            Lưu thay đổi
+                                        </button>
+                                        <button type="button" @@click="onClickBtnGotoList" class="btn btn-light btn-icon-prepend btn-sm">
+                                            <i class="fa fa-arrow-left"></i>
+                                            Trở lại danh sách
+                                        </button>
+                                        <button type="button" v-on:click="onClickAddNew" class="btn btn-light btn-icon-prepend btn-sm" v-if="operator.OperatorId!==0">
+                                            <i class="fa fa-plus"></i>
+                                            Tạo mới
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md 12 grid-margin stretch-card" v-if="isEdit">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Danh sách Quyền</h4>
+                    <group-check-box :options="privileges"></group-check-box>
+                    <button type="button" v-on:click="onClickUpdatePrivilege" class="btn btn-primary btn-sm">
+                        Lưu thay đổi
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+@section Scripts{
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/admin/js/features/check-box.component.js"></script>
+    <script src="~/admin/js/features/group-check-box.component.js"></script>
+}
+

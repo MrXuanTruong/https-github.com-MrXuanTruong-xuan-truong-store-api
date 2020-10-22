@@ -44,10 +44,21 @@ namespace Store.Api.Controllers
         {
             try
             {
+                //var query = _accountService.GetByCriteria(criteria);
                 var query = _accountService.GetAll();
                 var operators =
                     query
-                    .Select(x => _mapper.Map<OperatorItemModel>(x))
+                    .Select(x => new OperatorItemModel
+                    {
+                        Id = x.AccountId,
+                        Username = x.Username,
+                        Fullname = x.FullName,
+                        Address = x.Address,
+                        Email = x.Email,
+                        Password = x.Password,
+                        Phone = x.Phone,
+                        AccountTypeId = x.AccountTypeId,
+                    })
                     .ToList()
                     .AsQueryable();
 

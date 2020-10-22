@@ -130,11 +130,11 @@
       "library": "vue-loading-overlay@3.2.0",
       "destination": "wwwroot/lib/vue-loading-overlay/"
     },
-    {
-      "provider": "jsdelivr",
-      "library": "vuedraggable@2.24.0",
-      "destination": "wwwroot/lib/vuedraggable/"
-    },
+    //{
+    //  "provider": "jsdelivr",
+    //  "library": "vuedraggable@2.24.0",
+    //  "destination": "wwwroot/lib/vuedraggable/"
+    //},
     {
       "provider": "jsdelivr",
       "library": "sortablejs@1.10.2",

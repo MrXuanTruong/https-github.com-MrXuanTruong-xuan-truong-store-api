@@ -28,30 +28,57 @@
             let menuOrigin = [];
 
             let bookingMenus = {
-                name: 'Quản lý đơn hàng',
+                name: '',
                 subMenus: [
-                    { icon: 'mdi mdi-format-list-bulleted-type', name: 'Đơn hàng', code: null, url: '/admin/booking' },
+                    { icon: 'mdi mdi-format-list-bulleted-type', name: 'Quản lý danh mục', code: null, url: '/admin/category' },
                 ]
             };
             menuOrigin.push(bookingMenus);
             var systemMenus = {
-                name: 'Hệ thống',
+                name: '',
                 subMenus: [
-                    { icon: 'mdi mdi-account-multiple', name: 'Người dùng', code: null, url: '/admin/operator' },// PERMISSIONS.MANAGE_OPERATOR
+                    { icon: 'mdi mdi-format-list-checks',name: 'Quản lý sản phẩm', code: null, url: '/admin/product' },
+                  
+                    // PERMISSIONS.MANAGE_OPERATOR
                 ]
             };
             menuOrigin.push(systemMenus);
-
-            //var smsMenus = {
-            //    name: 'SMS Marketing',
-            //    subMenus: [
-            //        { icon: 'mdi mdi-contacts', name: 'Contact', code: '', url: '/admin/contact' },
-            //        { icon: 'mdi mdi-account-group', name: 'Nhóm', code: '', url: '/admin/contactgroup' },
-            //        { icon: 'mdi mdi-page-layout-header-footer', name: 'Templates', code: '', url: '/admin/smstemplate' },
-            //        { icon: 'mdi mdi-message-text', name: 'SMS', code: '', url: '/admin/smsquicksend' },
-            //    ]
-            //};
-            //menuOrigin.push(smsMenus);
+            
+            var systemMenus = {
+                name: '',
+                subMenus: [
+                    { icon: 'mdi mdi-account-group', name: 'Quản lý người dùng', code: null, url: '/admin/operator' },// PERMISSIONS.MANAGE_OPERATOR
+                ]
+            };
+            menuOrigin.push(systemMenus);
+            var systemMenus = {
+                name: '',
+                subMenus: [
+                    { icon: 'mdi mdi-account-multiple', name: 'Quản lý nhân viên', code: null, url: '/admin/employee' },// PERMISSIONS.MANAGE_OPERATOR
+                ]
+            };
+            menuOrigin.push(systemMenus);
+            var systemMenus = {
+                name: '',
+                subMenus: [
+                    { icon: 'mdi mdi-format-list-bulleted', name: 'Quản lý đơn hàng', code: null, url: '/admin/order' },// PERMISSIONS.MANAGE_OPERATOR
+                ]
+            };
+            menuOrigin.push(systemMenus);
+            var systemMenus = {
+                name: '',
+                subMenus: [
+                    { icon: 'mdi mdi-poll', name: 'Báo cáo ', code: null, url: '/admin/chart' },// PERMISSIONS.MANAGE_OPERATOR
+                ]
+            };
+            menuOrigin.push(systemMenus);
+            var systemMenus = {
+                name: '',
+                subMenus: [
+                    { icon: 'mdi mdi-wrench', name: 'Thiết lập ', code: null, url: '/admin/setting' },// PERMISSIONS.MANAGE_OPERATOR
+                ]
+            };
+            menuOrigin.push(systemMenus);
 
             var self = this;
             menuOrigin.forEach((menu) => {

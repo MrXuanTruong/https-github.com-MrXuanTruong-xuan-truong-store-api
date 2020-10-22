@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Danh sách người dùng";
 }
-<div class="row">
+@*<div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <h4 class="card-title"><i class="mdi mdi-filter" aria-hidden="true"></i> Tìm kiếm</h4>
@@ -11,11 +11,13 @@
                         <div class="row">
                             <label class="col-sm-1" for="Email">Trạng thái</label>
                             <div class="col-sm-4">
+
                                 <v-select v-model="filter.statusId"
                                           :options="userStatuses"
                                           :reduce="item => item.StatusId"
                                           label="StatusName" />
                             </div>
+
                             <div class="col-sm-4">
                                 <button type="button" v-on:click="onClickSearch" class="btn btn-primary btn-icon-prepend btn-sm">
                                     <i class="mdi mdi-magnify"></i>
@@ -28,7 +30,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <div class="card">
     <h4 class="card-title d-md-flex align-items-md-center">
         <i class="mdi mdi-table-large" aria-hidden="true"></i> @ViewBag.Title
@@ -42,13 +44,19 @@
             <div class="col-12">
                 <div class="table-responsive">
                     <table id="operator-table" class="table table-striped" width="100%">
+                        @*<span style="margin-left:75%;margin-top:50px">Tìm kiếm</span>*@
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
+                                <th>Actions</th>
                                 <th>Tên đăng nhập</th>
                                 <th>Họ và tên</th>
+                                <th>Số điện thoại</th>
                                 <th>Email</th>
+                                <th>Địa chỉ</th>
                                 <th>Trạng thái</th>
+                                <th>Chức vụ</th>
+                                <th>Chi nhánh</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

@@ -4,6 +4,6 @@
     }
 
     getUserStatuses() {
-        return base_axios.get(`${API_POPULAR_USER_STATUS}`);
+        return base_axios.get(`${API_POPULAR_USER_STATUSES}`);
     }
 }

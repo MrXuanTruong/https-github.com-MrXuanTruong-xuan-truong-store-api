@@ -25,7 +25,7 @@ namespace Store.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("AccountTypes")]
+        [HttpGet("accountTypes")]
         public async Task<IList<AccountTypeItemModel>> AccountTypes()
         {
             var response = (await _catagoryService.AccountTypes())
@@ -35,6 +35,21 @@ namespace Store.Api.Controllers
                         Id = x.AccountTypeId,
                         Name = x.AccountTypeName
                     })
+                .ToList();
+
+            return response;
+        }
+
+        [HttpGet("userStatuses")]
+        public async Task<IList<AccountTypeItemModel>> AccountStatuses()
+        {
+            var response = (await _catagoryService.AccountTypes())
+                .Select(x =>
+                   new AccountTypeItemModel
+                   {
+                       Id = x.AccountTypeId,
+                       Name = x.AccountTypeName
+                   })
                 .ToList();
 
             return response;

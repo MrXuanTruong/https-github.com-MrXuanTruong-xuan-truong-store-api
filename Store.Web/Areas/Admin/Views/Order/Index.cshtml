@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Danh sách đơn hàng";
+}
+
+<div class="card">
+    <h4 class="card-title d-md-flex align-items-md-center">
+        <i class="mdi mdi-table-large" aria-hidden="true"></i> @ViewBag.Title
+        <button type="button" v-on:click="onClickCreateUser" class="btn btn-primary btn-icon-prepend btn-sm ml-md-auto">
+            <i class="fa fa-plus"></i>
+            Tạo đơn hàng
+        </button>
+    </h4>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="operator-table" class="table table-striped" width="100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Ngày tạo đơn</th>
+                                <th>Tên khách hàng</th>
+                                <th>Trạng thái đơn hàng</th>
+                                <th>Thanh toán</th>
+                                <th>Tổng tiền</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+}

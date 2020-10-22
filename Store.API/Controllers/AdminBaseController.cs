@@ -19,6 +19,7 @@ namespace Store.API.Controllers
     public abstract class AdminBaseController : BaseController
     {
         private AccountModel currentOperator;
+
         public AccountModel CurrentUser
         {
             get

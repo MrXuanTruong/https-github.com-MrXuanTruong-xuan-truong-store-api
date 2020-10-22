@@ -86,27 +86,59 @@ namespace Store.Entity.Migrations
                         new
                         {
                             AccountId = 1L,
-                            CreatedDate = new DateTime(2020, 9, 28, 15, 39, 8, 996, DateTimeKind.Utc).AddTicks(1021),
+                            Address = "Quận 9",
+                            CreatedDate = new DateTime(2020, 10, 22, 2, 56, 27, 957, DateTimeKind.Utc).AddTicks(8351),
                             DateOfBirth = new DateTime(1991, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "locxtit@gmail.com",
+                            Email = "xuantruongmu98@gmail.com",
                             FullName = "Admin",
                             Password = "e10adc3949ba59abbe56e057f20f883e",
-                            Phone = "0986210955",
-                            UpdatedDate = new DateTime(2020, 9, 28, 15, 39, 8, 996, DateTimeKind.Utc).AddTicks(2179),
+                            Phone = "0345286525",
+                            UpdatedDate = new DateTime(2020, 10, 22, 2, 56, 27, 958, DateTimeKind.Utc).AddTicks(351),
                             Username = "admin"
                         },
                         new
                         {
                             AccountId = 2L,
-                            CreatedDate = new DateTime(2020, 9, 28, 15, 39, 8, 996, DateTimeKind.Utc).AddTicks(3418),
+                            CreatedDate = new DateTime(2020, 10, 22, 2, 56, 27, 958, DateTimeKind.Utc).AddTicks(1801),
                             DateOfBirth = new DateTime(1991, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "locxtit1@gmail.com",
                             FullName = "locxtit",
                             Password = "e10adc3949ba59abbe56e057f20f883e",
                             Phone = "0986210955",
-                            UpdatedDate = new DateTime(2020, 9, 28, 15, 39, 8, 996, DateTimeKind.Utc).AddTicks(3439),
+                            UpdatedDate = new DateTime(2020, 10, 22, 2, 56, 27, 958, DateTimeKind.Utc).AddTicks(1825),
                             Username = "locxtit"
                         });
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.AccountStatus", b =>
+                {
+                    b.Property<string>("AccountStatusId")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("AccountStatusName")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AccountStatusId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("AccountStatuses");
                 });
 
             modelBuilder.Entity("Store.Entity.Domains.AccountType", b =>
@@ -140,6 +172,147 @@ namespace Store.Entity.Migrations
                     b.ToTable("AccountTypes");
                 });
 
+            modelBuilder.Entity("Store.Entity.Domains.Branch", b =>
+                {
+                    b.Property<long>("BranchId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("BranchName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("BranchId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("Branches");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.BranchType", b =>
+                {
+                    b.Property<long>("BranchTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BranchTypeName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("BranchTypeId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("BranchTypes");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CategoryId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.District", b =>
+                {
+                    b.Property<long>("DistrictId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DistrictName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DistrictId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("Districts");
+                });
+
             modelBuilder.Entity("Store.Entity.Domains.Order", b =>
                 {
                     b.Property<long>("OrderId")
@@ -171,9 +344,218 @@ namespace Store.Entity.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("Store.Entity.Domains.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.ProductBranch", b =>
+                {
+                    b.Property<int>("ProductBranchId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProductBranchId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("ProductBranches");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.ProductColor", b =>
+                {
+                    b.Property<int>("ProductColorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("ProductColorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProductColorId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("ProductColors");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.ProductImage", b =>
+                {
+                    b.Property<int>("ProductImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("ProductImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProductImageId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.Province", b =>
+                {
+                    b.Property<long>("ProvinceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProvinceName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProvinceId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("Provinces");
+                });
+
             modelBuilder.Entity("Store.Entity.Domains.Account", b =>
                 {
-                    b.HasOne("Store.Entity.Domains.Account", "CreatedAccount")
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.AccountStatus", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
                         .WithMany()
                         .HasForeignKey("CreatedBy");
 
@@ -184,7 +566,51 @@ namespace Store.Entity.Migrations
 
             modelBuilder.Entity("Store.Entity.Domains.AccountType", b =>
                 {
-                    b.HasOne("Store.Entity.Domains.Account", "CreatedAccount")
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.Branch", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.BranchType", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.Category", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.District", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
                         .WithMany()
                         .HasForeignKey("CreatedBy");
 
@@ -195,7 +621,62 @@ namespace Store.Entity.Migrations
 
             modelBuilder.Entity("Store.Entity.Domains.Order", b =>
                 {
-                    b.HasOne("Store.Entity.Domains.Account", "CreatedAccount")
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.Product", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.ProductBranch", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.ProductColor", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.ProductImage", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Store.Entity.Domains.Account", "UpdatedAccount")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.Province", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.Account", "CreatedProduct")
                         .WithMany()
                         .HasForeignKey("CreatedBy");
 

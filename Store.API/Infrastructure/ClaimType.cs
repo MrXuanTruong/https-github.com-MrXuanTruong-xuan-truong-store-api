@@ -12,5 +12,7 @@ namespace Store.API.Infrastructure
         public const string Email = "Email";
         public const string Fullname = "Fullname";
         public const string Permissions = "Permissions";
+        public const string Phone = "Phone";
+        public const string Address = "Address";
     }
 }

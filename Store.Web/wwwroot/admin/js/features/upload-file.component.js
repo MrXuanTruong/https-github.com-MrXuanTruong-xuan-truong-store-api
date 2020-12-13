@@ -22,12 +22,12 @@
             let uploadFileService = new UploadFileService(this.objectType);
             uploadFileService.upload(this.avatarFile)
                 .then(function (response) {
-                    if (response.data.Result) {
-                        self.avatarUrl = response.data.FileNames[0];
-                        self.$emit("on-upload-completed", response.data.FileNames[0]);
+                    if (response.data.result) {
+                        self.avatarUrl = response.data.fileNames[0];
+                        self.$emit("on-upload-completed", response.data.fileNames[0]);
                     }
                     else {
-                        self.$showDangerToast(response.data.Messages[0]);
+                        self.$showDangerToast(response.data.messages[0]);
                     }
                     
                 }).catch(function (error) {

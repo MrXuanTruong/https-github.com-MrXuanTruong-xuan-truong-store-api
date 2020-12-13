@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Store.Entity;
+using Store.Entity.Criteria;
 using Store.Entity.Domains;
 using Store.Services.Helpers;
 using System;
@@ -30,7 +31,35 @@ namespace Store.Services
 
         public IQueryable<Account> GetAll()
         {
-            return context.Accounts.AsNoTracking();
+            return 
+                context.Accounts
+                .Include(x => x.AccountType)
+                .Include(x => x.Branch)
+                .Include(x => x.AccountStatus)
+                .AsNoTracking();
+        }
+
+        public IQueryable<Account> GetByCriteria(OperatorCriteriaModel criteria)
+        {
+            var query =
+                context.Accounts
+                .Include(x => x.AccountType)
+                .Include(x => x.AccountStatus)
+                .Include(x => x.Branch)
+                .AsQueryable();
+
+            if(criteria.Username != null)
+            {
+                query = query.Where(x => x.Username.Contains(criteria.Username));
+            }
+
+            if(criteria.Name != null)
+            {
+                query = query.Where(x => x.FullName.Contains(criteria.Name));
+            }
+                
+
+            return query;
         }
 
         public async Task<bool> Detete(long id)
@@ -54,7 +83,7 @@ namespace Store.Services
         {
             return context.Accounts
                 .Where(x => x.AccountId == id)
-                .Include(x => x.CreatedAccount)
+                //.Include(x => x.CreatedAccount)
                 .SingleOrDefaultAsync();
         }
 

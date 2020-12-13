@@ -1,0 +1,212 @@
+﻿@*<h1 style="text-align:center">THÔNG TIN GIỎ HÀNG</h1>*@
+
+<div class="container">
+    <div class="new-cart-title">
+        <h4>THÔNG TIN GIỎ HÀNG</h4>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th class="text-center">Giá</th>
+                    <th class="text-center">Thành tiền</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in shoppingCarts" :key="item.id">
+                    <td><a class="thumbnail pull-left" style=" margin-left: 50px; margin-top: 15px"> <img class="media-object" :src="item.product.thumbnailUrl" style="width: 72px;"> </a></td>
+                    <td>
+                        <div class="media-body">
+                            <h4 class="media-heading"> {{item.product.productName}}</h4>
+                            <span>Màu sắc: </span><span class="text-success"><strong>{{item.color}}</strong></span>
+                        </div>
+                    </td>
+                    <td class="col-sm-3 col-md-3" style="text-align: center">
+                        <span class="new-cart-quantity">
+                            <a href="javascript:(void)" v-on:click="decrement(item.id)" class="minor quantity-change" title="tru">-</a>
+                            <input class="buy-quantity quantity-change" v-model="item.quantity" min="1">
+                            <a href="javascript:(void)" v-on:click="increment(item.id)" class="add quantity-change" title="them">+</a>
+                        </span>
+                    </td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong>{{item.product.price | currency}}</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong>{{(item.quantity * item.product.price) | currency}}</strong></td>
+                    <td class="col-sm-1 col-md-1">
+                        <button type="button" v-on:click="remove(item.id)" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td><h3>Tổng cộng</h3></td>
+                    <td class="text-right"><h3><strong>{{totalPrice | currency}}</strong></h3></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button v-on:click="onClickCancelCart" type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> Hủy
+                        </button>
+                    </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>
+                        <button type="button" class="btn btn-info">
+                            <a href="/home"><span class="glyphicon glyphicon-shopping-cart"></span>Tiếp tục mua hàng</a>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success" v-on:click="onClickBtnCreateOrder">
+                            Đặt hàng <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="c3_box user_info">
+                <div class="title_box_cart"> Thông tin khách hàng</div>
+                <div class="user_info-item">
+                    <span class="txt2">Họ tên*</span>
+                    <input type="text" v-model="contactInformation.contactName" value="">
+                </div>
+                <div class="user_info-item">
+                    <span class="txt2">Email*</span>
+                    <input type="text" v-model="contactInformation.email" value="">
+                </div>
+
+                <div class="user_info-item">
+                    <span class="txt2">Số điện thoại*</span>
+                    <input type="text" v-model="contactInformation.phone" value="">
+                </div>
+
+                <div class="user_info-item">
+                    <span class="txt2">Địa chỉ*</span>
+                    <textarea v-model="contactInformation.address"></textarea>
+                </div>
+                <div class="user_info-item">
+                    <span class="">Ghi chú</span>
+                    <textarea v-model="contactInformation.note"></textarea>
+                </div>
+
+
+
+                <div class="clear"></div>
+            </div>
+
+            <error-list :errors="errors"></error-list>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="c3_box user_info">
+                <div class="title_box_cart">Hình thức thanh toán</div>
+                <table class="tbl_pay" style="font-size: 13px;">
+                    <tbody>
+                        <tr>
+                            <td valign="top"><input type="radio" id="pay_method_2" name="pay_method" value="2" class="pay_option" checked=""></td>
+                            <td valign="top">
+                                <div class="txt0"><label class="labelpay" for="pay_method_2">Thanh toán tại cửa hàng</label></div>
+
+                                <div class="pay_content" style="display:none;">
+                                    Quý khách hàng có thể thanh toán bằng tiền mặt hoặc quẹt thẻ sau khi nhận được đầy đủ hàng hóa và đáp ứng chất lượng
+                                </div>
+
+                            </td>
+                        </tr>
+                        @*<tr>
+                            <td valign="top"><input type="radio" id="pay_method_8" name="pay_method" value="8" class="pay_option"></td>
+                            <td valign="top">
+                                <div class="txt0"><label class="labelpay" for="pay_method_8">Thanh toán tại cửa hàng</label></div>
+
+                                <div class="pay_content" style="display:none;">
+                                    <b style="color:red">Quý khách chuyển tiền cho chúng tôi vào một trong các tài khoản sau đây:</b>
+                                    <hr>
+                                    <b>1. Ngân hàng TMCP Ngoại Thương Việt Nam- Chi nhánh Tây Hồ (Vietcombank)</b>
+                                    -  Tên tài khoản: Công ty cổ phần máy tính Hà Nội
+                                    -  Số tài khoản VND: 0991.000.000.930
+                                    <hr>
+                                    <b>
+                                        2. Ngân hàng Nông nghiệp và phát triển Nông thôn Việt Nam- Chi nhánh Hà Nội (
+                                        Agribank)
+                                    </b>
+                                    - Tên tài khoản: Công ty cổ phần máy tính Hà Nội
+                                    - Số tài khoản VND: 1500.201.082.444
+                                    <hr>
+                                    <b>3. Ngân hàng TMCP Kỹ Thương Việt Nam – Trung tâm giao dịch Hội sở (Techcombank)</b>
+                                    - Tên tài khoản: Công ty cổ phần máy tính Hà Nội
+                                    - Số TK VND: 108.2361.0928.999
+                                    <hr>
+                                    <b>4. Ngân hàng TMCP Đầu tư và phát triển Việt Nam- Chi nhánh Cầu Giấy (BIDV)</b>
+                                    - Tên TK: Công ty cổ phần máy tính Hà Nội
+                                    - Số TK: 2151.000.1289.241
+                                    <hr>
+                                    <b>5. Ngân hàng TMCP Á Châu- Chi nhánh Hà Nội (ACB)</b>
+                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                    - Số TK: 174420119
+                                    <hr>
+                                    <b>6. Ngân hàng TNHH MTV Standard Chartered Việt Nam </b>
+                                    - Tên Tài khoản:  Công ty cổ phần máy tính Hà Nội
+                                    - Số Tài khoản VND:  88140711268
+                                    <hr>
+                                    <b>7. Ngân hàng TMCP Tiên Phong- PGD Nam Hà Nội</b>
+                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                    - Số TK VND: 00118668001
+                                    <hr>
+                                    <b>8. Ngân hàng Quân Đội - Chi nhánh Định Công</b>
+                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                    - Số TK VND: 0631100948001
+                                    <hr>
+                                    <b>9. Ngân hàng TMCP Công Thương Việt Nam</b>
+                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                    - Số TK VND: 112005156688
+                                    <hr>
+
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top"><input type="radio" id="pay_method_4" name="pay_method" value="4" class="pay_option"></td>
+                            <td valign="top">
+                                <div class="txt0"><label class="labelpay" for="pay_method_4">Thanh toán qua Ngân Lượng (ATM nội địa, Visa, Master)</label></div>
+
+                                <div class="pay_content" style="display:none;">
+
+                                </div>
+
+                            </td>
+                        <tr>
+                            <td valign="top"><input type="radio" id="pay_method_10" name="pay_method" value="10" class="pay_option"></td>
+                            <td valign="top">
+                                <div class="txt0"><label class="labelpay" for="pay_method_10">Trả góp qua Alepay (Ngân Lượng)</label></div>
+
+                                <div class="pay_content" style="display:none;">
+
+                                </div>
+
+                            </td>
+                        </tr>*@
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="col-sm-4">
+            <div class="new-cart-title-form">
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/features/product/product-detail.js" asp-append-version="true"></script>
+    <script src="~/js/services/product-service.js" asp-append-version="true"></script>
+    <script src="~/js/services/order-service.js" asp-append-version="true"></script>
+    <script src="~/js/shared/components/error.list.component.js"></script>
+}

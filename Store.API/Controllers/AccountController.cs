@@ -41,7 +41,7 @@ namespace Store.API.Controllers
     }
 
         [AllowAnonymous]
-        [HttpPost("login")]
+        [HttpPost("login")] //api/account/login
         public async Task<IActionResult> Authenticate([FromBody] LoginRequestModel model)
         {
             var response = new LoginResponseModel()
@@ -71,6 +71,8 @@ namespace Store.API.Controllers
                         new Claim(ClaimType.Email, account.Email == null? "" : account.Email),
                         new Claim(ClaimType.Username, account.Username),
                         new Claim(ClaimType.Fullname, account.FullName),
+                        new Claim(ClaimType.Phone, account.Phone),
+                        new Claim(ClaimType.Address, account.Address),
                         new Claim(ClaimType.Permissions, JsonConvert.SerializeObject(permissions)), // Permissions -> Json
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(expiredInMinute),

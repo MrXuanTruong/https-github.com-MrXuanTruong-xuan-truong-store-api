@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Chuyển kho";
+}
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <h4 class="card-title">@ViewBag.Title</h4>
+            <div class="card-body">
+                <form class="forms-sample" id="product-form">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <label for="product-name" class="col-sm-3 col-form-label">Tên sản phẩm</label>
+                                <div class="col-sm-9">
+                                    <template>
+                                        <v-select v-model="outstock.productId"
+                                                  :options="products"
+                                                  :reduce="item => item.id"
+                                                  label="productName"
+                                                  @@input="onSelectedProduct">
+                                        </v-select>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="catagory" class="col-sm-3 col-form-label">Từ kho</label>
+                                <div class="col-sm-9">
+                                    <template>
+                                        <v-select v-model="outstock.fromBranchId"
+                                                  :options="fromBanches"
+                                                  :reduce="item => item.id"
+                                                  label="name"
+                                                  @@input="onSelectedFromBranch">
+                                        </v-select>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="catagory" class="col-sm-3 col-form-label">Đến kho</label>
+                                <div class="col-sm-9">
+                                    <template>
+                                        <v-select v-model="outstock.toBranchId"
+                                                  :options="toBranches"
+                                                  :reduce="item => item.id"
+                                                  label="name">
+                                        </v-select>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="catagory" class="col-sm-3 col-form-label">Màu sắc</label>
+                                <div class="col-sm-9">
+                                    <template>
+
+                                        <v-select v-model="outstock.colorId"
+                                                  :options="colors"
+                                                  :reduce="item => item.id"
+                                                  label="name">
+                                        </v-select>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="catagory" class="col-sm-3 col-form-label">Số lượng</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" v-model="outstock.quantity" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
+                                    <error-list :errors="errors"></error-list>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
+                                    <button type="button" v-on:click="onClickOutstock" class="btn btn-primary btn-sm">
+                                        Xuất kho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/admin/js/features/check-box.component.js"></script>
+    <script src="~/admin/js/features/group-check-box.component.js"></script>
+    <script src="~/js/services/product-service.js" asp-append-version="true"></script>
+
+}
+

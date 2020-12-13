@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Services", "Store.Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Entity", "Store.Entity\Store.Entity.csproj", "{41B6A82C-C347-4DE5-86D1-C4BA9F7E24E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Web", "Store.Web\Store.Web.csproj", "{0BADE14A-74CD-49EB-BFA6-1B3172E73057}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Web", "Store.Web\Store.Web.csproj", "{0BADE14A-74CD-49EB-BFA6-1B3172E73057}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

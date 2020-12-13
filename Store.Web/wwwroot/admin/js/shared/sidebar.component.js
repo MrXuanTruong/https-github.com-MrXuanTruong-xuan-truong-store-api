@@ -27,31 +27,35 @@
         initMenus: function () {
             let menuOrigin = [];
 
-            let bookingMenus = {
-                name: 'Quản lý đơn hàng',
+            let productMenus = {
+                name: 'Sản phẩm ',
                 subMenus: [
-                    { icon: 'mdi mdi-format-list-bulleted-type', name: 'Đơn hàng', code: null, url: '/admin/booking' },
+                    { icon: 'mdi mdi-format-list-checks', name: 'Danh sách sản phẩm', code: null, url: '/admin/product' },      
+                    { icon: 'mdi mdi-arrow-left-bold-circle', name: 'Nhập kho', code: null, url: '/admin/Stock/inStock' },
+                    { icon: 'mdi mdi-arrow-right-bold-circle', name: 'Xuất kho', code: null, url: '/admin/Stock/outStock' },
+                    { icon: 'mdi mdi mdi-repeat', name: 'Luân chuyển kho', code: null, url: '/admin/Stock/transferStock' },
+                    { icon: 'mdi mdi-format-align-left', name: 'Nhãn hiệu', code: null, url: '/admin/brand' },
+                    { icon: 'mdi mdi-format-list-bulleted-type', name: 'Loại xe', code: null, url: '/admin/category' },
+                    { icon: 'mdi mdi-source-branch', name: 'Chi nhánh', code: null, url: '/admin/branch' },
                 ]
             };
-            menuOrigin.push(bookingMenus);
+            menuOrigin.push(productMenus);
+            
             var systemMenus = {
                 name: 'Hệ thống',
                 subMenus: [
-                    { icon: 'mdi mdi-account-multiple', name: 'Người dùng', code: null, url: '/admin/operator' },// PERMISSIONS.MANAGE_OPERATOR
+                    { icon: 'mdi mdi-account-group', name: 'Quản lý người dùng', code: null, url: '/admin/operator' },// PERMISSIONS.MANAGE_OPERATOR
                 ]
             };
             menuOrigin.push(systemMenus);
-
-            //var smsMenus = {
-            //    name: 'SMS Marketing',
-            //    subMenus: [
-            //        { icon: 'mdi mdi-contacts', name: 'Contact', code: '', url: '/admin/contact' },
-            //        { icon: 'mdi mdi-account-group', name: 'Nhóm', code: '', url: '/admin/contactgroup' },
-            //        { icon: 'mdi mdi-page-layout-header-footer', name: 'Templates', code: '', url: '/admin/smstemplate' },
-            //        { icon: 'mdi mdi-message-text', name: 'SMS', code: '', url: '/admin/smsquicksend' },
-            //    ]
-            //};
-            //menuOrigin.push(smsMenus);
+            
+            var orderMenus = {
+                name: 'Đơn hàng',
+                subMenus: [
+                    { icon: 'mdi mdi-format-list-bulleted', name: 'Quản lý đơn hàng', code: null, url: '/admin/order' },// PERMISSIONS.MANAGE_OPERATOR
+                ]
+            };
+            menuOrigin.push(orderMenus);
 
             var self = this;
             menuOrigin.forEach((menu) => {

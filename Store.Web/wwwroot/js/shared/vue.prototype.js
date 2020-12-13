@@ -53,7 +53,7 @@ Vue.prototype.$stringToNumber = function (value) {
     var result = 0;
     var valueTemp = value.toString();
     valueTemp = valueTemp.replace(new RegExp(",", 'g'), '');
-    if (isNaN(valueTemp) || value == '') {
+    if (isNaN(valueTemp) || value === '') {
         result = 0;
     }
     else {
@@ -69,9 +69,12 @@ Vue.prototype.$area = _AREA; // controller area: example admin
 Vue.prototype.$baseAPIURL = _API_URL + '/api/';
 
 function getToken() {
-    var token = localStorage.getItem('token');
+    var token = null;
     if (Vue.prototype.$area === 'admin') {
         token = localStorage.getItem('admin_token');
+    }
+    else {
+        token = localStorage.getItem('customer_token');
     }
     return token;
 }
@@ -87,16 +90,16 @@ const base_axios = axios.create({
 });
 
 Vue.prototype.$handleRequestError = function (statusCode) {
-    if (statusCode == 401) {
-        if (Vue.prototype.$area === 'admin' && location.pathname.includes('admin/login') == false) {
+    if (statusCode === 401) {
+        if (Vue.prototype.$area === 'admin' && location.pathname.includes('admin/login') === false) {
             location.href = '/admin/login'; // goto page Login if 401
         }
         else {
             console.log('Response 401');
         }
     }
-    else if (statusCode == 403) {
-        if (Vue.prototype.$area === 'admin' && location.pathname.includes('admin/login') == false) {
+    else if (statusCode === 403) {
+        if (Vue.prototype.$area === 'admin' && location.pathname.includes('admin/login') === false) {
             location.href = '/admin/login/nopermission';
         }
         else {

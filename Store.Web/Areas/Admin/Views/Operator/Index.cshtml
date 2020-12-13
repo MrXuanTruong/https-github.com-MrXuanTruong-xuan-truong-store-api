@@ -8,13 +8,16 @@
             <div class="card-body">
                 <form class="forms-sample">
                     <div class="clearfix">
-                        <div class="row">
+                        @*<div class="row">
                             <label class="col-sm-1" for="Email">Trạng thái</label>
                             <div class="col-sm-4">
-                                <v-select v-model="filter.statusId"
-                                          :options="userStatuses"
-                                          :reduce="item => item.StatusId"
-                                          label="StatusName" />
+                                <template>
+                                    <v-select v-model="filter.statusId"
+                                              :options="userStatuses"
+                                              :reduce="item => item.StatusId"
+                                              label="StatusName">
+                                    </v-select>
+                                </template>
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" v-on:click="onClickSearch" class="btn btn-primary btn-icon-prepend btn-sm">
@@ -22,7 +25,7 @@
                                     Tìm kiếm
                                 </button>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </form>
             </div>
@@ -42,12 +45,18 @@
             <div class="col-12">
                 <div class="table-responsive">
                     <table id="operator-table" class="table table-striped" width="100%">
+                        @*<span style="margin-left:75%;margin-top:50px">Tìm kiếm</span>*@
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
+                                <th>Action</th>
                                 <th>Tên đăng nhập</th>
                                 <th>Họ và tên</th>
+                                <th>Số điện thoại</th>
                                 <th>Email</th>
+                                <th>Địa chỉ</th>
+                                <th>Chức vụ</th>
+                                <th>Chi nhánh</th>
                                 <th>Trạng thái</th>
                             </tr>
                         </thead>

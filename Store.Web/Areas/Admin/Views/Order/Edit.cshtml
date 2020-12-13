@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "Cập nhập thông tin đơn hàng";
+}
+    <div class="row" v-if="order">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <h4 class="card-title">@ViewBag.Title</h4>
+                <div class="card-body">
+                    <form class="forms-sample" id="order-form">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group row">
+                                    <label for="user-name" class="col-sm-3 col-form-label">Mã đơn hàng</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" v-model="order.orderCode" required readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="full-name" class="col-sm-3 col-form-label">Tên</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" v-model="order.contactName" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" v-model="order.email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" v-model="order.phone">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="phone" class="col-sm-3 col-form-label">Địa chỉ</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" v-model="order.address">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="phone" class="col-sm-3 col-form-label">Ghi chú</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" v-model="order.note">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="order-status-id" class="col-sm-3 col-form-label">Tại cửa hàng</label>
+                                    <div class="col-sm-9">
+                                        <v-select v-model="order.branchId"
+                                                  :options="branches"
+                                                  :reduce="item => item.id"
+                                                  label="name" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="order-status-id" class="col-sm-3 col-form-label">Hình thức thanh toán</label>
+                                    <div class="col-sm-9">
+                                        <v-select v-model="order.paymentMethodId"
+                                                  :options="paymentMethods"
+                                                  :reduce="item => item.id"
+                                                  label="name" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="order-status-id" class="col-sm-3 col-form-label">Trạng thái</label>
+                                    <div class="col-sm-9">
+                                        <v-select v-model="order.orderStatusId"
+                                                  :options="orderStatuses"
+                                                  :reduce="item => item.id"
+                                                  label="name" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" v-if="order">
+                                    <h2>Chi tiết đơn hàng</h2>
+                                    <div class="col-sm-12">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Tên sản phẩm</th>
+                                                    <th scope="col">Màu sắc</th>
+                                                    <th scope="col">Số lượng</th>
+                                                    <th scope="col">Giá</th>
+                                                    <th scope="col">Thành tiền</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(item, index) in order.orderDetails">
+                                                    <th>{{index + 1}}</th>
+                                                    <td>{{item.productName}}</td>
+                                                    <td>{{item.colorName}}</td>
+                                                    <td>{{item.quantity}}</td>
+                                                    <td>{{item.price | currency}}</td>
+                                                    <td colspan="2">{{item.price * item.quantity | currency}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="2">Tổng cộng: <b>{{order.totalPrice | currency}}</b></td>
+                                                    <th></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12 row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <error-list :errors="errors"></error-list>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <button type="button" v-on:click="onClickUpdate" class="btn btn-primary btn-sm">
+                                            Lưu thay đổi
+                                        </button>
+                                        <button type="button" @@click="onClickBtnGotoList" class="btn btn-light btn-icon-prepend btn-sm">
+                                            <i class="fa fa-arrow-left"></i>
+                                            Trở lại danh sách
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+@section Scripts{
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/js/services/order-service.js" asp-append-version="true"></script>
+    <script src="~/admin/js/features/check-box.component.js"></script>
+    <script src="~/admin/js/features/group-check-box.component.js"></script>
+}
+

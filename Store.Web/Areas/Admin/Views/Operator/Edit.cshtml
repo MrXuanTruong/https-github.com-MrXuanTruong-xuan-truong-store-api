@@ -1,61 +1,109 @@
 ﻿@{
     ViewBag.Title = "Cập nhập thông tin người dùng";
 }
+<div class="ui-breadcrumbs">
+    <a href="/admin/operator">
+        <span class="ui-breadcrumb__item"> < Quay lại danh sách người dùng</span>
+    </a>
+</div>
     <div class="row" v-if="operator">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <h4 class="card-title">@ViewBag.Title</h4>
                 <div class="card-body">
                     <form class="forms-sample" id="operator-form">
+
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group row">
                                     <label for="user-name" class="col-sm-3 col-form-label">Tên đăng nhập</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="user-name" v-model="operator.UserName" required :disabled="isEdit">
+                                        <input type="text" class="form-control" id="user-name" v-model="operator.username" required :disabled="isEdit">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="full-name" class="col-sm-3 col-form-label">Tên</label>
+                                    <label for="date-of-birth" class="col-sm-3 col-form-label">Ngày sinh</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="full-name" v-model="operator.FullName" required>
+                                        <flat-pickr v-model="operator.dateOfBirth"
+                                                    :config="dateOptions.dateOfBirth"
+                                                    class="form-control"></flat-pickr>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="full-name" class="col-sm-3 col-form-label">Họ và tên</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="full-name" v-model="operator.fullname" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" id="email" v-model="operator.Email" required>
+                                        <input type="email" class="form-control" id="email" v-model="operator.email" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="phone" class="col-sm-3 col-form-label">Phone</label>
                                     <div class="col-sm-9">
-                                        <input type="number" class="form-control" id="phone" v-model="operator.Phone">
+                                        <input type="number" class="form-control" id="phone" v-model="operator.phone">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="address" class="col-sm-3 col-form-label">Địa chỉ</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="address" v-model="operator.address">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="accountType" class="col-sm-3 col-form-label">Chức vụ</label>
+                                    <div class="col-sm-9">
+                                        <template>
+                                            <v-select v-model="operator.accountTypeId"
+                                                      :options="operatorTypes"
+                                                      :reduce="item => item.id"
+                                                      label="name">
+                                            </v-select>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="branch" class="col-sm-3 col-form-label">Chi nhánh</label>
+                                    <div class="col-sm-9">
+                                        <template>
+                                            <v-select v-model="operator.branchId"
+                                                      :options="operatorBranches"
+                                                      :reduce="item => item.id"
+                                                      label="name">
+                                            </v-select>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="operator-status-id" class="col-sm-3 col-form-label">Trạng thái</label>
+                                    <div class="col-sm-9">
+                                        <template>
+                                            <v-select v-model="operator.accountStatusId"
+                                                      :options="operatorStatuses"
+                                                      :reduce="item => item.id"
+                                                      label="name">
+                                            </v-select>
+                                        </template>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-3 col-form-label">Mật khẩu</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="password" v-model="operator.Password">
+                                        <input type="password" class="form-control" id="password" v-model="operator.password">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="confirmed-password" class="col-sm-3 col-form-label">Xác nhận mật khẩu</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="confirmed-password" v-model="operator.ConfirmedPassword">
+                                        <input type="password" class="form-control" id="confirmed-password" v-model="operator.confirmedPassword">
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="operator-status-id" class="col-sm-3 col-form-label">Trạng thái</label>
-                                    <div class="col-sm-9">
-                                        <v-select v-model="operator.OStatusId"
-                                                  :options="operatorStatuses"
-                                                  :reduce="item => item.OperatorStatusId"
-                                                  label="OperatorStatusName" />
-                                    </div>
-                                </div>
+
 
                                 <div class="form-group col-md-12 row">
                                     <div class="col-sm-3"></div>

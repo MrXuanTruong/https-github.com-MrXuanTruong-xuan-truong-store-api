@@ -1,0 +1,47 @@
+﻿<div class="container">
+    <div class="col-main">
+        <h1>Xác nhận đơn hàng</h1>
+        <div class="module" style="border: solid 1px #eee; background: #fff; padding: 10px;">
+            <h5>Cảm ơn Quý khách hàng đã chọn mua hàng tại cửa hàng. Trong<b> 30 phút</b>, sẽ có nhân viên hỗ trợ liên hệ <b>SMS hoặc Gọi</b> tới bạn để xác nhận đơn hàng.</h5>
+
+            <h5>Nếu anh/chị cần tư vấn, trợ giúp vui lòng gọi <strong>18001000</strong>. Xin cám ơn !</h5>
+
+            <h5><strong>Thông tin đặt hàng</strong></h5>
+            <div>
+                <h5>Mã đơn hàng: <strong>{{order.orderCode}}</strong></h5>
+                <h5>Khách hàng : <strong>{{order.contactName}}</strong></h5>
+                <h5>Số điện thoại: <strong>{{order.phone}}</strong></h5>
+                <h5>Email: <strong>{{order.email}}</strong></h5>
+                <h5>Địa chỉ nhận hàng: <strong>{{order.address}}</strong></h5>
+                <h5>Ghi chú đơn hàng: <strong>{{order.note}}</strong></h5>
+                <h5>Hình thức thanh toán: <strong>{{order.paymentMethodName}}</strong></h5>
+                <h5>Trạng thái thanh toán: <strong>{{order.orderStatusName}}</strong></h5>
+                <strong style="color: #e11b1e;">* Lưu ý: Nếu khách hàng có vấn đề về đơn hàng vui lòng liên hệ qua Hotline 18001000 để được nhân viên hỗ trợ</strong>
+            </div>
+
+            <h2>Sản phẩm đã đặt</h2>
+            
+            <div class="row">
+                <div class="col-md-4" v-for="(orderDetail, index) in order.orderDetails">
+                    <div class="card">
+                        <img :src="orderDetail.thumbnailUrl" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h3 class="card-title" style="text-align:left"><b>{{orderDetail.productName}}</b></h3>
+                            <h5 class="card-title">Màu sắc: {{orderDetail.colorName}}</h5>
+                            <h5 class="card-title">Số lượng: {{orderDetail.quantity}}</h5>
+                            <h5 class="card-title">Giá: {{orderDetail.price | currency}} đ</h5>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="module" style="text-align: center; margin-bottom: 10px;">
+                <a href="/" class="btn btn-default">Quay lại trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/services/order-service.js" asp-append-version="true"></script>
+}

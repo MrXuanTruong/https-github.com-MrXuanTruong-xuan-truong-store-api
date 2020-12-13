@@ -6,6 +6,7 @@
     },
 
     methods: {
+
     },
 
     mounted: function() {

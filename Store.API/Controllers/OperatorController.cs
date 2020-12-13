@@ -39,26 +39,43 @@ namespace Store.Api.Controllers
 
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         // For Datatable
-        [HttpGet("search")]
-        public dynamic Search([FromQuery]OperatorCriteriaModel criteria, [FromQuery]IDataTablesRequest request)
+        [HttpGet("GetList")]
+        public dynamic GetList([FromQuery]OperatorCriteriaModel criteria, [FromQuery]IDataTablesRequest request)
         {
             try
             {
+                //var query = _accountService.GetByCriteria(criteria);
                 var query = _accountService.GetAll();
                 var operators =
                     query
-                    .Select(x => _mapper.Map<OperatorItemModel>(x))
+                    .Select(x => new OperatorRequestModel
+                    {
+                        Id = x.AccountId,
+                        Username = x.Username,
+                        Fullname = x.FullName,
+                        Address = x.Address,
+                        Email = x.Email,
+                        Password = x.Password,
+                        Phone = x.Phone,
+                        AccountStatusId = x.AccountStatusId,
+                        AccountTypeId = x.AccountTypeId,
+                        BranchId = x.BranchId,
+                        AccountTypeName = x.AccountType.AccountTypeName,
+                        AccountStatusName = x.AccountStatus.AccountStatusName,
+                        BranchName = x.Branch.BranchName,
+
+                    })
                     .ToList()
                     .AsQueryable();
 
                 var filteredData = operators;
 
-                return ToDataTableResponse<OperatorItemModel>(filteredData, request);
+                return ToDataTableResponse<OperatorRequestModel>(filteredData, request);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, this.GetType().Name);
-                return ToDataTableResponse<OperatorItemModel>();
+                return ToDataTableResponse<OperatorRequestModel>();
             }
         }
 
@@ -77,6 +94,14 @@ namespace Store.Api.Controllers
                     Username = account.Username,
                     Email = account.Email,
                     Phone = account.Phone,
+                    AccountTypeId = account.AccountTypeId,
+                    AccountStatusId = account.AccountStatusId,
+                    BranchId = account.BranchId,
+                    Address = account.Address,
+                    DateOfBirth = account.DateOfBirth,
+                    AccountStatusName = account.AccountStatus?.AccountStatusName,
+                    AccountTypeName = account.AccountType?.AccountTypeName,
+                    BranchName = account.Branch?.BranchName,
                 };
             }
             else
@@ -106,7 +131,7 @@ namespace Store.Api.Controllers
 
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         [HttpPost]
-        public async Task<ResponseViewModel> Save([FromBody]OperatorRequestModel model)
+        public async Task<ResponseViewModel> Create([FromBody]OperatorRequestModel model)
         {
             var oldOperator = await _accountService.GetByUsername(model.Username);
             if (oldOperator != null)
@@ -124,13 +149,21 @@ namespace Store.Api.Controllers
             {
                 var account = new Account
                 {
-                    FullName = model.Fullname,
                     Username = model.Username,
+                    FullName = model.Fullname,
                     Email = model.Email,
                     Phone = model.Phone,
-                    //StatusId = model.StatusId,
+                    Address = model.Address,
+                    DateOfBirth = model.DateOfBirth,
+                    AccountTypeId=model.AccountTypeId,
+                    AccountStatusId=model.AccountStatusId,
+                    BranchId=model.BranchId,
                     Password = Encryptor.MD5Hash(model.Password),
+
                 };
+
+                ApplyUserCreateEntity(account);
+
                 return await SaveOrUpdate(account);
             }
         }
@@ -155,10 +188,18 @@ namespace Store.Api.Controllers
             oper.FullName = model.Fullname;
             oper.Email = model.Email;
             oper.Phone = model.Phone;
+            oper.Address = model.Address;
+            oper.AccountTypeId = model.AccountTypeId;
+            oper.AccountStatusId = model.AccountStatusId;
+            oper.BranchId = model.BranchId;
+            oper.DateOfBirth = model.DateOfBirth;
             if (!string.IsNullOrEmpty(model.Password))
             {
                 oper.Password = Encryptor.MD5Hash(model.Password);
             }
+
+            ApplyUserUpdateEntity(oper);
+
             return await SaveOrUpdate(oper);
         }
 

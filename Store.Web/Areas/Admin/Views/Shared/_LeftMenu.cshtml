@@ -7,7 +7,7 @@
                     <div class="user-content dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="avatar-text rounded-circle">{{avatarText}}</span>
                         <h6>{{ operatorInfo.FullName }}</h6>
-                        @*<p class="text-muted mb-0">{{ operatorInfo.UserName }}</p>*@
+                        @*<p class="text-muted mb-0">{{ operatorInfo.FullName }}</p>*@
                     </div>
                     <div class="dropdown-menu" aria-labelledby="dropdownUserInfo">
                         <h6 class="dropdown-header">Cấu hình</h6>
@@ -31,9 +31,13 @@
             </li>
             <li v-for="(item, index) in menus" :key="index" class="nav-item" v-bind:class="{'sidebar-category': item.icon == ''}">
                 <p v-if="item.icon == ''">{{item.name}}</p>
-                <a v-else class="nav-link" v-bind:href="item.url" v-bind:class="{ active: isActive(''+ item.url) }">
+                <a v-else class="nav-link" v-bind:href="item.url" v-bind:class="{ active: isActive(item.url) }">
                     <i class="menu-icon" v-bind:class="item.icon"></i>
-                    <span class="menu-title">{{item.name}}</span>
+                    <span class="menu-title">
+                        {{item.name}}
+
+                    </span>
+                    @*<v-select :options="['Canada', 'United States']"></v-select>*@
                 </a>
             </li>
         </ul>

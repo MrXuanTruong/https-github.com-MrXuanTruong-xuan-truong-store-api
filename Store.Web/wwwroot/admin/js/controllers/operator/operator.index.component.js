@@ -1,4 +1,6 @@
-﻿var vue = new Vue({
+﻿//import fa from "../../../../lib/flatpickr/l10n/fa";
+
+var vue = new Vue({
     el: '#page-content',
     data: {
         dataTable: null,
@@ -85,18 +87,24 @@
             this.dataTable = $('#operator-table').DataTable({
                 ajax: self.$getAjaxSource(self.getDatatableAjax()),
                 columns: [
-                    {
-                        data: "operatorId", name: "operatorId", "width": "10%", searchable: false, sortable: false, render: function (data, type, row) {
+                    { data: "id", name: "id"},
+                    { data: "id", name: "id",
+                        render: function (data, type, row) {
                             var html = '';
                             html += `<a class="btn btn-primary btn-sm" href="/admin/operator/edit/${data}"><i class="mdi mdi-file-document-edit-outline"></i></a> `;
                             html += '<button class="btn btn-danger btn-sm" onclick="vue.deleteItem(' + data + ')"><i class="mdi mdi-trash-can-outline"></i></button> ';
                             return html;
                         }
                     },
-                    { data: "userName", name: "userName" },
-                    { data: "fullName", name: "fullName" },
-                    { data: "email", name: "email" },
-                    { data: "statusName", name: "statusName" },
+                    { data: "username", name: "Username", searchable: true, sortable: false, },
+                    { data: "fullname", name: "Fullname", searchable: true, sortable: false,},
+                    { data: "phone", name: "Phone", searchable: true, sortable: false, },
+                    { data: "email", name: "Email", searchable: true, sortable: false, },
+                    { data: "address", name: "Address", searchable: false, sortable: false, },
+                    { data: "accountTypeName", name: "AccountTypeName", searchable: false, sortable: true, },
+                    { data: "branchName", name: "BranchName" },
+                    { data: "accountStatusName", name: "AccountStatusName" },
+                    
                 ],
                 "order": [[1, "asc"]],
                 ...self.$defaultTableSettings
@@ -104,7 +112,7 @@
         }
     },
     mounted() {
-        this.loadUserStatuses();
+        //this.loadUserStatuses();
         this.initDataTable();
     },
     created: function () {

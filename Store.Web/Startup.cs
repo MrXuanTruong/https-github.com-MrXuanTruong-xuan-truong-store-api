@@ -44,6 +44,7 @@ namespace Store.Web
             services.AddDatabaseContext(Configuration);
 
             services.AddControllersWithViews();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +79,10 @@ namespace Store.Web
                 endpoints.MapControllerRoute(
                     name: "areaRoute",
                     pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+
+                //endpoints.MapControllerRoute(
+                //   name: "areaRoute",
+                //   pattern: "{controller=Product}/{action=Detail}/{id?}");
             });
         }
     }

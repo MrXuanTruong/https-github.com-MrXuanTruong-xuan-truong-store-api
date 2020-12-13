@@ -28,12 +28,12 @@
             let uploadFileService = new UploadFileService(this.objectType);
             uploadFileService.uploads(e.target.files)
                 .then(function (response) {
-                    if (response.data.Result) {
-                        self.imageUrls = self.imageUrls.concat(response.data.FileNames);
+                    if (response.data.result) {
+                        self.imageUrls = self.imageUrls.concat(response.data.fileNames);
                         self.$emit("on-upload-completed", self.imageUrls);
                     }
                     else {
-                        self.$showDangerToast(response.data.Messages[0]);
+                        self.$showDangerToast(response.data.messages[0]);
                     }
                     
                 }).catch(function (error) {

@@ -8,7 +8,6 @@
             baseURL: Vue.prototype.$baseAPIURL,
             timeout: 60 * 1000,
             headers: {
-                'language': Vue.prototype.$locale,
                 "Content-Type": `application/jsonmultipart/form-data; Access-Control-Allow-Origin: *`,
                 'Authorization': "Bearer " + Vue.prototype.$getToken()
             }

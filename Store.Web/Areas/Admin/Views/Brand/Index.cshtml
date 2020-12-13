@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Danh sách Nhãn hiệu";
+}
+
+<div class="card">
+    <h4 class="card-title d-md-flex align-items-md-center">
+        <i class="mdi mdi-table-large" aria-hidden="true"></i> @ViewBag.Title
+        <button type="button" v-on:click="onClickCreateBrand" class="btn btn-primary btn-icon-prepend btn-sm ml-md-auto">
+            <i class="fa fa-plus"></i>
+            Thêm nhãn hiệu
+        </button>
+    </h4>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="brand-table" class="table table-striped" width="30%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Mã nhãn hiệu</th>
+                                <th>Tên nhãn hiệu</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/services/brand-service .js" asp-append-version="true"></script>
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+}

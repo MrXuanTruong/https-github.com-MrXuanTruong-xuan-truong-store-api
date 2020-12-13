@@ -116,14 +116,14 @@ html[xmlns] .flexslider .slides {
 .flex-direction-nav a:hover {
   opacity: 1;
 }
-.flex-direction-nav .flex-prev {
-  left: -30px;
-  background: url(../../images/ic/ic-preview.png) no-repeat center center;
-}
+    .flex-direction-nav .flex-prev {
+        left: -30px;
+        background: url(/assets/images/ic-preview.png) no-repeat center center;
+    }
 .flex-direction-nav .flex-next {
   right: -30px;
   text-align: right;
-  background: url(../../images/ic/ic-next.png) no-repeat center center;
+  background: url(/assets/images/ic-next.png) no-repeat center center;
 }
 .flexslider:hover .flex-direction-nav .flex-prev {
   opacity: 0.7;

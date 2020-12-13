@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Xuất kho";
+}
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <h4 class="card-title">@ViewBag.Title</h4>
+            <div class="card-body">
+                <form class="forms-sample" id="product-form">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <label for="catagory" class="col-sm-3 col-form-label">Mã đơn hàng</label>
+                                <div class="col-sm-9">
+                                    <template>
+                                        <v-select v-model="selectedOrderId"
+                                                  :options="orders"
+                                                  :reduce="item => item.orderId"
+                                                  label="orderCode"
+                                                  @@input="onSelectedOrder">
+                                        </v-select>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="form-group row" v-if="order">
+                                <label for="catagory" class="col-sm-1 col-form-label"></label>
+                                <div class="col-sm-12">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Tên sản phẩm</th>
+                                                <th scope="col">Màu sắc</th>
+                                                <th scope="col">Số lượng</th>
+                                                <th scope="col">Giá</th>
+                                                <th scope="col">Thành tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(item, index) in order.orderDetails">
+                                                <th>{{index + 1}}</th>
+                                                <td>{{item.productName}}</td>
+                                                <td>{{item.colorName}}</td>
+                                                <td>{{item.quantity}}</td>
+                                                <td>{{item.price | currency}}</td>
+                                                <td colspan="2">{{item.price * item.quantity | currency}}</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td colspan="2">Tổng cộng: <b>{{order.totalPrice | currency}}</b></td>
+                                                <th></th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+
+                            @*<div class="form-group row">
+                                    <label for="catagory" class="col-sm-3 col-form-label">Màu sắc</label>
+                                    <div class="col-sm-9">
+                                        <template>
+
+                                            <v-select v-model="outstock.colorId"
+                                                      :options="colors"
+                                                      :reduce="item => item.id"
+                                                      label="name">
+                                            </v-select>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="catagory" class="col-sm-3 col-form-label">Số lượng</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" v-model="outstock.quantity" required>
+                                    </div>
+                                </div>*@
+
+                            <div class="form-group col-md-12 row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
+                                    <error-list :errors="errors"></error-list>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
+                                    <button type="button" v-on:click="onClickOutstock" class="btn btn-primary btn-sm">
+                                        Xuất kho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/admin/js/features/check-box.component.js"></script>
+    <script src="~/admin/js/features/group-check-box.component.js"></script>
+    <script src="~/js/services/product-service.js" asp-append-version="true"></script>
+    <script src="~/js/services/order-service.js" asp-append-version="true"></script>
+
+}
+

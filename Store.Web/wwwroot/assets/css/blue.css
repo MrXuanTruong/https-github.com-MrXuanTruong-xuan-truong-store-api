@@ -278,8 +278,8 @@ a {
 }
 #owl-main:hover .owl-prev:hover,
 #owl-main:hover .owl-next:hover {
-  background: #48D1CC;
-  color:#fff!important
+    background: #ed6663;
+    color: #fff !important
 }
 #owl-main:hover .owl-prev:hover .icon,
 #owl-main:hover .owl-next:hover .icon {

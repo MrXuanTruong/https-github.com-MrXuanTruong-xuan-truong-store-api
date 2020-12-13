@@ -685,7 +685,9 @@ body.full-page .page-body-wrapper {
     margin: 0;
     text-transform: uppercase;
     line-height: initial; }
-
+td.c3_col_1 {
+    width: 200px;
+}
 .forget-password .alert-success {
   color: #0c2345;
   font-weight: 600; }

@@ -139,6 +139,11 @@
       "provider": "jsdelivr",
       "library": "sortablejs@1.10.2",
       "destination": "wwwroot/lib/sortablejs/"
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "vue-carousel@0.18.0",
+      "destination": "wwwroot/lib/vue-carousel"
     }
   ]
 }

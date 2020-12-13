@@ -20,6 +20,10 @@ namespace Store.Web.Extentions
                 template: "{controller=Home}/{action=Index}/{id?}");
 
             routes.MapRoute(
+                name: "areaRoute",
+                template: "{controller=Product}/{action=Detail}/{id?}");
+
+            routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller=dashboard}/{action=index}/{id?}"
                 );

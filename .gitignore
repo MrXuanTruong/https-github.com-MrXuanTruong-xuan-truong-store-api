@@ -11,3 +11,4 @@ Store.API/wwwroot/css/swagger-css.min.css
 Store.Web/bin/
 Store.Web/node_modules/
 Store.Web/obj/
+Store.Web/wwwroot/lib/vue-carousel/

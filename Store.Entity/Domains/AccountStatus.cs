@@ -10,8 +10,7 @@ namespace Store.Entity.Domains
     public class AccountStatus:Entity
     {
         [Key]
-        [StringLength(50)]
-        public string AccountStatusId { get; set; }
+        public long AccountStatusId { get; set; }
 
         [StringLength(100)]
         public string AccountStatusName { get; set; }

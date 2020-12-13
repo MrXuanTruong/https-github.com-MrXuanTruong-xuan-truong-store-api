@@ -11,7 +11,8 @@ namespace Store.API.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string Fullname { get; set; }
-
+        public string Phone { get; set; }
+        public string Address { get; set; }
         public List<string> Permissions { get; set; }
     }
 }

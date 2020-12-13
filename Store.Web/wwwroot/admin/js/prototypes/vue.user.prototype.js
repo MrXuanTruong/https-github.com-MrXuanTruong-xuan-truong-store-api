@@ -26,7 +26,7 @@ function checkPermission(permissionCode) {
     }
 
     let result = operator.permissions.filter((value, index) => {
-        return value == permissionCode;
+        return value === permissionCode;
     });
 
     return result.length;

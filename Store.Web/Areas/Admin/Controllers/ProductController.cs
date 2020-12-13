@@ -24,9 +24,9 @@ namespace Store.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add(int id)
+        public IActionResult Edit(int id)
         {
-            var model = new AddActionModel
+            var model = new EditActionModel
             {
                 Id = id
             };

@@ -12,10 +12,13 @@ namespace Store.Entity.Domains
         public long? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
 
-        [ForeignKey("CreatedBy")]
-        public Account CreatedProduct { get; set; }
+        public string CreatedByName { get; set; }
+        public string UpdatedByName { get; set; }
 
-        [ForeignKey("UpdatedBy")]
-        public Account UpdatedAccount { get; set; }
+        //[ForeignKey("CreatedBy")]
+        //public Account CreatedAccount { get; set; }
+
+        //[ForeignKey("UpdatedBy")]
+        //public Account UpdatedAccount { get; set; }
     }
 }

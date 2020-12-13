@@ -8,7 +8,7 @@ namespace Store.Entity.Domains
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long BranchTypeId { get; set; }
+        public long? BranchTypeId { get; set; }
         [StringLength(50)]
         public string BranchTypeName { get; set; }
 

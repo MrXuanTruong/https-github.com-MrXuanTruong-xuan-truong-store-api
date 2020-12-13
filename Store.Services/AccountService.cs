@@ -35,6 +35,7 @@ namespace Store.Services
                 context.Accounts
                 .Include(x => x.AccountType)
                 .Include(x => x.Branch)
+                .Include(x => x.AccountStatus)
                 .AsNoTracking();
         }
 
@@ -43,6 +44,7 @@ namespace Store.Services
             var query =
                 context.Accounts
                 .Include(x => x.AccountType)
+                .Include(x => x.AccountStatus)
                 .Include(x => x.Branch)
                 .AsQueryable();
 
@@ -81,7 +83,7 @@ namespace Store.Services
         {
             return context.Accounts
                 .Where(x => x.AccountId == id)
-                .Include(x => x.CreatedProduct)
+                //.Include(x => x.CreatedAccount)
                 .SingleOrDefaultAsync();
         }
 

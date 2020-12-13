@@ -9,6 +9,7 @@ namespace Store.Entity.Domains
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ProvinceId { get; set; }
+
         [StringLength(50)]
         public string ProvinceName { get; set; }
 

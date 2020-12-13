@@ -27,58 +27,35 @@
         initMenus: function () {
             let menuOrigin = [];
 
-            let bookingMenus = {
-                name: '',
+            let productMenus = {
+                name: 'Sản phẩm ',
                 subMenus: [
-                    { icon: 'mdi mdi-format-list-bulleted-type', name: 'Quản lý danh mục', code: null, url: '/admin/category' },
+                    { icon: 'mdi mdi-format-list-checks', name: 'Danh sách sản phẩm', code: null, url: '/admin/product' },      
+                    { icon: 'mdi mdi-arrow-left-bold-circle', name: 'Nhập kho', code: null, url: '/admin/Stock/inStock' },
+                    { icon: 'mdi mdi-arrow-right-bold-circle', name: 'Xuất kho', code: null, url: '/admin/Stock/outStock' },
+                    { icon: 'mdi mdi mdi-repeat', name: 'Luân chuyển kho', code: null, url: '/admin/Stock/transferStock' },
+                    { icon: 'mdi mdi-format-align-left', name: 'Nhãn hiệu', code: null, url: '/admin/brand' },
+                    { icon: 'mdi mdi-format-list-bulleted-type', name: 'Loại xe', code: null, url: '/admin/category' },
+                    { icon: 'mdi mdi-source-branch', name: 'Chi nhánh', code: null, url: '/admin/branch' },
                 ]
             };
-            menuOrigin.push(bookingMenus);
-            var systemMenus = {
-                name: '',
-                subMenus: [
-                    { icon: 'mdi mdi-format-list-checks',name: 'Quản lý sản phẩm', code: null, url: '/admin/product' },
-                  
-                    // PERMISSIONS.MANAGE_OPERATOR
-                ]
-            };
-            menuOrigin.push(systemMenus);
+            menuOrigin.push(productMenus);
             
             var systemMenus = {
-                name: '',
+                name: 'Hệ thống',
                 subMenus: [
                     { icon: 'mdi mdi-account-group', name: 'Quản lý người dùng', code: null, url: '/admin/operator' },// PERMISSIONS.MANAGE_OPERATOR
                 ]
             };
             menuOrigin.push(systemMenus);
-            var systemMenus = {
-                name: '',
-                subMenus: [
-                    { icon: 'mdi mdi-account-multiple', name: 'Quản lý nhân viên', code: null, url: '/admin/employee' },// PERMISSIONS.MANAGE_OPERATOR
-                ]
-            };
-            menuOrigin.push(systemMenus);
-            var systemMenus = {
-                name: '',
+            
+            var orderMenus = {
+                name: 'Đơn hàng',
                 subMenus: [
                     { icon: 'mdi mdi-format-list-bulleted', name: 'Quản lý đơn hàng', code: null, url: '/admin/order' },// PERMISSIONS.MANAGE_OPERATOR
                 ]
             };
-            menuOrigin.push(systemMenus);
-            var systemMenus = {
-                name: '',
-                subMenus: [
-                    { icon: 'mdi mdi-poll', name: 'Báo cáo ', code: null, url: '/admin/chart' },// PERMISSIONS.MANAGE_OPERATOR
-                ]
-            };
-            menuOrigin.push(systemMenus);
-            var systemMenus = {
-                name: '',
-                subMenus: [
-                    { icon: 'mdi mdi-wrench', name: 'Thiết lập ', code: null, url: '/admin/setting' },// PERMISSIONS.MANAGE_OPERATOR
-                ]
-            };
-            menuOrigin.push(systemMenus);
+            menuOrigin.push(orderMenus);
 
             var self = this;
             menuOrigin.forEach((menu) => {

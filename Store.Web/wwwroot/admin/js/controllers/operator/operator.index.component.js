@@ -1,4 +1,6 @@
-﻿var vue = new Vue({
+﻿//import fa from "../../../../lib/flatpickr/l10n/fa";
+
+var vue = new Vue({
     el: '#page-content',
     data: {
         dataTable: null,
@@ -86,7 +88,7 @@
                 ajax: self.$getAjaxSource(self.getDatatableAjax()),
                 columns: [
                     { data: "id", name: "id"},
-                    {data: "id", name: "id",
+                    { data: "id", name: "id",
                         render: function (data, type, row) {
                             var html = '';
                             html += `<a class="btn btn-primary btn-sm" href="/admin/operator/edit/${data}"><i class="mdi mdi-file-document-edit-outline"></i></a> `;
@@ -94,12 +96,14 @@
                             return html;
                         }
                     },
-                    { data: "username", name: "username", searchable: false, sortable: false, },
-                    { data: "fullname", name: "fullname", searchable: false, sortable: false,},
-                    { data: "phone", name: "phone" ,searchable: false, sortable: false, },
-                    { data: "email", name: "email",searchable: false, sortable: false, },
-                    { data: "address", name: "address" },
-                    { data: "accountTypeId", name: "accountTypeId" },
+                    { data: "username", name: "Username", searchable: true, sortable: false, },
+                    { data: "fullname", name: "Fullname", searchable: true, sortable: false,},
+                    { data: "phone", name: "Phone", searchable: true, sortable: false, },
+                    { data: "email", name: "Email", searchable: true, sortable: false, },
+                    { data: "address", name: "Address", searchable: false, sortable: false, },
+                    { data: "accountTypeName", name: "AccountTypeName", searchable: false, sortable: true, },
+                    { data: "branchName", name: "BranchName" },
+                    { data: "accountStatusName", name: "AccountStatusName" },
                     
                 ],
                 "order": [[1, "asc"]],

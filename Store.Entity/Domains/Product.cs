@@ -11,27 +11,45 @@ namespace Store.Entity.Domains
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProductId { set; get; }
-        [Required]
+        public long ProductId { set; get; } //Primary ko dc Null
+        
         [StringLength(100)]
-        public string ProductName { get; set; }
-        [StringLength(50)]
-        public int CategoryId { get; set; }
-        [NotMapped]
+        public string ProductName { get; set; } // Winner
+
+        public string ThumnailUrl { get; set; }
+
+        public long? CategoryId { get; set; }
+
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-        [StringLength(50)]
-        public decimal Price { set; get; }
-        //[StringLength(50)]
-        //public decimal OriginalPrice { set; get; }
-        [StringLength(50)]
-        public int Stock { set; get; }
-        [StringLength(100)]
+
+        public long? ProductBrandId { get; set; } // 1: Honda
+
+        [ForeignKey("ProductBrandId")]
+        public ProductBrand ProductBrand { get; set; }
+
+        public List<ProductImage> ProductImages { get; set; }
+
+        public List<ProductColor> ProductColors { get; set; }
+
+        public List<ProductBranch> ProductBranchs { get; set; }
+
+        [Column(TypeName = "decimal(18,0)")]// 18 số ko chấm
+        public decimal Price { set; get; } // Giá cơ bản
+
+        public int? Stock { set; get; } // Hàng tồn kho
+
         public int ViewCount { set; get; }
+
+        public long? ProductStatusId { get; set; }
+
+        [ForeignKey("ProductStatusId")]
+        public ProductStatus ProductStatus { get; set; }
+
         [StringLength(200)]
         public string Description { set; get; }
-        [StringLength(50)]
-        public DateTime DateCreated { set; get; }
+
         
+        public int IsDeleted { get; set; }
     }
 }

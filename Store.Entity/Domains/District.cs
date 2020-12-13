@@ -8,9 +8,15 @@ namespace Store.Entity.Domains
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long DistrictId { get; set; }
+        public long DistrictId { get; set; }// Primary Key Not null
+
         [StringLength(50)]
         public string DistrictName { get; set; }
+
+        public long? ProvinceId { get; set; }
+
+        [ForeignKey("ProvinceId")]
+        public Province Province { get; set; }
 
     }
 }

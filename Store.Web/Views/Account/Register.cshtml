@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "_LayoutLogin";
+    ViewBag.Title = "Đăng ký tài khoản";
+}
+
+
+<div class="container-scroller d-flex" id="page-content">
+    <div class="container-fluid page-body-wrapper full-page-wrapper d-flex">
+        <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+                <div class="col-lg-5 mx-auto">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header"><h3 class="text-center font-weight-light my-4">Tạo tài khoản</h3></div>
+                        <div class="card-body">
+                            <form class="pt-3 form-login" id="operator-form">
+                                <error-list :errors="errors"></error-list>
+                                <div class="form-group">
+                                    <label class="small mb-1" for="user-name">Họ và tên</label>
+                                    <input class="form-control py-4" id="full-name" v-model="operator.fullname" type="text" placeholder="Nhập họ và tên">
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="phone">Số điện thoại</label>
+                                            <input class="form-control py-4" id="phone" v-model="operator.phone" type="text" placeholder="Nhập số điện thoại">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="date-of-birth">Ngày sinh</label>
+                                            <flat-pickr v-model="operator.dateOfBirth"
+                                                        :config="dateOptions.dateOfBirth"
+                                                        class="form-control">
+                                            </flat-pickr>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="email">Email</label>
+                                            <input class="form-control py-4" id="email" v-model="operator.email" type="email" placeholder="Nhập tên email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="address">Địa chỉ</label>
+                                            <input class="form-control py-4" id="address" v-model="operator.address" type="text" placeholder="Nhập địa chỉ">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="password">Mật khẩu</label>
+                                            <input class="form-control py-4" id="password" v-model="operator.password" type="password" placeholder="Nhập vào mật khẩu">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="confirmed-password">Nhập lại mật khẩu</label>
+                                            <input class="form-control py-4" id="confirmed-password" v-model="operator.confirmedPassword" type="password" placeholder="Nhập lại mật khẩu">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" v-on:click="onClickUpdate">Đăng ký</a></div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="small"><a href="/account/login">Đã có tài khoản? Đăng nhập ngay</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+@section Scripts{
+    <script src="~/js/services/register-service.js" asp-append-version="true"></script>
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/admin/js/features/check-box.component.js"></script>
+    <script src="~/admin/js/features/group-check-box.component.js"></script>
+    <script src="~/js/shared/components/error.list.component.js"></script>
+}

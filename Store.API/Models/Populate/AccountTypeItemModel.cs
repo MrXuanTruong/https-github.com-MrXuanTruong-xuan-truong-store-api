@@ -7,7 +7,7 @@ namespace Store.API.Models.Populate
 {
     public class AccountTypeItemModel
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
     }
 }

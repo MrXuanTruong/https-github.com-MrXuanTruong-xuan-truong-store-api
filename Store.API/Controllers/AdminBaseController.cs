@@ -12,6 +12,7 @@ using Store.API.Extentions;
 using Store.API.Infrastructure;
 using Store.API.Models;
 using Store.Services.Helpers;
+using Store.Entity.Domains;
 
 namespace Store.API.Controllers
 {
@@ -31,7 +32,8 @@ namespace Store.API.Controllers
                     currentOperator.Username = User.Claims.Where(x => x.Type == ClaimType.Username).First().Value;
                     currentOperator.Email = User.Claims.Where(x => x.Type == ClaimType.Email).First().Value;
                     currentOperator.Fullname = User.Claims.Where(x => x.Type == ClaimType.Fullname).First().Value;
-
+                    currentOperator.Phone = User.Claims.Where(x => x.Type == ClaimType.Phone).First().Value;
+                    currentOperator.Address = User.Claims.Where(x => x.Type == ClaimType.Address).First().Value;
                     currentOperator.Permissions = JsonConvert.DeserializeObject<List<string>>(User.Claims.Where(x => x.Type == ClaimType.Permissions).First().Value);
                 }
                 return currentOperator;
@@ -165,6 +167,26 @@ namespace Store.API.Controllers
                 recordsTotal = 0,
                 data = new List<T>()
             };
+        }
+
+        protected void ApplyUserCreateEntity(Store.Entity.Domains.Entity entity)
+        {
+            if (CurrentUser != null)
+            {
+                entity.CreatedDate = DateTime.UtcNow;
+                entity.CreatedBy = CurrentUser.Id;
+                entity.CreatedByName = CurrentUser.Username;
+            }
+        }
+
+        protected void ApplyUserUpdateEntity(Store.Entity.Domains.Entity entity)
+        {
+            if (CurrentUser != null)
+            {
+                entity.UpdatedDate = DateTime.UtcNow;
+                entity.UpdatedBy = CurrentUser.Id;
+                entity.UpdatedByName = CurrentUser.Username;
+            }
         }
     }
 }

@@ -144,9 +144,7 @@ jQuery(owlElementID + ".owl-one-item").owlCarousel({
 });
 
 
-
-
-jQuery('.home-owl-carousel').each(function(){
+/*jQuery('.home-owl-carousel').each(function(){
 
     var owl = $(this);
     var  itemPerLine = owl.data('item');
@@ -161,7 +159,7 @@ jQuery('.home-owl-carousel').each(function(){
 
         navigationText: ["", ""]
     });
-});
+});*/
 
 jQuery('.homepage-owl-carousel').each(function(){
 

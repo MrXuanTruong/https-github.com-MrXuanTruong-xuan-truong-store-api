@@ -11,15 +11,18 @@ namespace Store.Entity.Domains
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProductImageId { get; set; }
-        [Required]
-        [StringLength(200)]
-        public String ProductImageUrl { get; set; }
-        [StringLength(50)]
-        public String ProductId { get; set; }
-        [NotMapped]
+        public long ProductImageId { get; set; }
+       
+        public string ProductImageUrl { get; set; }
+
+        public long? ProductId { get; set; }
+
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
+
+        //public long? ProductId { get; set; }
+        //[ForeignKey("ProductId")]
+        //public Product Product { get; set; }
 
     }
 }

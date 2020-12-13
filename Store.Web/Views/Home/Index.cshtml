@@ -1,5 +1,205 @@
 ﻿
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="body-content outer-top-vs" id="top-banner-and-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                <partial name="_BrandMenu" />
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9">
+                <partial name="_HomeSlider" />
+            </div>
+        </div>
+
+        <!-- ============================================== banners ============================================== -->
+        <div class="wide-banners wow fadeInUp outer-bottom-xs">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="wide-banner cnt-strip">
+                        <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner1.jpg" alt=""> </div>
+                    </div>
+                    <!-- /.wide-banner -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6 col-sm-6">
+                    <div class="wide-banner cnt-strip">
+                        <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner2.jpg" alt=""> </div>
+                    </div>
+                    <!-- /.wide-banner -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.wide-banners -->
+        <!-- ============================================== banners : END ============================================== -->
+        <!-- ============================================== SCROLL TABS ============================================== -->
+        <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
+            <div class="more-info-tab clearfix ">
+                <h3 class="new-product-title pull-left">Sản Phẩm Mới</h3>
+                @*<ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
+                    <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">Tất cả</a></li>
+                    <li><a data-transition-type="backSlide" href="#smartphone" data-toggle="tab">Xe tay ga</a></li>
+                    <li><a data-transition-type="backSlide" href="#laptop" data-toggle="tab">Côn tay</a></li>
+                    <li><a data-transition-type="backSlide" href="#apple" data-toggle="tab">Xe số</a></li>
+                </ul>*@
+                <!-- /.nav-tabs -->
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane in active" id="all">
+                    <div class="product-slider">
+                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+                            <div v-for="(product, index) in newestProducts" class="item item-carousel">
+                                <product-item :product="product"></product-item>
+                            </div>
+                        </div>
+                        <!-- /.home-owl-carousel -->
+                    </div>
+                    <!-- /.product-slider -->
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="smartphone">
+                    <div class="product-slider">
+                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+                            <div v-for="(product, index) in newestProducts" class="item item-carousel">
+                                <product-item :product="product"></product-item>
+                            </div>
+                        </div>
+                        <!-- /.home-owl-carousel -->
+                    </div>
+                    <!-- /.product-slider -->
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="laptop">
+                    <div class="product-slider">
+                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+                            <div v-for="(product, index) in newestProducts" class="item item-carousel">
+                                <product-item :product="product"></product-item>
+                            </div>
+                        </div>
+                        <!-- /.home-owl-carousel -->
+                    </div>
+                    <!-- /.product-slider -->
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="apple">
+                    <div class="product-slider">
+                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+                            <div v-for="(product, index) in newestProducts" class="item item-carousel">
+                                <product-item :product="product"></product-item>
+                            </div>
+                        </div>
+                        <!-- /.home-owl-carousel -->
+                    </div>
+                    <!-- /.product-slider -->
+                </div>
+                <!-- /.tab-pane -->
+
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- /.scroll-tabs -->
+        <!-- ============================================== SCROLL TABS : END ============================================== -->
+
+    </div>
+
+
+    @*<partial name="_SellingProduct" />*@
+
+    <partial name="_DeliveryInfo" />
+    
+    <partial name="_FeatureProduct" />
+
+
+    <div class="container">
+
+        <!-- /.row -->
+        <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+        <div id="brands-carousel" class="logo-slider wow fadeInUp">
+            <div class="logo-slider-inner">
+                <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand3.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand6.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+                    <!--/.item-->
+                </div>
+                <!-- /.owl-carousel #logo-slider -->
+            </div>
+            <!-- /.logo-slider-inner -->
+
+        </div>
+        <!-- /.logo-slider -->
+        <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#top-banner-and-menu -->
+
+<section class="bottom-section">
+    <div class="container">
+        
+
+
+        <!-- ============================================== NEWSLETTER ============================================== -->
+        <div class="newsletter wow fadeInUp">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <h3>Đăng nhập để nhận <strong>Ưu đãi</strong></h3>
+                    <div class="sidebar-widget-body">
+                        <p>Giảm giá <strong>lên đến 40%</strong> khi mua hàng!</p>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Nhập bình luận tại đây">  <button class="btn btn-primary">Gửi</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- /.sidebar-widget-body -->
+    </div>
+    <!-- /.sidebar-widget -->
+    <!-- ============================================== NEWSLETTER: END ============================================== -->
+
+
+
+</section>
+
+
+
+
 
 @section Scripts{
-
+    <script src="~/js/features/product/product-item.js" asp-append-version="true"></script>
+    <script src="~/js/services/product-service.js" asp-append-version="true"></script>
 }

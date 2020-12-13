@@ -33,5 +33,16 @@ namespace Store.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var model = new EditActionModel
+            {
+                Id = id
+            };
+
+            return View(model);
+        }
     }
 }

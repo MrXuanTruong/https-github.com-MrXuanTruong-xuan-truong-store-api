@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Store.API.Extentions;
 using DataTables.AspNet.Core;
 using DataTables.AspNet.AspNetCore;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace Store.API
 {
@@ -37,7 +38,7 @@ namespace Store.API
 
             services.AddSwaggerExtensions();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             // DataTables.AspNet registration with default options.
             services.RegisterDataTables();

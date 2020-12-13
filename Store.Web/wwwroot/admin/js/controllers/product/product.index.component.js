@@ -3,15 +3,15 @@
     data: {
         dataTable: null,
         filter: {
-            username: '',
-            email: '',
-            statusId: '',
+            productName: '',
+            ProductBrandName: '',
+            ProductStatusId: '',
         },
         urls: {
-            edit: '/admin/product/add',
+            edit: '/admin/product/edit',
         },
-        userStatuses: [{ StatusId: '', StatusName: 'Tất cả'}],
-        operatorService: new OperatorService(),
+        productStatuses: [{ ProductStatusId: '', ProductStatusName: 'Tất cả'}],
+        productService: new ProductService(),
         populateService: new PopulateService(),
     },
     components: {
@@ -26,8 +26,8 @@
             location.href = this.urls.edit + '/';
         },
 
-        editItem: function (operatorId) {
-            location.href = this.urls.edit + '/' + operatorId;
+        editItem: function (productId) {
+            location.href = this.urls.edit + '/' + productId;
         },
 
         loadUserStatuses: function () {
@@ -46,13 +46,13 @@
                 });
         },
 
-        deleteItem: function (operatorId) {
+        deleteItem: function (productId) {
             var self = this;
             this.$showDeleteConfirmMessage()
             .then(
                 function (isComfirm) {
                     if (isComfirm === true) {
-                        self.operatorService.delete(operatorId)
+                        self.productService.delete(productId)
                             .then(function (response) {
                                 if (response.data.result) {
                                     self.dataTable.ajax.reload();
@@ -85,19 +85,31 @@
             this.dataTable = $('#product-table').DataTable({
                 ajax: self.$getAjaxSource(self.getDatatableAjax()),
                 columns: [
-                    {
-                        data: "ProductId", name: "ProductId", "width": "10%", searchable: false, sortable: false, render: function (data, type, row) {
+                    { data: "id", name: "Id", searchable: false, sortable: false },
+                    { data: "id", name: "Id", searchable: false, sortable: false,
+                        render: function (data, type, row) {
                             var html = '';
                             html += `<a class="btn btn-primary btn-sm" href="/admin/product/edit/${data}"><i class="mdi mdi-file-document-edit-outline"></i></a> `;
                             html += '<button class="btn btn-danger btn-sm" onclick="vue.deleteItem(' + data + ')"><i class="mdi mdi-trash-can-outline"></i></button> ';
                             return html;
                         }
                     },
-                    { data: "ProductName", name: "ProductName" },
-                    { data: "ProductCategoryId", name: "ProductCategoryId" },
-                    { data: "ProductBranchId", name: "ProductBranchId" },
-                    { data: "Description", name: "Description" },
-                    { data: "Price", name: "Price" },
+                    {
+                        data: "productImageUrl", name: "ProductImageUrl", searchable: false, sortable: false,
+                        render: function (data, type, row) {
+                            var html = '<img src="' + data + '"/>';
+                            return html;
+                        }
+                    },
+                    { data: "productName", name: "ProductName", searchable: true, sortable: true, },
+                    { data: "categoryName", name: "CategoryName", searchable: false, sortable: false, },
+                    { data: "productBrandName", name: "ProductBrandName", searchable: false, sortable: false, },
+                    { data: "colorNames", name: "ColorNames", searchable: false, sortable: false, },
+                    { data: "price", name: "Price", searchable: false },
+                    //{ data: "stock", name: "Stock", searchable: false, sortable: false,},
+                    { data: "branchNames", name: "BranchNames", searchable: false, sortable: false, },
+                    { data: "productStatusName", name: "ProductStatusName", searchable: false, sortable: false, },
+                    { data: "createdDate", name: "CreatedDate", searchable: false, sortable: true, },
                 ],
                 "order": [[1, "asc"]],
                 ...self.$defaultTableSettings

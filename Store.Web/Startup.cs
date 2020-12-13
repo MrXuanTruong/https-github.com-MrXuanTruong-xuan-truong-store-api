@@ -79,6 +79,10 @@ namespace Store.Web
                 endpoints.MapControllerRoute(
                     name: "areaRoute",
                     pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+
+                //endpoints.MapControllerRoute(
+                //   name: "areaRoute",
+                //   pattern: "{controller=Product}/{action=Detail}/{id?}");
             });
         }
     }

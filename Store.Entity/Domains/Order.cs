@@ -12,10 +12,31 @@ namespace Store.Entity.Domains
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long OrderId { get; set; }
-
-        [Required]
+        public string OrderCode { get; set; }
+        public long CustomerId { get; set; }
+        public string ContactName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public long OrderStatusId { get; set; }
         public double TotalAmount { get; set; }
+        public double Discount { get; set; }
+        public double TotalPrice { get; set; }
+        public long? PaymentMethodId { get; set; }
+        public string Address { get; set; }
+        public string Note { get; set; }
 
-        //...
+        public long? BranchId { get; set; }
+
+        [ForeignKey("BranchId")]
+        public Branch Branch { get; set; }
+
+        [ForeignKey("OrderStatusId")]
+        public OrderStatus OrderStatus { get; set; }
+
+        [ForeignKey("PaymentMethodId")]
+        public PaymentMethod PaymentMethod { get; set; }
+
+        public List<OrderDetail> OrderDetails { get; set; }
+
     }
 }

@@ -17,15 +17,18 @@
                         <table id="product-table" class="table table-striped" width="100%">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Action</th>
                                     <th>Hình ảnh</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>Loại</th>
+                                    <th>Loại xe</th>
                                     <th>Nhãn hiệu</th>
-                                    <th>Có thể bán</th>
+                                    <th>Màu sắc</th>
+                                    <th>Giá bán</th>
+                                    @*<th>Tồn kho</th>*@
+                                    <th>Chi nhánh</th>
                                     <th>Trạng thái</th>
                                     <th>Ngày khởi tạo</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -38,4 +41,5 @@
 
 @section Scripts{
     <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/js/services/product-service.js" asp-append-version="true"></script>
 }

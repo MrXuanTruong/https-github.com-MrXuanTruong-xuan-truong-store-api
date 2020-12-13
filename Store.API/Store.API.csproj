@@ -5,12 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\NewFolder1\**" />
+    <Compile Remove="Models\NewFolder2\**" />
+    <Content Remove="Models\NewFolder1\**" />
+    <Content Remove="Models\NewFolder2\**" />
+    <EmbeddedResource Remove="Models\NewFolder1\**" />
+    <EmbeddedResource Remove="Models\NewFolder2\**" />
+    <None Remove="Models\NewFolder1\**" />
+    <None Remove="Models\NewFolder2\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DataTables.AspNet.Core" Version="2.0.2" />
     <PackageReference Include="DataTables.Queryable.Core" Version="1.6.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
@@ -28,9 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\NewFolder1\" />
-    <Folder Include="Models\NewFolder2\" />
-    <Folder Include="Models\NewFolder\" />
+    <Folder Include="wwwroot\uploads\images\product\" />
+    <Folder Include="wwwroot\uploads\post\" />
   </ItemGroup>
 
 

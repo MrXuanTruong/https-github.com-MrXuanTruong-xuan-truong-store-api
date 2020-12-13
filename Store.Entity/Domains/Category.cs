@@ -7,18 +7,17 @@ using System.Text;
 namespace Store.Entity.Domains
 {
     [Table("Categories")]
-    public class Category:Entity
+    public class Category: Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CategoryId { set; get; }
-        [Required]
+        public long CategoryId { get; set; }
+        
         [StringLength(50)]
-        public String CategoryName { set; get; }
+        public string CategoryName { get; set; }
 
         [StringLength(200)]
-        public String Description  { set; get; }
-        [StringLength(100)]
-        public String Image { set; get; }
+        public string Description  { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

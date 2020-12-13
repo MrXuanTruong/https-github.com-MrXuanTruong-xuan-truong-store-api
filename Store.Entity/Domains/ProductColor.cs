@@ -11,17 +11,22 @@ namespace Store.Entity.Domains
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProductColorId { get; set; }
-        [Required]
-        [StringLength(100)] 
-        public String ProductColorName { get; set; }
-        [StringLength(50)]
-        public decimal Price { get; set; }
-        [StringLength(50)]
-        public String ProductId { get; set; }
-        [NotMapped]
+        public long ProductColorId { get; set; }
+
+        //Product
+        public long? ProductId { get; set; } // 1 | 1
+
+        //Color
+        public long ColorId { get; set; } // 1 | 1
+
+        public double Price { get; set; }
+
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
+        [ForeignKey("ColorId")]
+        public Color Color { get; set; }
+
+       
     }
 }

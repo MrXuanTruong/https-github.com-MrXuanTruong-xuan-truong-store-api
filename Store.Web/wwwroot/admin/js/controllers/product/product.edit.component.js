@@ -109,6 +109,9 @@ var vue = new Vue({
             this.productService.getById(this.model.Id)
                 .then(function (response) {
                     self.product = response.data;
+
+                    // log thông tin product từ api lúc get xem 
+                    console.info(self.product);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -182,6 +185,9 @@ var vue = new Vue({
                 this.loading = true;
                 if (this.model.Id == 0) {
                     var request = this.getRequestData();
+
+                    console.info(request);
+
                     this.productService.save(request)
                         .then(function (response) {
                             if (response.data.result) {
@@ -204,13 +210,15 @@ var vue = new Vue({
                 else {
                     var request = this.getRequestData();
 
+                    console.info(request);
+
                     this.productService.update(this.model.Id, request)
                         .then(function (response) {
                             if (response.data.result) {
                                 self.$showSuccessToast("Thao tác thành công");
-                                setTimeout(function () {
+                                /*setTimeout(function () {
                                     location.href = self.urls.list
-                                }, 5000);
+                                }, 5000);*/
                             }
                             else {
                                 self.$showDangerToast(response.data.messages[0]);
@@ -246,6 +254,7 @@ var vue = new Vue({
         },
         onUploadedSliderImages(images) {
             this.product.sliderImages = images;
+            console.info(this.product.sliderImages);
         }
 
     },

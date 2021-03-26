@@ -56,6 +56,7 @@ namespace Store.Services
         public Task<Product> GetById(long id)
         {
             return context.Products
+                .Include(x => x.ProductImages)
                 .Include(x => x.Category)
                 .Include(x => x.ProductStatus)
                 .Include(x => x.ProductBrand)
@@ -145,18 +146,29 @@ namespace Store.Services
                 }
                 await context.SaveChangesAsync();
 
-                foreach (var productImage in entity.ProductImages)
+                // databaseImages la tat ca hinh cua product id hien tai
+                var databaseImages = await context.ProductImages.Where(x => x.ProductId == entity.ProductId).ToListAsync();
+
+                // Xóa những tấm hình User xóa.
+                var deleteImages = databaseImages.Where(x => !entity.ProductImages.Any(y => y.ProductImageUrl == x.ProductImageUrl));
+
+                // Nhung hinh se Tao moi
+                var addImages = entity.ProductImages.Where(x => !databaseImages.Any(y => y.ProductImageUrl == x.ProductImageUrl));
+
+                // Nhung hinh Update thi khong lam gi. Boi vi update ko xay ra
+                // User chi xoa va chon hinh moi ma thoi
+
+                foreach (var image in deleteImages)
+                {
+                    context.ProductImages.Remove(image);
+                }
+
+                foreach (var productImage in addImages)
                 {
                     productImage.ProductId = entity.ProductId;
-                    if (productImage.ProductImageId <= 0)
-                    {
-                        await context.ProductImages.AddAsync(productImage);
-                    }
-                    else
-                    {
-                        context.ProductImages.Update(productImage);
-                    }
+                    await context.ProductImages.AddAsync(productImage);
                 }
+
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)

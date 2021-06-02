@@ -93,11 +93,6 @@ var vue = new Vue({
                     this.errors.push(this.errorMessages.colorId.required);
                 }
             });
-            
-            
-
-            
-
             return this.errors.length == 0;
         },
 

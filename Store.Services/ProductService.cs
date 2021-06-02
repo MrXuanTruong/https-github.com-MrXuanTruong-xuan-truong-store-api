@@ -64,7 +64,7 @@ namespace Store.Services
                 .ThenInclude(x => x.Color)
                 .Include(x => x.ProductBranchs)
                 .ThenInclude(x => x.Branch)
-                .Where(x => x.ProductId == id && x.IsDeleted == 0)
+                .Where(x => x.ProductId == id && x.IsDeleted == 0 )
                 //.AsNoTracking()
                 .SingleOrDefaultAsync();
         }
@@ -211,6 +211,33 @@ namespace Store.Services
                 .AsNoTracking();
         }
 
+        public List<Product> SimilarProducts(long id)
+        {
+            var product = context.Products.Find(id);
+            if (product != null)
+            {
+                // ProductColors nó tiếp tục tham chiếu đến Color nên cứ Include tiếp Color để lấy
+                return
+                    context.Products
+                    .Include(x => x.ProductBrand)
+                    .Include(x => x.Category)
+                    .Include(x => x.ProductStatus)
+                    .Include(x => x.ProductColors)
+                    .ThenInclude(y => y.Color)
+                    .Include(x => x.ProductBranchs)
+                    .Include(x => x.ProductImages)
+                    .Where(x => x.ProductId != id && x.CategoryId == product.CategoryId && x.ProductBrandId == product.ProductBrandId && x.IsDeleted == 0)
+                    .ToList();
+            }
+            else
+            {
+                // Return ko cos phan tu nao
+                return new List<Product>();
+            }
+        }
+
+        
+
         public async Task<bool> InStocks(long branchId, string note, List<long> productIds, List<long> colorIds, List<int> quantities, List<double> prices)
         {
             var result = false;
@@ -221,6 +248,7 @@ namespace Store.Services
 
                 var importStock = new ImportStock
                 {
+                    CreatedDate = DateTime.Now,
                     ImportStockCode = DateTime.Now.ToString("yyyyMMddHHmmss"),
                     BranchId = branch.BranchId,
                     Description = note,
@@ -244,7 +272,7 @@ namespace Store.Services
                     await context.ImportStockDetails.AddAsync(importStockDetail);
                     await context.SaveChangesAsync();
 
-                    var productId = colorIds[i];
+                    var productId = productIds[i];
                     var colorId = colorIds[i];
 
                     var productBranch =
@@ -385,6 +413,13 @@ namespace Store.Services
             return context.ProductImages
                 .Where(x => x.ProductId == id)
                 .ToListAsync();
+        }
+        public List<ProductBranch> GetProductBranchesByProductId(long productId)
+        {
+                return context.ProductBranches
+                    .Include( x => x.Branch)
+                    .Where(x => x.ProductId == productId)
+                    .ToList();
         }
     }
 }

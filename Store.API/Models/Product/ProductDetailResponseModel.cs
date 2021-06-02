@@ -27,7 +27,7 @@ namespace Store.API.Models.Product
         public string ProductStatusName { get; set; }
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
-
+        public List<ProductBranch> GetProductBranches { get; set; }
         public List<Branch> StoreAvailables { get; set; }
         public List<ProductImageModel> Images { get; set; }
     }

@@ -8,10 +8,10 @@ namespace Store.API.Models.Brand
 {
     public class BrandRequestModel
     {
-        public long ProductBrandId { get; set; }
+        //public long ProductBrandId { get; set; }
        
-        public string ProductBrandName { get; set; }
-        public long Id { get; internal set; }
-        public object BrandName { get; internal set; }
+        //public string ProductBrandName { get; set; }
+        public long Id { get; set; }
+        public string BrandName { get; set; }
     }
 }

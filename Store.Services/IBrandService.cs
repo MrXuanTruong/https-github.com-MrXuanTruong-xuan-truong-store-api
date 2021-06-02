@@ -15,8 +15,8 @@ namespace Store.Services
         IGetEntityById<ProductBrand>
 
     {
-        Task<ProductBrand> GetById(long productBrandId);
-        Task<ProductBrand> GetByProductBrandName(string ProductBrandName);
+        Task<ProductBrand> GetByIdWithoutInclude(long id);
         IQueryable<ProductBrand> GetAll();
+
     }
 }

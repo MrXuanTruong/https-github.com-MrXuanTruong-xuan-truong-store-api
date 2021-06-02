@@ -14,6 +14,9 @@ namespace Store.Entity.Domains
         public long ProductBrandId { get; set; } // 1
         public string ProductBrandName { get; set; } // Honda
 
+        public string Logo { get; set; }
         public List<Product> Products { get; set; }
+
+        public int IsDeleted { get; set; }
     }
 }

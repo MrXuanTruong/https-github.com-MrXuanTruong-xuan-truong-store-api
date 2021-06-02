@@ -2,6 +2,9 @@
     el: '#page-content',
     data: {
         dataTable: null,
+        filter: {
+            brandName: '',
+        },
         urls: {
             edit: '/admin/brand/edit',
         },
@@ -60,8 +63,8 @@
             this.dataTable = $('#brand-table').DataTable({
                 ajax: self.$getAjaxSource(self.getDatatableAjax()),
                 columns: [
-                    { data: "id", name: "id"},
-                    { data: "id", name: "id",
+                    { data: "id", name: "Id"},
+                    { data: "id", name: "Id",
                         render: function (data, type, row) {
                             var html = '';
                             html += `<a class="btn btn-primary btn-sm" href="/admin/brand/edit/${data}"><i class="mdi mdi-file-document-edit-outline"></i></a> `;
@@ -69,8 +72,14 @@
                             return html;
                         }
                     },
-                    { data: "brandcode", name: "brandcode", searchable: false, sortable: false, },
-                    { data: "productBrandName", name: "productBrandName", searchable: false, sortable: false,},
+                    {
+                        data: "logo", name: "Logo", searchable: false, sortable: false,
+                        render: function (data, type, row) {
+                            var html = '<img src="' + data + '"/>';
+                            return html;
+                        }
+                    },
+                    { data: "brandName", name: "BrandName", searchable: true, sortable: true, },
                 ],
                 "order": [[1, "asc"]],
                 ...self.$defaultTableSettings

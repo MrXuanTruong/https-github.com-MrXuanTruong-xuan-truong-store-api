@@ -3,7 +3,8 @@
     <div class="container">
         <partial name="_ProductDetail" />
         <partial name="_DeliveryInfo" />
-        <partial name="_FeatureProduct" />
+        <partial name="_SimilarProduct" />
+        
 
         <!-- ============================================== SCROLL TABS : END ============================================== -->
 
@@ -94,7 +95,8 @@
 </section>
 
 @section Scripts{
-    <script src="~/js/features/product/product-detail.js" asp-append-version="true"></script>
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/js/features/product/product-item.js" asp-append-version="true"></script>
     <script src="~/js/services/product-service.js" asp-append-version="true"></script>
     <script src="~/lib/flexslider/jquery.flexslider.min.js" asp-append-version="true"></script>
 }

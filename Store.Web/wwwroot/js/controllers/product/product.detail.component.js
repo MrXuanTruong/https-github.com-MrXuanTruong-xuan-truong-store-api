@@ -3,6 +3,8 @@
     data: {
         model: vueDataJson,
         productDetail: null,
+        similarProducts: [],
+        branches: [],
         productService: new ProductService(),
         shoppingCarts: [],
         selectedColorId: null,
@@ -61,7 +63,42 @@
                             slideshow: false
                         });
                     }, 100);
+                    self.getGetProductBranchesByProductId();
+                    self.getSimilarProducts();
                     
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                });
+        },
+
+        getSimilarProducts: function () {
+            let self = this;
+            this.productService.getSimilarProducts(this.productDetail.id)
+                .then(function (response) {
+                    let products = response.data;
+                    self.similarProducts = products;
+                    setTimeout(function () {
+                        self.initSlider();
+                    }, 1);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                });
+        },
+        getGetProductBranchesByProductId: function () {
+            let self = this;
+            this.productService.getGetProductBranchesByProductId(this.productDetail.id)
+                .then(function (response) {
+                    let branches = response.data;
+                    //debugger
+                    self.branches = branches;
+                    setTimeout(function () {
+                    }, 1);
                 })
                 .catch(function (error) {
                     console.log(error);

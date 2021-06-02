@@ -39,4 +39,10 @@
     getProductDetail(id) {
         return base_axios.get(API_PRODUCT_DETAIL + '?id=' + id);
     }
+    getGetProductBranchesByProductId (productId) {
+        return base_axios.get(API_PRODUCT_BRANCH + '?productId=' + productId);
+    }
+    getSimilarProducts(productId) {
+        return base_axios.get(API_PRODUCT_SIMILAR + '?productId=' + productId);
+    }
 }

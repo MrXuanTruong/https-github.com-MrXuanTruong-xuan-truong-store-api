@@ -23,7 +23,7 @@ namespace Store.Entity.Domains
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
-        public long? ProductBrandId { get; set; } // 1: Honda
+        public long? ProductBrandId { get; set; } 
 
         [ForeignKey("ProductBrandId")]
         public ProductBrand ProductBrand { get; set; }

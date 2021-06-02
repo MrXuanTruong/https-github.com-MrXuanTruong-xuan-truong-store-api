@@ -141,6 +141,7 @@ namespace Store.Api.Controllers
                         {
                             BranchId = x.First().BranchId,
                             BranchName = x.First().Branch.BranchName,
+                            Address = x.First().Branch.Address,
                             Stock = x.Sum(c => c.LocalStock).GetValueOrDefault()
                         })
                         .ToList();
@@ -197,6 +198,7 @@ namespace Store.Api.Controllers
                 ProductStatusId = model.ProductStatusId,
                 Description = model.Description,
                 Stock = 0,
+                CreatedDate = DateTime.Now,
                 ProductColors = model.ProductColors
                 .Select(x => new ProductColor
                 {
@@ -365,6 +367,47 @@ namespace Store.Api.Controllers
             return response;
         }
 
+        [AllowAnonymous]
+        [HttpGet("similarProducts")]
+        public List<ProductRequestModel> SimilarProducts(int productId)
+        {
+            var products = _productService.SimilarProducts(productId);
+            var response =
+                products.Select(x =>
+                new ProductRequestModel
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ThumnailUrl = x.ThumnailUrl,
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.Category.CategoryName,
+                    ProductBrandName = x.ProductBrand.ProductBrandName,
+                    ProductStatusId = x.ProductStatusId,
+                    ProductStatusName = x.ProductStatus.ProductStatusName,
+                    Price = x.Price,
+                    Stock = x.Stock,
+                    ViewCount = x.ViewCount,
+                    Description = x.Description,
+                    ProductColors = x.ProductColors.Select(x => new ProductColorModel
+                    {
+                        ColorId = x.ColorId,
+                        ColorName = x.Color.ColorName,
+                        Price = x.Price,
+                        ProductColorId = x.ProductColorId,
+                        ProductId = x.ProductId,
+                    })
+                        .ToList()
+
+                })
+                .ToList();
+
+            // Include bên kia xong thong tin x.Color mới Khác null
+
+            // Chưa include Color nên lỗi
+
+            return response;
+        }
+
         [HttpPost("inStocks")]
         public async Task<ResponseViewModel> InStocks([FromBody] InStockRequestModel model)
         {
@@ -520,6 +563,9 @@ namespace Store.Api.Controllers
                 var storeAvailableTask = _productService.GetStoreAvailableForProductId(id);
                 response.StoreAvailables = await storeAvailableTask;
 
+                //var productBranchesList = _productService.GetProductBranches(id);
+                //response.GetProductBranches = productBranchesList;
+
                 var productImagesTask = _productService.GetImagesForProductId(id);
 
                 response.Images = (await productImagesTask)
@@ -535,6 +581,24 @@ namespace Store.Api.Controllers
             return response;
         }
 
+        [AllowAnonymous]
+        [HttpGet("getGetProductBranchesByProductId")]
+        public List<ProductBranchModel> GetProductBranchesByProductId(int productId)
+        {
+            var productBranches = _productService.GetProductBranchesByProductId(productId);
+            var response =
+                productBranches.Select(x => new ProductBranchModel
+                {
+                    ProductBranchId = x.ProductBranchId,
+                    BranchId = x.BranchId,
+                    BranchName = x.Branch.BranchName,
+                    Address = x.Branch.Address,
+                    ProductId = x.ProductId,
+                    LocalStock = x.LocalStock
+                })
+                .ToList();
+            return response;
+        }
 
 
     }

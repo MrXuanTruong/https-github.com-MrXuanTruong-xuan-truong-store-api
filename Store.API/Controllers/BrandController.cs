@@ -110,9 +110,10 @@ namespace Store.Api.Controllers
 
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         [HttpPost]
-        public async Task<ResponseViewModel> Create([FromBody] BrandRequestModel model)
+        public async Task<ResponseViewModel> Create(int id,[FromBody] BrandRequestModel model)
         {
-            var oldBrand = await _brandService.GetByProductBrandName(model.ProductBrandName);
+            //var oldBrand = await _brandService.GetByIdWithoutInclude(model.GetByIdWithoutInclude);
+            var oldBrand = await _brandService.GetById(id);
             if (oldBrand != null)
             {
                 var response = new ResponseViewModel
@@ -128,7 +129,7 @@ namespace Store.Api.Controllers
             {
                 var productBrand = new ProductBrand
                 {
-                    ProductBrandName = model.ProductBrandName,
+                    ProductBrandName = model.BrandName,
                     
                 };
 
@@ -155,7 +156,7 @@ namespace Store.Api.Controllers
                 return response;
             }
 
-            oper.ProductBrandName = model.ProductBrandName;
+            oper.ProductBrandName = model.BrandName;
             
             ApplyUserUpdateEntity(oper);
 

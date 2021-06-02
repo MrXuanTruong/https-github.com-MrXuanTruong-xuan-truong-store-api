@@ -17,13 +17,15 @@ const API_REGISTER_ACCOUNT = 'register';
 const API_ORDERS_SEARCH = 'order/GetList';
 const API_ORDERS_CRUD = 'order';
 
-const API_BRANDS_SEARCH = 'productBrand/GetList';
+const API_BRANDS_SEARCH = 'brand/GetList';
 const API_BRANDS_CRUD = 'productBrand';
 
 const API_PRODUCT_SEARCH = 'product/GetList';
 const API_PRODUCT_CRUD = 'product';
 const API_PRODUCT_NEWEST = 'product/newestProducts';
 const API_PRODUCT_FEATURE = 'product/featureProducts';
+const API_PRODUCT_SIMILAR = 'product/similarProducts';
+const API_PRODUCT_BRANCH = 'product/getGetProductBranchesByProductId';
 const API_PRODUCT_DETAIL = 'product/productDetail';
 
 

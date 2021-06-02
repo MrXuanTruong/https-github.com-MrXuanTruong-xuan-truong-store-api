@@ -7019,3 +7019,12 @@ z-index:10000
 button.product-variation.selected {
 	border: 1px solid #FF1100;
 }
+label.label-product-branch {
+	font-size: 13px;
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	margin-left: 8px;
+}
+.f-left {
+	margin-top: -30px;
+}

@@ -18,9 +18,13 @@ namespace Store.Web.Areas.Admin.Controllers
         {
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? accountTypeId = null)
         {
-            return View();
+            var model = new OperatorIndexModel
+            {
+                AccountTypeId = accountTypeId
+            };
+            return View(model);
         }
 
         [HttpGet]

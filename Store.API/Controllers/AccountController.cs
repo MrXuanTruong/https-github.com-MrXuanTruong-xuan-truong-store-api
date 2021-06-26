@@ -51,7 +51,7 @@ namespace Store.API.Controllers
 
             var account = await _accountService.Authenticate(model.Username, model.Password);
 
-            if (account == null)
+             if (account == null)
             {
                 response.Result = false;
                 response.Messages.Add("Thông tin đăng nhập không đúng");

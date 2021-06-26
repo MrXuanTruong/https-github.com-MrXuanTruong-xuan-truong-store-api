@@ -1277,6 +1277,7 @@ label.labelpay {
     font-weight: normal;
 }
 .flex.items-center {
+    margin-top: 8px;
     float: right;
 }
     /*.flex.items-center button {

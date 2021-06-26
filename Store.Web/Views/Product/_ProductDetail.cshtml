@@ -48,17 +48,19 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="flex items-center" style="margin-bottom: 8px; align-items: baseline;float:right">
-                                                <label class="color-product">Màu sắc</label>
+                                            <div class="flex items-center" style="margin-bottom: 8px; align-items: baseline;float:left">
+                                                <label class="color-product">Chọn màu xe</label>
                                                 <div class="flex items-center">
-                                                    <button v-on:click="onSelectColor(1)" class="product-variation" v-bind:class="{ selected: selectedColorId === 1 }">Trắng</button>
-                                                    <button v-on:click="onSelectColor(2)" class="product-variation" v-bind:class="{ selected: selectedColorId === 2 }">Đen</button>
-                                                    <button v-on:click="onSelectColor(3)" class="product-variation" v-bind:class="{ selected: selectedColorId === 3 }">Vàng</button>
-                                                    <button v-on:click="onSelectColor(4)" class="product-variation" v-bind:class="{ selected: selectedColorId === 4 }">Xanh</button>
-                                                    <button v-on:click="onSelectColor(5)" class="product-variation" v-bind:class="{ selected: selectedColorId === 5 }">Cam</button>
+                                                    <button type="button" 
+                                                            v-for="(color, index) in productDetail.productColors" 
+                                                            v-on:click="onSelectColor(color.colorId)" 
+                                                            class="product-variation" 
+                                                            v-bind:class="{ selected: selectedColorId === color.colorId }">
+                                                        {{color.colorName}}
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div class="order-card">
+                                            <div class="order-card" style="margin-left: -170px; align-items: baseline;float:left;margin-top:50px">
 
                                                 <button v-on:click="shoppingCart" type="button" class="btn btn-warning">Đặt mua</button>
 
@@ -78,7 +80,7 @@
                                     <ul class="product-branch">
                                         <li v-for="(branches, index) in branches">
                                             <i class="fa fa-map-marker" style="font-size:15px;color:#000000" aria-hidden="true">
-                                                <label class="label-product-branch">{{branches.address}} ({{branches.localStock}} sản phẩm)</label>
+                                                <label class="label-product-branch">{{branches.address}} (<i>còn hàng</i>)</label>
                                             </i>
                                         </li>
                                     </ul>

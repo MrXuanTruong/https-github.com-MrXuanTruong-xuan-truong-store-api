@@ -25,6 +25,10 @@ namespace Store.Services
 
         IQueryable<Product> NewestProducts(int take);
 
+        IQueryable<Product> ProductByCategory(int take);
+
+        IQueryable<Product> SellingProducts(int take);
+
         IQueryable<Product> FeatureProducts(int take);
 
         List<Product> SimilarProducts(long id);

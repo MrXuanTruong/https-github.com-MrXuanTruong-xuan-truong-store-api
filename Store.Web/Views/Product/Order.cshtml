@@ -13,6 +13,9 @@
                 <h5>Số điện thoại: <strong>{{order.phone}}</strong></h5>
                 <h5>Email: <strong>{{order.email}}</strong></h5>
                 <h5>Địa chỉ nhận hàng: <strong>{{order.address}}</strong></h5>
+                <h5>Tổng cộng: {{order.totalAmount | currency}} đ</h5>
+                <h5>Chiết khấu: {{order.discount | currency}} đ</h5>
+                <h5 style="color:red"><strong>Tổng tiền phải thanh toán: {{order.totalPrice | currency}} đ</strong></h5>
                 <h5>Ghi chú đơn hàng: <strong>{{order.note}}</strong></h5>
                 <h5>Hình thức thanh toán: <strong>{{order.paymentMethodName}}</strong></h5>
                 <h5>Trạng thái thanh toán: <strong>{{order.orderStatusName}}</strong></h5>
@@ -31,6 +34,7 @@
                             <h5 class="card-title">Số lượng: {{orderDetail.quantity}}</h5>
                             <h5 class="card-title">Giá: {{orderDetail.price | currency}} đ</h5>
                             
+
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,7 @@ namespace Store.Api.Controllers
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         // For Datatable
         [HttpGet("GetList")]
-        public dynamic GetList([FromQuery] BrandCriteriaModel criteria, [FromQuery] IDataTablesRequest request)
+        public dynamic GetList([FromQuery] API.Models.Brand.BrandCriteriaModel criteria, [FromQuery] IDataTablesRequest request)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Store.Api.Controllers
                 var query = _brandService.GetAll();
                 var brands =
                     query
-                    .Select(x => new BrandRequestModel
+                    .Select(x => new API.Models.Brand.BrandCriteriaModel
                     {
                         Id = x.ProductBrandId,
                         BrandName = x.ProductBrandName,
@@ -60,24 +60,24 @@ namespace Store.Api.Controllers
 
                 var filteredData = brands;
 
-                return ToDataTableResponse<BrandRequestModel>(filteredData, request);
+                return ToDataTableResponse<API.Models.Brand.BrandCriteriaModel>(filteredData, request);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, this.GetType().Name);
-                return ToDataTableResponse<BrandRequestModel>();
+                return ToDataTableResponse<API.Models.Brand.BrandCriteriaModel>();
             }
         }
 
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         [HttpGet("{id:int}")]
-        public async Task<BrandRequestModel> GetById(int id)
+        public async Task<API.Models.Brand.BrandCriteriaModel> GetById(int id)
         {
-            BrandRequestModel response;
+            API.Models.Brand.BrandCriteriaModel response;
             var brand = await _brandService.GetById(id);
             if (brand != null)
             {
-                response = new BrandRequestModel
+                response = new API.Models.Brand.BrandCriteriaModel
                 {
                     Id = brand.ProductBrandId,
                     BrandName = brand.ProductBrandName,
@@ -85,7 +85,7 @@ namespace Store.Api.Controllers
             }
             else
             {
-                response = new BrandRequestModel
+                response = new API.Models.Brand.BrandCriteriaModel
                 {
                 };
             }
@@ -110,7 +110,7 @@ namespace Store.Api.Controllers
 
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         [HttpPost]
-        public async Task<ResponseViewModel> Create(int id,[FromBody] BrandRequestModel model)
+        public async Task<ResponseViewModel> Create(int id,[FromBody] API.Models.Brand.BrandCriteriaModel model)
         {
             //var oldBrand = await _brandService.GetByIdWithoutInclude(model.GetByIdWithoutInclude);
             var oldBrand = await _brandService.GetById(id);
@@ -141,7 +141,7 @@ namespace Store.Api.Controllers
 
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         [HttpPut("{id:int}")]
-        public async Task<ResponseViewModel> Update(int id, [FromBody] BrandRequestModel model)
+        public async Task<ResponseViewModel> Update(int id, [FromBody] API.Models.Brand.BrandCriteriaModel model)
         {
             var oper = await _brandService.GetById(id);
             if (oper == null)

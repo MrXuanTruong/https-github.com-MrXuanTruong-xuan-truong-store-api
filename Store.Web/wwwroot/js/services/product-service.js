@@ -24,6 +24,13 @@
         return base_axios.get(API_PRODUCT_NEWEST);
     }
 
+    getSellingProducts() {
+        return base_axios.get(API_PRODUCT_SELLING);
+    }
+    getProductByCategory() {
+        return base_axios.get(API_PRODUCT_CATEGORY);
+    }
+
     getFeatureProducts() {
         return base_axios.get(API_PRODUCT_FEATURE);
     }

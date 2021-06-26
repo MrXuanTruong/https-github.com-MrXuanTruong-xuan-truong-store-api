@@ -45,6 +45,9 @@
             accountStatusId: {
                 required: "Chưa nhập Trạng thái",
             },
+            discount: {
+                required: "Chưa nhập chiết khấu",
+            },
         },
         privileges: [],
         operatorStatuses: [],
@@ -79,9 +82,10 @@
         onClickAddNew: function (e) {
             location.href = this.urls.edit;
         },
-
+        onClickCreateVoucher: function () {
+            this.createVoucher();
+        },
         validate: function () {
-            //debugger
             this.errors = [];
             if (isNullOrEmpty(this.operator.username)) {
                 this.errors.push(this.errorMessages.username.required);
@@ -128,7 +132,7 @@
                 }
             }
             
-            if (isNullOrEmpty(this.operator.accountTypeId) || this.operator.accountTypeId === 0) {// === vs == chet choc
+            if (isNullOrEmpty(this.operator.accountTypeId) || this.operator.accountTypeId === 0) {
                 this.errors.push(this.errorMessages.accountTypeId.required);
             }
             if (isNullOrEmpty(this.operator.branchId) || this.operator.branchId===0) {
@@ -136,6 +140,9 @@
             }
             if (isNullOrEmpty(this.operator.accountStatusId) || this.operator.accountStatusId===0) {
                 this.errors.push(this.errorMessages.accountStatusId.required);
+            }
+            if (isNullOrEmpty(this.operator.discount)) {
+                this.errors.push(this.errorMessages.discount.required);
             }
             return this.errors.length == 0;
         },
@@ -271,6 +278,58 @@
                 }
             }
         },
+    /*Voucher */
+        createVoucher: function () {
+            if (this.validate()) {
+                var self = this;
+                this.loading = true;
+                if (this.model.Id === 0) {
+                    var request = this.getRequestData();
+                    console.log(request);
+                    this.operatorService.save(request)
+                        .then(function (response) {
+                            if (response.data.result) {
+                                self.$showSuccessToast("Tạo voucher thành công");
+                                setTimeout(function () {
+                                    location.href = '/admin/operator/edit'
+                                }, 5000);
+                            }
+                            else {
+                                self.$showDangerToast(response.data.messages[0]);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            self.loading = false;
+                        });
+                }
+                else {
+                    var request = this.getRequestData();
+
+                    this.operatorService.update(this.model.Id, request)
+                        .then(function (response) {
+                            if (response.data.result) {
+                                self.$showSuccessToast("Thao tác thành công");
+                                setTimeout(function () {
+                                    location.href = '/admin/operator/edit'
+                                }, 5000);
+                            }
+                            else {
+                                self.$showDangerToast(response.data.messages[0]);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            self.loading = false;
+                        });
+                }
+            }
+        },
+
 
         getPrivileges: function () {
             var self = this;

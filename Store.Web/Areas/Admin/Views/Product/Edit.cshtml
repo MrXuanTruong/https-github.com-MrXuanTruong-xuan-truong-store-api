@@ -153,7 +153,7 @@
 
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
-            <h4 class="card-title">Chi tiết tồn kho</h4>
+            <h4 class="card-title">Tồn kho</h4>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -162,7 +162,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Chi nhánh</th>
-                                    <th scope="col">Tồn</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Màu sắc</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -170,6 +171,7 @@
                                     <th scope="row">{{index+1}}</th>
                                     <td style="float:left">{{stock.branchName}}</td>
                                     <td>{{stock.stock}}</td>
+                                    <td>{{stock.colorName}}</td>
                                 </tr>
                             </tbody>
                         </table>

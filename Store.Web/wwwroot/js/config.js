@@ -23,12 +23,14 @@ const API_BRANDS_CRUD = 'productBrand';
 const API_PRODUCT_SEARCH = 'product/GetList';
 const API_PRODUCT_CRUD = 'product';
 const API_PRODUCT_NEWEST = 'product/newestProducts';
+const API_PRODUCT_SELLING = 'product/sellingProducts';
+const API_PRODUCT_CATEGORY = 'product/productByCategory';
 const API_PRODUCT_FEATURE = 'product/featureProducts';
 const API_PRODUCT_SIMILAR = 'product/similarProducts';
 const API_PRODUCT_BRANCH = 'product/getGetProductBranchesByProductId';
 const API_PRODUCT_DETAIL = 'product/productDetail';
 
-
+const API_VOUCHER_CRUD = 'voucher';
 
 
 const API_POPULAR_USER_STATUSES = 'populate/userStatuses';
@@ -45,6 +47,8 @@ const API_POPULAR_BRANDS = 'populate/productBrands';
 const API_POPULAR_BRANCHS = 'populate/branches';
 const API_POPULAR_ORDER_STATUSES = 'populate/orderStatuses'
 const API_POPULAR_ORDER_CONFIRMED = 'populate/orderConfirmeds';
+const API_POPULAR_ORDER_PAID = 'populate/orderPaids';
+const API_POPULAR_ACCOUNTS = 'populate/accounts';
 
 
 

@@ -3,11 +3,13 @@
 var vue = new Vue({
     el: '#page-content',
     data: {
+        model: vueDataJson,
         dataTable: null,
         filter: {
             username: '',
             email: '',
             statusId: '',
+            accountTypeId : null
         },
         urls: {
             edit: '/admin/operator/edit',
@@ -113,6 +115,7 @@ var vue = new Vue({
     },
     mounted() {
         //this.loadUserStatuses();
+        this.filter.accountTypeId = this.model.AccountTypeId;
         this.initDataTable();
     },
     created: function () {

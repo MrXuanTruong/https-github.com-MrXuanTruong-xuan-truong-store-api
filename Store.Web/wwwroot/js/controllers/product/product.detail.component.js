@@ -20,7 +20,7 @@
         shoppingCart: function () {
             var isExisted = false;
             for (var i = 0; i < this.shoppingCarts.length; i++) {
-                if (this.shoppingCarts[i].id === this.productDetail.id) {
+                if (this.shoppingCarts[i].id === this.productDetail.id && this.shoppingCarts[i].colorId === this.selectedColorId) {
                     isExisted = true;
                 }
             }
@@ -37,7 +37,7 @@
             }
             else {
                 for (var j = 0; j < this.shoppingCarts.length; j++) {
-                    if (this.shoppingCarts[j].id === this.productDetail.id) {
+                    if (this.shoppingCarts[j].id === this.productDetail.id && this.shoppingCarts[i].colorId === this.selectedColorId) {
                         this.shoppingCarts[j].quantity += 1;
                     }
                 }

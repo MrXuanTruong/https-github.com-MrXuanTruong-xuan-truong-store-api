@@ -796,7 +796,7 @@ a {
   color: #000;
 }
 .product .product-info .product-price .product-detail{
-	margin-left:60px;
+	margin-left:50px;
 }
 .product .cart .action ul li.lnk a:hover,
 .product .cart .action ul li.lnk a:focus {
@@ -2873,6 +2873,7 @@ img.media-object {
   font-size: 14px;
   line-height: 30px;
   margin-right: 8px;
+  margin-left: 43px;
 }
 .product .product-info .product-price .price-before-discount {
   color: #d3d3d3;
@@ -6199,7 +6200,7 @@ z-index:10000
 	width: 100px;
 }
 .bestsellers1 .products-grid .item .item-inner .item-img a {
-	width: 80px;
+	width: 70px;
 	display: inline-block;
 }
 .bestsellers1 .products-grid .item .item-inner .item-info .info-inner {
@@ -7020,11 +7021,191 @@ button.product-variation.selected {
 	border: 1px solid #FF1100;
 }
 label.label-product-branch {
-	font-size: 13px;
+	line-height: 20px;
+	font-size: 14px;
 	color: #000;
 	font-family: 'Open Sans', sans-serif;
-	margin-left: 8px;
+	margin-left: 15px;
+	margin-top: 5px;
 }
 .f-left {
 	margin-top: -30px;
+}
+.owl-item1 {
+	width: 250px;
+}
+.owl-item1 .product-price {
+    margin-left: 15px;
+}
+/*.card-body {
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	padding: 1.40rem
+}
+.card {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 1px solid rgba(0, 0, 0, .125);
+	border-radius: 0px
+}
+.coupon {
+	border-radius: 1px
+}
+.btn.btn-out {
+	outline: 1px solid #fff;
+	outline-offset: -5px
+}
+
+.btn-main {
+	border-radius: 2px;
+	text-transform: capitalize;
+	font-size: 15px;
+	padding: 10px 19px;
+	cursor: pointer;
+	color: #fff;
+	width: 100%
+}
+
+.btn-light {
+	color: #ffffff;
+	background-color: #F44336;
+	border-color: #f8f9fa;
+	font-size: 12px
+}
+
+	.btn-light:hover {
+		color: #ffffff;
+		background-color: #F44336;
+		border-color: #F44336
+	}
+
+.btn-apply {
+	font-size: 11px
+}*/
+.form-group {
+	padding-top: 30px;
+}
+input.form-control.coupon {
+	float:left;
+	width:196px;
+}
+button.btn.btn-primary.btn-apply.coupon {
+	float: right;
+	margin-right: -90px;
+}
+/*CSS of profile user*/
+.profile {
+	margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+	padding: 20px 0 10px 0;
+	background: #fff;
+	width:100%;
+	height:100%;
+}
+
+.profile-userpic img {
+	float: none;
+	margin: 0 auto;
+	width: 50%;
+	height: 50%;
+	-webkit-border-radius: 50% !important;
+	-moz-border-radius: 50% !important;
+	border-radius: 50% !important;
+}
+
+.profile-usertitle {
+	text-align: center;
+	margin-top: 20px;
+	float:left;
+}
+
+.profile-usertitle-name {
+	color: #5a7391;
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+	text-transform: uppercase;
+	color: #5b9bd1;
+	font-size: 12px;
+	font-weight: 600;
+	margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+	text-align: center;
+	margin-top: 10px;
+}
+
+	.profile-userbuttons .btn {
+		text-transform: uppercase;
+		font-size: 11px;
+		font-weight: 600;
+		padding: 6px 15px;
+		margin-right: 5px;
+	}
+
+		.profile-userbuttons .btn:last-child {
+			margin-right: 0px;
+		}
+
+.profile-usermenu {
+	margin-top: 30px;
+}
+
+	.profile-usermenu ul li {
+		border-bottom: 1px solid #f0f4f7;
+	}
+
+		.profile-usermenu ul li:last-child {
+			border-bottom: none;
+		}
+
+		.profile-usermenu ul li a {
+			color: #93a3b5;
+			font-size: 14px;
+			font-weight: 400;
+		}
+
+			.profile-usermenu ul li a i {
+				margin-right: 8px;
+				font-size: 14px;
+			}
+
+			.profile-usermenu ul li a:hover {
+				background-color: #fafcfd;
+				color: #5b9bd1;
+			}
+
+		.profile-usermenu ul li.active {
+			border-bottom: none;
+		}
+
+			.profile-usermenu ul li.active a {
+				color: #5b9bd1;
+				background-color: #f6f9fb;
+				border-left: 2px solid #5b9bd1;
+				margin-left: -2px;
+			}
+
+/* Profile Content */
+.profile-content {
+	padding: 20px;
+	background: #fff;
+	min-height: 460px;
+}
+.row profile{
+	height:100%;
 }

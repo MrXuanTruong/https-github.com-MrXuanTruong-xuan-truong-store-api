@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Danh sách Voucher";
+}
+
+<div class="card">
+    <h4 class="card-title d-md-flex align-items-md-center">
+        <i class="mdi mdi-table-large" aria-hidden="true"></i> @ViewBag.Title
+        <button type="button" v-on:click="onClickCreateVoucher" class="btn btn-primary btn-icon-prepend btn-sm ml-md-auto">
+            <i class="fa fa-plus"></i>
+            Thêm Voucher
+        </button>
+    </h4>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 grid-margin">
+                <div class="clearfix">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <label class=" col-form-label">Mã Voucher</label>
+                            <div>
+                                <input type="text" class="form-control" v-model="filter.voucherCode">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label class=" col-form-label">Hiệu lực từ</label>
+                            <div>
+                                <flat-pickr v-model="filter.fromStartDate"
+                                            class="form-control"></flat-pickr>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label class=" col-form-label">~ đến</label>
+                            <div>
+                                <flat-pickr v-model="filter.toStartDate"
+                                            class="form-control"></flat-pickr>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label class=" col-form-label">Hết hiệu lực từ</label>
+                            <div>
+                                <flat-pickr v-model="filter.fromEndDate"
+                                            class="form-control"></flat-pickr>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label class=" col-form-label">~ đến</label>
+                            <div>
+                                <flat-pickr v-model="filter.toEndDate"
+                                            class="form-control"></flat-pickr>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <button type="button" v-on:click="onClickSearch" class="btn btn-primary btn-icon-prepend btn-sm">
+                                <i class="mdi mdi-magnify"></i>
+                                Tìm kiếm
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="voucher-table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Action</th>
+                                <th>Voucher code</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Giá</th>
+                                <th>Tên Khách hàng</th>
+                                <th>Email</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/services/voucher-service.js" asp-append-version="true"></script>
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+}

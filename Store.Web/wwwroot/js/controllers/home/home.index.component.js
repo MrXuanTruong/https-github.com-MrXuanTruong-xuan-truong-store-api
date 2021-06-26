@@ -1,7 +1,9 @@
 ﻿var vue = new Vue({
     el: '#page-content',
     data: {
+        productByCategory: [],
         newestProducts: [],
+        sellingProducts: [],
         featureProducts: [],
         productService: new ProductService(),
     },
@@ -42,6 +44,38 @@
                 .finally(function () {
                 });
         },
+        getSellingProducts: function () {
+            let self = this;
+            this.productService.getSellingProducts()
+                .then(function (response) {
+                    let products = response.data;
+                    self.sellingProducts = products;
+                    setTimeout(function () {
+                        self.initSlider();
+                    }, 1);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                });
+        },
+        getProductByCategory: function () {
+            let self = this;
+            this.productService.getProductByCategory()
+                .then(function (response) {
+                    let products = response.data;
+                    self.productByCategory = products;
+                    setTimeout(function () {
+                        self.initSlider();
+                    }, 1);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                });
+        },
 
         initSlider: function () {
             jQuery('.home-owl-carousel').each(function () {
@@ -67,6 +101,8 @@
     },
     created: function () {
         this.getNewestProducts();
+        this.getSellingProducts();
         this.getFeatureProducts();
+        this.getProductByCategory();
     }
 });

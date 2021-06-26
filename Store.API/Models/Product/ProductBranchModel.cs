@@ -11,6 +11,7 @@ namespace Store.API.Models.Product
         public long BranchId { get; set; }
         public string BranchName { get; set; }
         public string Address { get; set; }
+        public int? Stock { get; set; }
         public int? LocalStock { get; set; }
         public long? ProductId { get; set; }
         public long? ColorId { get; set; }

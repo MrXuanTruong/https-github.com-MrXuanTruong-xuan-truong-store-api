@@ -44,7 +44,8 @@
             var systemMenus = {
                 name: 'Hệ thống',
                 subMenus: [
-                    { icon: 'mdi mdi-account-group', name: 'Quản lý người dùng', code: null, url: '/admin/operator' },// PERMISSIONS.MANAGE_OPERATOR
+                    { icon: 'mdi mdi-account', name: 'Quản lý người dùng', code: null, url: '/admin/operator' },// PERMISSIONS.MANAGE_OPERATOR
+                    { icon: 'mdi mdi-account-group', name: 'Quản lý khách hàng', code: null, url: '/admin/operator?accountTypeId=3' },
                 ]
             };
             menuOrigin.push(systemMenus);
@@ -53,6 +54,7 @@
                 name: 'Đơn hàng',
                 subMenus: [
                     { icon: 'mdi mdi-format-list-bulleted', name: 'Quản lý đơn hàng', code: null, url: '/admin/order' },// PERMISSIONS.MANAGE_OPERATOR
+                    { icon: 'mdi mdi-cash', name: 'Quản lý Voucher', code: null, url: '/admin/voucher' },
                 ]
             };
             menuOrigin.push(orderMenus);

@@ -1,0 +1,31 @@
+﻿<header class="header-style-1" id="header">
+
+    <!-- ============================================== TOP MENU ============================================== -->
+    <div class="top-bar animate-dropdown">
+        <div class="container">
+            <div class="header-top-inner">
+                <div class="cnt-account">
+                    <ul class="list-unstyled">
+                        <li v-if="isLogin"><a href="/account/profile"><i class="icon fa fa-user"></i>Tài khoản: {{currentUser.fullname}}</a></li>
+                        <li><a href="/product/shoppingcart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+                        <li v-if="!isLogin"><a href="/account/register"><i class="icon fa fa-check"></i>Đăng ký</a></li>
+                        <li v-if="!isLogin"><a href="/account/login"><i class="icon fa fa-lock"></i>Đăng nhập</a></li>
+                        <li v-if="isLogin"><a href="" v-on:click="onClickBtnLogout"><i class="icon fa fa-lock"></i>Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.cnt-cart -->
+            <div class="clearfix"></div>
+        </div>
+        <!-- /.header-top-inner -->
+    </div>
+    <!-- /.container -->
+    </div>
+    <!-- /.header-top -->
+    <!-- ============================================== TOP MENU : END ============================================== -->
+    <div class="main-header">
+        <div class="container">
+
+        </div>
+    </div>
+</header>

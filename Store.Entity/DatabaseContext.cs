@@ -51,6 +51,6 @@ namespace Store.Entity
         public DbSet<Color> Colors { get; set; }
 
         public DbSet<OrderStatus> OrderStatuses { get; set; }
-
+        public DbSet<Voucher> Vouchers { get; set; }
     }
 }

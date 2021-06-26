@@ -49,7 +49,7 @@
                 <div class="tab-pane in active" id="all">
                     <div class="product-slider">
                         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
-                            <div v-for="(product, index) in newestProducts" class="item item-carousel">
+                            <div v-for="(product, index) in newestProducts" class="item item-carousel owl-item1">
                                 <product-item :product="product"></product-item>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                 <div class="tab-pane" id="smartphone">
                     <div class="product-slider">
                         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
-                            <div v-for="(product, index) in newestProducts" class="item item-carousel">
+                            <div v-for="(product, index) in newestProducts" class="item item-carousel owl-item1">
                                 <product-item :product="product"></product-item>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
     </div>
 
 
-    @*<partial name="_SellingProduct" />*@
+    <partial name="_SellingProduct" />
 
     <partial name="_DeliveryInfo" />
     
@@ -197,5 +197,7 @@
 
 @section Scripts{
     <script src="~/js/features/product/product-item.js" asp-append-version="true"></script>
+    <script src="~/js/features/product/product-category-item.js" asp-append-version="true"></script>
+    <script src="~/js/features/product/product-selling-item.js" asp-append-version="true"></script>
     <script src="~/js/services/product-service.js" asp-append-version="true"></script>
 }

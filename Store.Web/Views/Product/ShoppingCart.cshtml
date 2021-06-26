@@ -18,21 +18,21 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in shoppingCarts" :key="item.id">
-                    <td><a class="thumbnail pull-left" style=" margin-left: 50px; margin-top: 15px"> <img class="media-object" :src="item.product.thumbnailUrl" style="width: 72px;"> </a></td>
-                    <td>
+                    <td class="col-sm-1 col-md-2"><a class="thumbnail pull-left" style=" margin-left: 50px; margin-top: 15px"> <img class="media-object" :src="item.product.thumbnailUrl" style="width: 72px;"> </a></td>
+                    <td class="col-sm-1 col-md-2">
                         <div class="media-body">
                             <h4 class="media-heading"> {{item.product.productName}}</h4>
-                            <span>Màu sắc: </span><span class="text-success"><strong>{{item.color}}</strong></span>
+                            <span>Màu sắc: </span><span class="text-success"><strong>{{item.product.productColors[0].colorName}}</strong></span>
                         </div>
                     </td>
-                    <td class="col-sm-3 col-md-3" style="text-align: center">
+                    <td class="col-sm-1 col-md-1" style="text-align: center">
                         <span class="new-cart-quantity">
                             <a href="javascript:(void)" v-on:click="decrement(item.id)" class="minor quantity-change" title="tru">-</a>
                             <input class="buy-quantity quantity-change" v-model="item.quantity" min="1">
                             <a href="javascript:(void)" v-on:click="increment(item.id)" class="add quantity-change" title="them">+</a>
                         </span>
                     </td>
-                    <td class="col-sm-1 col-md-1 text-center"><strong>{{item.product.price | currency}}</strong></td>
+                    <td class="col-sm-1 col-md-3 text-center"><strong>{{item.product.price | currency}}</strong></td>
                     <td class="col-sm-1 col-md-1 text-center"><strong>{{(item.quantity * item.product.price) | currency}}</strong></td>
                     <td class="col-sm-1 col-md-1">
                         <button type="button" v-on:click="remove(item.id)" class="btn btn-danger">
@@ -41,19 +41,38 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
-                    <td><h3>Tổng cộng</h3></td>
-                    <td class="text-right"><h3><strong>{{totalPrice | currency}}</strong></h3></td>
+                    <td colspan="3">
+                        
+                    </td>
+                    <td>
+                        <form>
+                            <div class="form-group">
+                                <label>Mã Voucher</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control coupon" v-model="voucherCode" placeholder="Nhập mã giảm giá(nếu có)">
+                                    <button type="button" class="btn btn-primary btn-apply coupon" @@click="applyVoucherCode">Áp dụng</button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <h3>Tổng cộng</h3><br />
+                        <h3>Giảm giá</h3><br />
+                        <h3>Tiền phải thanh toán</h3>
+                    </td>
+                    <td class="text-right">
+                        <h3><strong>{{totalPrice | currency}}</strong></h3><br />
+                        <h3><strong>{{discount | currency}}</strong></h3><br />
+                        <h3><strong>{{totalPriceAfterDiscount | currency}}</strong></h3>
+                    </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td colspan="3"></td>
                     <td>
                         <button v-on:click="onClickCancelCart" type="button" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span> Hủy
                         </button>
                     </td>
-                    <td>   </td>
-                    <td>   </td>
                     <td>
                         <button type="button" class="btn btn-info">
                             <a href="/home"><span class="glyphicon glyphicon-shopping-cart"></span>Tiếp tục mua hàng</a>
@@ -120,78 +139,78 @@
                             </td>
                         </tr>
                         @*<tr>
-                            <td valign="top"><input type="radio" id="pay_method_8" name="pay_method" value="8" class="pay_option"></td>
-                            <td valign="top">
-                                <div class="txt0"><label class="labelpay" for="pay_method_8">Thanh toán tại cửa hàng</label></div>
+                                <td valign="top"><input type="radio" id="pay_method_8" name="pay_method" value="8" class="pay_option"></td>
+                                <td valign="top">
+                                    <div class="txt0"><label class="labelpay" for="pay_method_8">Thanh toán tại cửa hàng</label></div>
 
-                                <div class="pay_content" style="display:none;">
-                                    <b style="color:red">Quý khách chuyển tiền cho chúng tôi vào một trong các tài khoản sau đây:</b>
-                                    <hr>
-                                    <b>1. Ngân hàng TMCP Ngoại Thương Việt Nam- Chi nhánh Tây Hồ (Vietcombank)</b>
-                                    -  Tên tài khoản: Công ty cổ phần máy tính Hà Nội
-                                    -  Số tài khoản VND: 0991.000.000.930
-                                    <hr>
-                                    <b>
-                                        2. Ngân hàng Nông nghiệp và phát triển Nông thôn Việt Nam- Chi nhánh Hà Nội (
-                                        Agribank)
-                                    </b>
-                                    - Tên tài khoản: Công ty cổ phần máy tính Hà Nội
-                                    - Số tài khoản VND: 1500.201.082.444
-                                    <hr>
-                                    <b>3. Ngân hàng TMCP Kỹ Thương Việt Nam – Trung tâm giao dịch Hội sở (Techcombank)</b>
-                                    - Tên tài khoản: Công ty cổ phần máy tính Hà Nội
-                                    - Số TK VND: 108.2361.0928.999
-                                    <hr>
-                                    <b>4. Ngân hàng TMCP Đầu tư và phát triển Việt Nam- Chi nhánh Cầu Giấy (BIDV)</b>
-                                    - Tên TK: Công ty cổ phần máy tính Hà Nội
-                                    - Số TK: 2151.000.1289.241
-                                    <hr>
-                                    <b>5. Ngân hàng TMCP Á Châu- Chi nhánh Hà Nội (ACB)</b>
-                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
-                                    - Số TK: 174420119
-                                    <hr>
-                                    <b>6. Ngân hàng TNHH MTV Standard Chartered Việt Nam </b>
-                                    - Tên Tài khoản:  Công ty cổ phần máy tính Hà Nội
-                                    - Số Tài khoản VND:  88140711268
-                                    <hr>
-                                    <b>7. Ngân hàng TMCP Tiên Phong- PGD Nam Hà Nội</b>
-                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
-                                    - Số TK VND: 00118668001
-                                    <hr>
-                                    <b>8. Ngân hàng Quân Đội - Chi nhánh Định Công</b>
-                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
-                                    - Số TK VND: 0631100948001
-                                    <hr>
-                                    <b>9. Ngân hàng TMCP Công Thương Việt Nam</b>
-                                    - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
-                                    - Số TK VND: 112005156688
-                                    <hr>
+                                    <div class="pay_content" style="display:none;">
+                                        <b style="color:red">Quý khách chuyển tiền cho chúng tôi vào một trong các tài khoản sau đây:</b>
+                                        <hr>
+                                        <b>1. Ngân hàng TMCP Ngoại Thương Việt Nam- Chi nhánh Tây Hồ (Vietcombank)</b>
+                                        -  Tên tài khoản: Công ty cổ phần máy tính Hà Nội
+                                        -  Số tài khoản VND: 0991.000.000.930
+                                        <hr>
+                                        <b>
+                                            2. Ngân hàng Nông nghiệp và phát triển Nông thôn Việt Nam- Chi nhánh Hà Nội (
+                                            Agribank)
+                                        </b>
+                                        - Tên tài khoản: Công ty cổ phần máy tính Hà Nội
+                                        - Số tài khoản VND: 1500.201.082.444
+                                        <hr>
+                                        <b>3. Ngân hàng TMCP Kỹ Thương Việt Nam – Trung tâm giao dịch Hội sở (Techcombank)</b>
+                                        - Tên tài khoản: Công ty cổ phần máy tính Hà Nội
+                                        - Số TK VND: 108.2361.0928.999
+                                        <hr>
+                                        <b>4. Ngân hàng TMCP Đầu tư và phát triển Việt Nam- Chi nhánh Cầu Giấy (BIDV)</b>
+                                        - Tên TK: Công ty cổ phần máy tính Hà Nội
+                                        - Số TK: 2151.000.1289.241
+                                        <hr>
+                                        <b>5. Ngân hàng TMCP Á Châu- Chi nhánh Hà Nội (ACB)</b>
+                                        - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                        - Số TK: 174420119
+                                        <hr>
+                                        <b>6. Ngân hàng TNHH MTV Standard Chartered Việt Nam </b>
+                                        - Tên Tài khoản:  Công ty cổ phần máy tính Hà Nội
+                                        - Số Tài khoản VND:  88140711268
+                                        <hr>
+                                        <b>7. Ngân hàng TMCP Tiên Phong- PGD Nam Hà Nội</b>
+                                        - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                        - Số TK VND: 00118668001
+                                        <hr>
+                                        <b>8. Ngân hàng Quân Đội - Chi nhánh Định Công</b>
+                                        - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                        - Số TK VND: 0631100948001
+                                        <hr>
+                                        <b>9. Ngân hàng TMCP Công Thương Việt Nam</b>
+                                        - Tên Tài khoản: Công ty cổ phần máy tính Hà Nội
+                                        - Số TK VND: 112005156688
+                                        <hr>
 
-                                </div>
+                                    </div>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top"><input type="radio" id="pay_method_4" name="pay_method" value="4" class="pay_option"></td>
-                            <td valign="top">
-                                <div class="txt0"><label class="labelpay" for="pay_method_4">Thanh toán qua Ngân Lượng (ATM nội địa, Visa, Master)</label></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top"><input type="radio" id="pay_method_4" name="pay_method" value="4" class="pay_option"></td>
+                                <td valign="top">
+                                    <div class="txt0"><label class="labelpay" for="pay_method_4">Thanh toán qua Ngân Lượng (ATM nội địa, Visa, Master)</label></div>
 
-                                <div class="pay_content" style="display:none;">
+                                    <div class="pay_content" style="display:none;">
 
-                                </div>
+                                    </div>
 
-                            </td>
-                        <tr>
-                            <td valign="top"><input type="radio" id="pay_method_10" name="pay_method" value="10" class="pay_option"></td>
-                            <td valign="top">
-                                <div class="txt0"><label class="labelpay" for="pay_method_10">Trả góp qua Alepay (Ngân Lượng)</label></div>
+                                </td>
+                            <tr>
+                                <td valign="top"><input type="radio" id="pay_method_10" name="pay_method" value="10" class="pay_option"></td>
+                                <td valign="top">
+                                    <div class="txt0"><label class="labelpay" for="pay_method_10">Trả góp qua Alepay (Ngân Lượng)</label></div>
 
-                                <div class="pay_content" style="display:none;">
+                                    <div class="pay_content" style="display:none;">
 
-                                </div>
+                                    </div>
 
-                            </td>
-                        </tr>*@
+                                </td>
+                            </tr>*@
 
                     </tbody>
                 </table>
@@ -208,5 +227,6 @@
     <script src="~/js/features/product/product-detail.js" asp-append-version="true"></script>
     <script src="~/js/services/product-service.js" asp-append-version="true"></script>
     <script src="~/js/services/order-service.js" asp-append-version="true"></script>
+    <script src="~/js/services/voucher-service.js" asp-append-version="true"></script>
     <script src="~/js/shared/components/error.list.component.js"></script>
 }

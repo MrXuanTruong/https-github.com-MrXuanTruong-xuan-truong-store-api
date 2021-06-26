@@ -61,5 +61,10 @@ namespace Store.Services
         {
             return context.Orders.Where(x=>x.OrderStatusId == 2).AsNoTracking().ToListAsync();
         }
+
+        public Task<List<Order>> GetOrderPaids()
+        {
+            return context.Orders.Where(x => x.OrderStatusId == 3).AsNoTracking().ToListAsync();
+        }
     }
 }

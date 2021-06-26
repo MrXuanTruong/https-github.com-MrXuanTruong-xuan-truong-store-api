@@ -64,6 +64,8 @@ namespace Store.Services
                 .ThenInclude(x => x.Color)
                 .Include(x => x.ProductBranchs)
                 .ThenInclude(x => x.Branch)
+                .Include(x => x.ProductBranchs)
+                .ThenInclude(x => x.Color)
                 .Where(x => x.ProductId == id && x.IsDeleted == 0 )
                 //.AsNoTracking()
                 .SingleOrDefaultAsync();
@@ -196,6 +198,57 @@ namespace Store.Services
                 .AsNoTracking();
         }
 
+        public IQueryable<Product> ProductByCategory(int take)
+        {
+            return
+                context.Products
+                .Include(x => x.ProductBrand)
+                .Include(x => x.ProductStatus)
+                .Include(x => x.ProductColors)
+                .Include(x => x.Category)
+                .Include(x => x.ProductBranchs)
+                .Include(x => x.ProductImages)
+                .Where(x => x.IsDeleted == 0)
+                .AsNoTracking();
+        }
+
+        public IQueryable<Product> SellingProducts(int take)
+        {
+            var query = @"select * 
+                            from 
+	                            products 
+                            where 
+	                            ProductId in (
+	                            SELECT Products.ProductId--, SUM(Quantity) TotalQuantity
+	                            FROM Products
+	                            INNER JOIN OrderDetails ON OrderDetails.ProductId = Products.ProductId
+	                            GROUP BY Products.ProductId having SUM(Quantity) = 
+	                            (
+		                            select MAX(temp.TotalQuantity) MaxQuantity from 
+		                            (
+			                            SELECT Products.ProductId, SUM(Quantity) TotalQuantity
+			                            FROM Products
+			                            INNER JOIN OrderDetails ON OrderDetails.ProductId = Products.ProductId
+			                            GROUP BY Products.ProductId
+		                            ) as temp
+	                            )
+                            )";
+            return context.Products.FromSqlRaw(query);
+            //return
+            //    context.Products
+            //    .Include(x => x.ProductBrand)
+            //    .Include(x => x.ProductStatus)
+            //    .Include(x => x.ProductColors)
+            //    .Include(x => x.ProductBranchs)
+            //    .Include(x => x.ProductImages)
+            //    .Where(x => x.IsDeleted == 0)
+            //    .OrderByDescending(x => x.CreatedDate)
+            //    //.Skip(0)
+            //    .Take(take)
+            //    .AsNoTracking();
+
+        }
+
         public IQueryable<Product> FeatureProducts(int take)
         {
             return
@@ -226,7 +279,7 @@ namespace Store.Services
                     .ThenInclude(y => y.Color)
                     .Include(x => x.ProductBranchs)
                     .Include(x => x.ProductImages)
-                    .Where(x => x.ProductId != id && x.CategoryId == product.CategoryId && x.ProductBrandId == product.ProductBrandId && x.IsDeleted == 0)
+                    .Where(x => x.ProductId != id && x.CategoryId == product.CategoryId && x.IsDeleted == 0)
                     .ToList();
             }
             else

@@ -33,6 +33,7 @@ namespace Store.Entity.Domains
         public List<ProductColor> ProductColors { get; set; }
 
         public List<ProductBranch> ProductBranchs { get; set; }
+        //public List<OrderDetail> OrderDetails { get; set; }
 
         [Column(TypeName = "decimal(18,0)")]// 18 số ko chấm
         public decimal Price { set; get; } // Giá cơ bản

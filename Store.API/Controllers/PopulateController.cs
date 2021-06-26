@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Store.API.Controllers;
 using Store.API.Models.Populate;
+using Store.Entity.Enums;
 using Store.Services;
 
 namespace Store.Api.Controllers
@@ -16,17 +17,20 @@ namespace Store.Api.Controllers
     [AllowAnonymous]
     public class PopulateController : AdminBaseController
     {
+        private IAccountService _accountService;
         private ICatagoryService _catagoryService;
         private IProductService _productService;
         private readonly IMapper _mapper;
         public PopulateController(
             ICatagoryService catagoryService, 
             IProductService productService,
-            IMapper mapper)
+            IAccountService accountService,
+        IMapper mapper)
         {
             _catagoryService = catagoryService;
             _productService = productService;
             _mapper = mapper;
+            _accountService = accountService;
         }
 
         [HttpGet("accountTypes")]
@@ -210,6 +214,38 @@ namespace Store.Api.Controllers
             return response;
         }
 
-        
+        [HttpGet("orderPaids")]
+        public async Task<List<OrderItemModel>> GetOrderPaids()
+        {
+            var listOrderStatuses = await _catagoryService.GetOrderPaids();
+            var response =
+                listOrderStatuses
+                .Select(x =>
+                   new OrderItemModel
+                   {
+                       OrderId = x.OrderId,
+                       OrderCode = x.OrderCode
+                   })
+                .ToList();
+
+            return response;
+        }
+
+
+        [HttpGet("accounts")]
+        public async Task<IList<AccountItemModel>> Accounts()
+        {
+            var response = _accountService.GetAll().Where(x => x.AccountTypeId == AccountTypeEnum.Customer)
+                .Select(x =>
+                   new AccountItemModel
+                   {
+                       Id = x.AccountId,
+                       Name = $"{x.FullName} ({x.Phone})"
+                   })
+                .ToList();
+
+            return response;
+        }
+
     }
 }

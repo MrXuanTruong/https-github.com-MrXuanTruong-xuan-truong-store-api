@@ -136,14 +136,18 @@ namespace Store.Api.Controllers
                 if (product.ProductBranchs != null)
                 {
                     response.AvailableStocks = product.ProductBranchs
-                        .GroupBy(l => l.BranchId)
                         .Select(x => new AvailableStockModel
                         {
-                            BranchId = x.First().BranchId,
-                            BranchName = x.First().Branch.BranchName,
-                            Stock = x.Sum(c => c.LocalStock).GetValueOrDefault()
+                            BranchId = x.BranchId,
+                            BranchName = x.Branch.BranchName,
+                            Address = x.Branch.Address,
+                            ColorId = x.Color?.ColorId,
+                            ColorName = x.Color!=null?x.Color.ColorName:null,
+                            //StockByColorId = x. ,
+                            Stock = (int)x.LocalStock
                         })
                         .ToList();
+                    return response;
                 }
                 else
                 {
@@ -197,6 +201,7 @@ namespace Store.Api.Controllers
                 ProductStatusId = model.ProductStatusId,
                 Description = model.Description,
                 Stock = 0,
+                CreatedDate = DateTime.Now,
                 ProductColors = model.ProductColors
                 .Select(x => new ProductColor
                 {
@@ -329,10 +334,121 @@ namespace Store.Api.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("productByCategory")]
+        public List<ProductRequestModel> ProductByCategory()
+        {
+            var products = _productService.ProductByCategory(10);
+            var response =
+                products.Select(x =>
+                new ProductRequestModel
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ThumnailUrl = x.ThumnailUrl,
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.Category.CategoryName,
+                    ProductBrandName = x.ProductBrand.ProductBrandName,
+                    ProductStatusId = x.ProductStatusId,
+                    ProductStatusName = x.ProductStatus.ProductStatusName,
+                    Price = x.Price,
+                    Stock = x.Stock,
+                    ViewCount = x.ViewCount,
+                    Description = x.Description,
+                    ProductColors = x.ProductColors.Select(x => new ProductColorModel
+                    {
+                        ColorId = x.ColorId,
+                        ColorName = x.Color.ColorName,
+                        Price = x.Price,
+                        ProductColorId = x.ProductColorId,
+                        ProductId = x.ProductId,
+                    })
+                        .ToList()
+
+                })
+                .ToList();
+
+            return response;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("sellingProducts")]
+        public List<ProductRequestModel> SellingProducts()
+        {
+            var products = _productService.SellingProducts(10);
+            var response =
+                products.Select(x =>
+                new ProductRequestModel
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ThumnailUrl = x.ThumnailUrl,
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.Category.CategoryName,
+                    ProductBrandName = x.ProductBrand.ProductBrandName,
+                    ProductStatusId = x.ProductStatusId,
+                    ProductStatusName = x.ProductStatus.ProductStatusName,
+                    Price = x.Price,
+                    Stock = x.Stock,
+                    ViewCount = x.ViewCount,
+                    Description = x.Description,
+                    ProductColors = x.ProductColors.Select(x => new ProductColorModel
+                    {
+                        ColorId = x.ColorId,
+                        ColorName = x.Color.ColorName,
+                        Price = x.Price,
+                        ProductColorId = x.ProductColorId,
+                        ProductId = x.ProductId,
+                    })
+                        .ToList()
+
+                })
+                .ToList();
+
+            return response;
+        }
+
+        [AllowAnonymous]
         [HttpGet("featureProducts")]
         public List<ProductRequestModel> FeatureProducts()
         {
             var products = _productService.FeatureProducts(10);
+            var response =
+                products.Select(x =>
+                new ProductRequestModel
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ThumnailUrl = x.ThumnailUrl,
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.Category.CategoryName,
+                    ProductBrandName = x.ProductBrand.ProductBrandName,
+                    ProductStatusId = x.ProductStatusId,
+                    ProductStatusName = x.ProductStatus.ProductStatusName,
+                    Price = x.Price,
+                    Stock = x.Stock,
+                    ViewCount = x.ViewCount,
+                    Description = x.Description,
+                    ProductColors = x.ProductColors.Select(x => new ProductColorModel
+                    {
+                        ColorId = x.ColorId,
+                        ColorName = x.Color.ColorName,
+                        Price = x.Price,
+                        ProductColorId = x.ProductColorId,
+                        ProductId = x.ProductId,
+                    })
+                        .ToList()
+
+                })
+                .ToList();
+
+            return response;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("similarProducts")]
+        public List<ProductRequestModel> SimilarProducts(int productId)
+        {
+            var products = _productService.SimilarProducts(productId);
             var response =
                 products.Select(x =>
                 new ProductRequestModel
@@ -407,7 +523,7 @@ namespace Store.Api.Controllers
             {
                 response.Messages.Add($"Đơn hàng không tồn tại");
             }
-            else if(order.OrderStatusId != 2)
+            else if(order.OrderStatusId != 3)// Da thanh toan
             {
                 response.Messages.Add($"Đơn hàng không cho phép xuất kho");
             }
@@ -438,7 +554,7 @@ namespace Store.Api.Controllers
                 else
                 {
                     // Update trạng thái Đơn hàng sang xuất kho.
-                    order.OrderStatusId = 4;
+                    order.OrderStatusId = 20002;
                     await _orderService.Update(order);
 
                     response.Messages.Add($"Thao tác thành công");
@@ -520,6 +636,9 @@ namespace Store.Api.Controllers
                 var storeAvailableTask = _productService.GetStoreAvailableForProductId(id);
                 response.StoreAvailables = await storeAvailableTask;
 
+                //var productBranchesList = _productService.GetProductBranches(id);
+                //response.GetProductBranches = productBranchesList;
+
                 var productImagesTask = _productService.GetImagesForProductId(id);
 
                 response.Images = (await productImagesTask)
@@ -535,6 +654,25 @@ namespace Store.Api.Controllers
             return response;
         }
 
+        [AllowAnonymous]
+        [HttpGet("getGetProductBranchesByProductId")]
+        public List<ProductBranchModel> GetProductBranchesByProductId(int productId)
+        {
+            var productBranches = _productService.GetProductBranchesByProductId(productId);
+            var response = productBranches
+                .GroupBy(l => l.BranchId)
+                .Select(x => new ProductBranchModel
+                {
+                    ProductBranchId = x.First().ProductBranchId,
+                    BranchId = x.First().BranchId,
+                    BranchName = x.First().Branch.BranchName,
+                    Address = x.First().Branch.Address,
+                    ProductId = x.First().ProductId,
+                    Stock = x.Sum(c => c.LocalStock).GetValueOrDefault()
+                })
+                .ToList();
+            return response;
+        }
 
 
     }

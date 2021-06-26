@@ -17,7 +17,7 @@
                                             @*<div class="link-quickview"><a href="#" class="quick-view"><i class="fa fa-eye"></i></a></div>*@
                                             <div class="product-cartitem"></div>
                                             @*<a class="product-image" title="Retis lapen casen"><img :src="productDetail.thumbnailUrl" alt=""> </a>*@
-                                            
+
 
                                             <!-- Place somewhere in the <body> of your page -->
                                             <div class="flexslider">
@@ -48,19 +48,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="flex items-center" style="margin-bottom: 8px; align-items: baseline;float:right">
-                                                <label class="color-product">Màu sắc</label>
+                                            <div class="flex items-center" style="margin-bottom: 8px; align-items: baseline;float:left">
+                                                <label class="color-product">Chọn màu xe</label>
                                                 <div class="flex items-center">
-                                                    <button v-on:click="onSelectColor(1)" class="product-variation" v-bind:class="{ selected: selectedColorId === 1 }">Trắng</button>
-                                                    <button v-on:click="onSelectColor(2)" class="product-variation" v-bind:class="{ selected: selectedColorId === 2 }">Đen</button>
-                                                    <button v-on:click="onSelectColor(3)" class="product-variation" v-bind:class="{ selected: selectedColorId === 3 }">Vàng</button>
-                                                    <button v-on:click="onSelectColor(4)" class="product-variation" v-bind:class="{ selected: selectedColorId === 4 }">Xanh</button>
-                                                    <button v-on:click="onSelectColor(5)" class="product-variation" v-bind:class="{ selected: selectedColorId === 5 }">Cam</button>
+                                                    <button type="button" 
+                                                            v-for="(color, index) in productDetail.productColors" 
+                                                            v-on:click="onSelectColor(color.colorId)" 
+                                                            class="product-variation" 
+                                                            v-bind:class="{ selected: selectedColorId === color.colorId }">
+                                                        {{color.colorName}}
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div class="order-card">
+                                            <div class="order-card" style="margin-left: -170px; align-items: baseline;float:left;margin-top:50px">
 
-                                                <button v-on:click="shoppingCart" type="button" class="btn btn-warning">Đặt hàng</button>
+                                                <button v-on:click="shoppingCart" type="button" class="btn btn-warning">Đặt mua</button>
 
                                             </div>
                                         </div>
@@ -72,43 +74,21 @@
 
                     <div class="col-md-3 col-xs-12 hot-deal-box">
                         <h3>Chi nhánh còn hàng:</h3>
-
                         <div class="hot-deal">
                             <div class="f-left">
-                                @*<select id="lt_district_filter">
-                                    <option data-store="" value="">Quận/Huyện</option>
-                                    <option id="district_10" data-store="7" value="10">Quận 1</option>
-                                    <option id="district_14" data-store="7" value="14" style="display: none;">Quận 2</option>
-                                    <option id="district_15" data-store="7" value="15">Quận 3</option>
-                                    <option id="district_16" data-store="7" value="16">Quận 4</option>
-                                    <option id="district_17" data-store="7" value="17" style="display: none;">Quận 5</option>
-                                    <option id="district_18" data-store="7" value="18">Quận 6</option>
-                                    <option id="district_19" data-store="7" value="19">Quận 7</option>
-                                    <option id="district_20" data-store="7" value="20" style="display: none;">Quận 8</option>
-                                    <option id="district_21" data-store="7" value="21">Quận 9</option>
-                                    <option id="district_11" data-store="7" value="11">Quận 10</option>
-                                    <option id="district_12" data-store="7" value="12" style="display: none;">Quận 11</option>
-                                    <option id="district_13" data-store="7" value="13">Quận 12</option>
-                                    <option id="district_3" data-store="7" value="3">Quận Bình Thạnh</option>
-                                    <option id="district_1" data-store="7" value="1" style="display: none;">Huyện Bình Chánh</option>
-                                    <option id="district_2" data-store="7" value="2">Quận Bình Tân</option>
-                                    <option id="district_5" data-store="7" value="5" style="display: none;">Huyện Củ Chi</option>
-                                    <option id="district_6" data-store="7" value="6">Quận Gò Vấp</option>
-                                    <option id="district_7" data-store="7" value="7">Huyện Hóc Môn</option>
-                                    <option id="district_8" data-store="7" value="8" style="display: none;">Huyện Nhà Bè</option>
-                                    <option id="district_9" data-store="7" value="9">Quận Phú Nhuận</option>
-                                    <option id="district_4" data-store="7" value="4" style="display: none;">Huyện Cần Giờ</option>
-                                    <option id="district_22" data-store="7" value="22">Quận Tân Bình</option>
-                                    <option id="district_23" data-store="7" value="23" style="display: none;">Quận Tân Phú</option>
-                                    <option id="district_24" data-store="7" value="24">Quận Thủ Đức</option>
-                                </select><br />*@
-
+                                <div class="product-item-description">
+                                    <ul class="product-branch">
+                                        <li v-for="(branches, index) in branches">
+                                            <i class="fa fa-map-marker" style="font-size:15px;color:#000000" aria-hidden="true">
+                                                <label class="label-product-branch">{{branches.address}} (<i>còn hàng</i>)</label>
+                                            </i>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

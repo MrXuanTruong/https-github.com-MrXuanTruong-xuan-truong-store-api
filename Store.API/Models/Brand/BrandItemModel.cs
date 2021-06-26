@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Store.API.Models.Brand
 {
-    public class BrandItemModel
+    public class VoucherItemModel
     {
         public long Id { get; set; }
         public string ProductBrandName { get; set; }

@@ -47,6 +47,10 @@ namespace Store.Entity.Domains
         [ForeignKey("BranchId")]
         public Branch Branch { get; set; }
 
+        public long? VoucherId { get; set; }
+
+        [ForeignKey("VoucherId")]
+        public Voucher Voucher { get; set; }
         public List<AccountPermission> AccountPermissions { get; set; }
     }
 }

@@ -19,6 +19,7 @@ using Store.API.Models;
 using Store.API.Models.Operator;
 using Store.Services.Helpers;
 using Store.Entity.Criteria;
+using Store.Entity.Enums;
 
 namespace Store.Api.Controllers
 {
@@ -46,6 +47,17 @@ namespace Store.Api.Controllers
             {
                 //var query = _accountService.GetByCriteria(criteria);
                 var query = _accountService.GetAll();
+
+                if (criteria.AccountTypeId.HasValue)
+                {
+                    query = query.Where(x => x.AccountTypeId == criteria.AccountTypeId.Value);
+                }
+                else
+                {
+                    // Quan ly nguo dung
+                    query = query.Where(x => x.AccountTypeId == AccountTypeEnum.Suppervisor || x.AccountTypeId == AccountTypeEnum.Saler);
+                }
+
                 var operators =
                     query
                     .Select(x => new OperatorRequestModel
@@ -222,6 +234,8 @@ namespace Store.Api.Controllers
 
             return response;
         }
+
+        
 
         //[Authorize(Roles = PermissionConstant.MANAGE_OPERATOR)]
         //[HttpGet("{id:int}/privileges")]

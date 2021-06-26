@@ -6,7 +6,7 @@
             <div class="header-top-inner">
                 <div class="cnt-account">
                     <ul class="list-unstyled">
-                        <li v-if="isLogin"><a href="#"><i class="icon fa fa-user"></i>Tài khoản: {{currentUser.fullname}}</a></li>
+                        <li v-if="isLogin"><a href="/account/profile"><i class="icon fa fa-user"></i>Tài khoản: {{currentUser.fullname}}</a></li>
                         <li><a href="/product/shoppingcart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
                         <li v-if="!isLogin"><a href="/account/register"><i class="icon fa fa-check"></i>Đăng ký</a></li>
                         <li v-if="!isLogin"><a href="/account/login"><i class="icon fa fa-lock"></i>Đăng nhập</a></li>

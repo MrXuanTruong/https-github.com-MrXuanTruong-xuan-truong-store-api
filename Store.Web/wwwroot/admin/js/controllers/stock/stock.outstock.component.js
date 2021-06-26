@@ -100,7 +100,7 @@ var vue = new Vue({
         loadOrders: function () {
             var self = this;
 
-            this.populateService.getOrderConfirmeds()
+            this.populateService.getOrderPaids()
                 .then(function (response) {
                     self.orders = response.data;
                 })

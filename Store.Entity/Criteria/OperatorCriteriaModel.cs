@@ -9,5 +9,6 @@ namespace Store.Entity.Criteria
         public string Name { get; set; }
         public string Username { get; set; }
         public string StatusID { get; set; }
+        public int? AccountTypeId { get; set; }
     }
 }

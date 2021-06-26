@@ -24,6 +24,13 @@
         return base_axios.get(API_PRODUCT_NEWEST);
     }
 
+    getSellingProducts() {
+        return base_axios.get(API_PRODUCT_SELLING);
+    }
+    getProductByCategory() {
+        return base_axios.get(API_PRODUCT_CATEGORY);
+    }
+
     getFeatureProducts() {
         return base_axios.get(API_PRODUCT_FEATURE);
     }
@@ -38,5 +45,11 @@
     }
     getProductDetail(id) {
         return base_axios.get(API_PRODUCT_DETAIL + '?id=' + id);
+    }
+    getGetProductBranchesByProductId (productId) {
+        return base_axios.get(API_PRODUCT_BRANCH + '?productId=' + productId);
+    }
+    getSimilarProducts(productId) {
+        return base_axios.get(API_PRODUCT_SIMILAR + '?productId=' + productId);
     }
 }

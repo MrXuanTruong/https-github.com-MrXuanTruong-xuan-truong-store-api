@@ -6,7 +6,7 @@ namespace Store.Entity.Criteria
 {
     public class BrandCriteriaModel
     {
-        public string Name { get; set; }
-        public string ProductBrandName { get; set; }
+        public long? VoucherId { get; set; }
+        public string VoucherCode { get; set; }
     }
 }

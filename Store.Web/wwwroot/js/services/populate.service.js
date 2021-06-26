@@ -39,5 +39,12 @@
         return base_axios.get(`${API_POPULAR_ORDER_CONFIRMED}`);
     }
 
+    getOrderPaids() {
+        return base_axios.get(`${API_POPULAR_ORDER_PAID}`);
+    }
+
+    getAccounts() {
+        return base_axios.get(`${API_POPULAR_ACCOUNTS}`);
+    }
     
 }

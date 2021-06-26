@@ -3,6 +3,7 @@
     data: {
         productService: new ProductService(),
         orderService: new OrderService(),
+        vouccherService: new VoucherService(),
         shoppingCarts: [],
         contactInformation: {
             contactName: null,
@@ -11,6 +12,8 @@
             address: null,
             note: null,
         },
+        voucherCode: null,
+        discount: 0,
         errors: [],
     },
     components: {
@@ -65,6 +68,7 @@
                     address: this.contactInformation.address,
                     note: this.contactInformation.note,
                     orderDetails: [],
+                    voucherCode: this.voucherCode,
                 };
 
                 this.shoppingCarts.forEach(function (item, index) {
@@ -154,14 +158,48 @@
 
             var json = JSON.stringify(this.shoppingCarts);
             localStorage.setItem('shoppingCarts', json);
-        }
-    },
-    computed: {
-        totalPrice: function () {
+        },
+
+        applyVoucherCode: function (e) {
+            if (isNullOrEmpty(this.voucherCode)) {
+                this.$showErrorMessage("Vui lòng nhập mã voucher");
+                return;
+            }
+
+            let self = this;
+
+            this.vouccherService.getByVoucherCode(self.voucherCode)
+                .then(function (response) {
+                    if (response.data.result) {
+                        self.$showSuccessMessage("Đã sử dụng voucher");
+                        self.discount = response.data.price;
+                    }
+                    else {
+                        self.$showErrorMessage(response.data.messages[0]);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                });
+        },
+
+        getTotalPrice: function () {
             let total = 0;
             for (var i = 0; i < this.shoppingCarts.length; i++) {
                 total += this.shoppingCarts[i].product.price * this.shoppingCarts[i].quantity;
             }
+            return total;
+        }
+    },
+    computed: {
+        totalPrice: function () {
+            return this.getTotalPrice();
+        },
+        totalPriceAfterDiscount: function () {
+            let total = this.getTotalPrice();
+            total -= this.discount;
             return total;
         }
     },

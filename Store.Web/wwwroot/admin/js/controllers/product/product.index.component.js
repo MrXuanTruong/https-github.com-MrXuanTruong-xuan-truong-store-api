@@ -107,7 +107,7 @@
                     { data: "colorNames", name: "ColorNames", searchable: false, sortable: false, },
                     { data: "price", name: "Price", searchable: false },
                     //{ data: "stock", name: "Stock", searchable: false, sortable: false,},
-                    { data: "branchNames", name: "BranchNames", searchable: false, sortable: false, },
+                    //{ data: "branchNames", name: "BranchNames", searchable: false, sortable: false, },
                     { data: "productStatusName", name: "ProductStatusName", searchable: false, sortable: false, },
                     { data: "createdDate", name: "CreatedDate", searchable: false, sortable: true, },
                 ],

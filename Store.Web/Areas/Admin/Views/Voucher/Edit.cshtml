@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Thêm mới voucher";
+}<div class="ui-breadcrumbs">
+    <a href="/admin/voucher">
+        <span class="ui-breadcrumb__item"> < Quay lại danh sách</span>
+    </a>
+</div>
+<div class="row" v-if="voucher != null">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <h4 class="card-title">@ViewBag.Title</h4>
+            <div class="card-body">
+                <form class="forms-sample" id="voucher-form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label  class="col-sm-6 col-form-label">Khách hàng</label>
+                                <div class="col-sm-9">
+                                    <template>
+                                        <v-select v-model="voucher.accountId"
+                                                  :options="accounts"
+                                                  :reduce="item => item.id"
+                                                  label="name">
+                                        </v-select>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="product-name" class="col-sm-6 col-form-label">Ngày bắt đầu hiệu lực</label>
+                                <div class="col-sm-9">
+                                    <flat-pickr v-model="voucher.startDate"
+                                                :config="dateOptions.startDate"
+                                                class="form-control"></flat-pickr>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label  class="col-sm-6 col-form-label">Ngày kết thúc</label>
+                                <div class="col-sm-9">
+                                    <flat-pickr v-model="voucher.endDate"
+                                                :config="dateOptions.endDate"
+                                                class="form-control"></flat-pickr>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label  class="col-sm-6 col-form-label">Giá</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" v-model="voucher.price" required min="0">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
+                                    <error-list :errors="errors"></error-list>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
+                                    <button type="button" v-on:click="onClickUpdate" class="btn btn-primary btn-sm">
+                                        Lưu thay đổi
+                                    </button>
+                                    <button type="button" @@click="onClickBtnGotoList" class="btn btn-light btn-icon-prepend btn-sm">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Trở lại danh sách
+                                    </button>
+                                    <button type="button" v-on:click="onClickAddNew" class="btn btn-light btn-icon-prepend btn-sm" v-if="voucher.BrandId!==0">
+                                        <i class="fa fa-plus"></i>
+                                        Tạo mới
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/services/populate.service.js" asp-append-version="true"></script>
+    <script src="~/js/services/voucher-service.js" asp-append-version="true"></script>
+
+}
+

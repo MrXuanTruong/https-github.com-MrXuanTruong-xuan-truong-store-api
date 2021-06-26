@@ -20,5 +20,7 @@ namespace Store.API.Models.Order
 
         public List<OrderDetailModel> OrderDetails { get; set; }
 
+        public string VoucherCode { get; set; }
+
     }
 }

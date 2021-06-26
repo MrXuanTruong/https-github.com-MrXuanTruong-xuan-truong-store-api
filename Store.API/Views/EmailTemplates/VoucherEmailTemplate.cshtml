@@ -1,0 +1,6 @@
+﻿@model Store.Entity.Domains.Voucher
+<div style="color:#000000; font-size: 14px;">
+    Chào bạn <b>@Model.Account.FullName</b>!
+    <p>Chúng tôi tặng bạn mã voucher <b>@Model.VoucherCode</b> trị giá @Model.Price</p>
+    <p>Hiệu lực từ ngày @Model.StartDate.ToString("dd/MM/yyyy") đến ngày @Model.EndDate.ToString("dd/MM/yyyy")</p>
+</div>

@@ -35,5 +35,10 @@ namespace Store.Web.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public IActionResult Profile()
+        {
+            return View();
+        }
     }
 }

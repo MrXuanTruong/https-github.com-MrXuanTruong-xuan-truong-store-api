@@ -24,5 +24,7 @@ namespace Store.Services
         public Task<List<OrderStatus>> OrderStatuses();
 
         public Task<List<Order>> GetOrderConfirmeds();
+
+        public Task<List<Order>> GetOrderPaids();
     }
 }

@@ -1,0 +1,43 @@
+﻿@model Store.Entity.Domains.Order
+<h1>Xác nhận đơn hàng</h1>
+<div class="module" style="border: solid 1px #eee; background: #fff; padding: 10px;">
+    <h5>Cảm ơn Quý khách hàng đã chọn mua hàng tại cửa hàng. Trong<b> 30 phút</b>, sẽ có nhân viên hỗ trợ liên hệ <b>SMS hoặc Gọi</b> tới bạn để xác nhận đơn hàng.</h5>
+
+    <h5>Nếu anh/chị cần tư vấn, trợ giúp vui lòng gọi <strong>18001000</strong>. Xin cám ơn !</h5>
+
+    <h5><strong>Thông tin đặt hàng</strong></h5>
+    <div>
+        <h5>Mã đơn hàng: <strong>@Model.OrderCode</strong></h5>
+        <h5>Khách hàng : <strong>@Model.ContactName</strong></h5>
+        <h5>Số điện thoại: <strong>@Model.Phone</strong></h5>
+        <h5>Email: <strong>@Model.Email</strong></h5>
+        <h5>Địa chỉ nhận hàng: <strong>@Model.Address</strong></h5>
+        <h5>Tổng cộng: @Model.TotalAmount đ</h5>
+        <h5>Chiết khấu: @Model.Discount đ</h5>
+        <h5 style="color:red"><strong>Tổng tiền phải thanh toán: @Model.TotalPrice đ</strong></h5>
+        <h5>Ghi chú đơn hàng: <strong>@Model.Note</strong></h5>
+        <h5>Hình thức thanh toán: <strong>Thanh toán tại cửa hàng</strong></h5>
+        <h5>Trạng thái thanh toán: <strong>Chờ xác nhận</strong></h5>
+        <strong style="color: #e11b1e;">* Lưu ý: Nếu khách hàng có vấn đề về đơn hàng vui lòng liên hệ qua Hotline 0345286525 để được nhân viên hỗ trợ</strong>
+    </div>
+    <hr>
+    <h2>Sản phẩm đã đặt</h2>
+
+    @foreach (var orderDetail in Model.OrderDetails)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img :src="orderDetail.thumbnailUrl" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h3 class="card-title" style="text-align:left"><b>@orderDetail.Product.ProductName</b></h3>
+                        <h5 class="card-title">Số lượng: @orderDetail.Quantity</h5>
+                        <h5 class="card-title">Giá: @orderDetail.Price đ</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+   

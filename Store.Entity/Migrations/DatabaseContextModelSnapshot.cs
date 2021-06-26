@@ -80,6 +80,9 @@ namespace Store.Entity.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<long?>("VoucherId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("AccountId");
 
                     b.HasIndex("AccountStatusId");
@@ -92,6 +95,8 @@ namespace Store.Entity.Migrations
                         .IsUnique()
                         .HasFilter("[Username] IS NOT NULL");
 
+                    b.HasIndex("VoucherId");
+
                     b.ToTable("Accounts");
 
                     b.HasData(
@@ -102,13 +107,13 @@ namespace Store.Entity.Migrations
                             AccountTypeId = 1L,
                             Address = "9 District",
                             BranchId = 1L,
-                            CreatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 669, DateTimeKind.Utc).AddTicks(3598),
+                            CreatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 953, DateTimeKind.Utc).AddTicks(2348),
                             DateOfBirth = new DateTime(1998, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "xuantruongmu98@gmail.com",
                             FullName = "Admin",
                             Password = "e10adc3949ba59abbe56e057f20f883e",
                             Phone = "0345286525",
-                            UpdatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 670, DateTimeKind.Utc).AddTicks(489),
+                            UpdatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 953, DateTimeKind.Utc).AddTicks(4932),
                             Username = "admin"
                         },
                         new
@@ -118,13 +123,13 @@ namespace Store.Entity.Migrations
                             AccountTypeId = 2L,
                             Address = "9 District",
                             BranchId = 2L,
-                            CreatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 670, DateTimeKind.Utc).AddTicks(1971),
+                            CreatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 953, DateTimeKind.Utc).AddTicks(5619),
                             DateOfBirth = new DateTime(1998, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "xuantruongmu98@gmail.com",
                             FullName = "xuantruong",
                             Password = "e10adc3949ba59abbe56e057f20f883e",
                             Phone = "0345286525",
-                            UpdatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 670, DateTimeKind.Utc).AddTicks(2057),
+                            UpdatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 953, DateTimeKind.Utc).AddTicks(5667),
                             Username = "truongit"
                         },
                         new
@@ -134,13 +139,13 @@ namespace Store.Entity.Migrations
                             AccountTypeId = 3L,
                             Address = "Binh Thanh District",
                             BranchId = 1L,
-                            CreatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 670, DateTimeKind.Utc).AddTicks(2083),
+                            CreatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 953, DateTimeKind.Utc).AddTicks(5682),
                             DateOfBirth = new DateTime(1995, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nguyenvana@gmail.com",
                             FullName = "Nguyễn Văn A",
                             Password = "e10adc3949ba59abbe56e057f20f883e",
                             Phone = "0345286525",
-                            UpdatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 670, DateTimeKind.Utc).AddTicks(2086),
+                            UpdatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 953, DateTimeKind.Utc).AddTicks(5684),
                             Username = "customer"
                         });
                 });
@@ -536,9 +541,6 @@ namespace Store.Entity.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ColorId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
 
@@ -548,17 +550,17 @@ namespace Store.Entity.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                    b.Property<string>("ExportStockCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("FromBranchId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
-                    b.Property<long>("Quantity")
+                    b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ToBranchId")
@@ -576,6 +578,55 @@ namespace Store.Entity.Migrations
                     b.HasKey("ExportStockId");
 
                     b.ToTable("ExportStock");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.ExportStockDetail", b =>
+                {
+                    b.Property<long?>("ExportStockDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ColorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ExportStockId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ExportStockDetailId");
+
+                    b.HasIndex("ExportStockId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ExportStockDetail");
                 });
 
             modelBuilder.Entity("Store.Entity.Domains.ImportStock", b =>
@@ -601,8 +652,8 @@ namespace Store.Entity.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ImportStockCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
@@ -640,6 +691,12 @@ namespace Store.Entity.Migrations
                     b.Property<long>("ImportStockId")
                         .HasColumnType("bigint");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<long?>("ProductId")
+                        .HasColumnType("bigint");
+
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
@@ -666,6 +723,15 @@ namespace Store.Entity.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ContactName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
 
@@ -681,11 +747,23 @@ namespace Store.Entity.Migrations
                     b.Property<double>("Discount")
                         .HasColumnType("float");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("OrderStatusId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("PaymentmethodId")
+                    b.Property<long?>("PaymentMethodId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("TotalAmount")
                         .HasColumnType("float");
@@ -704,7 +782,11 @@ namespace Store.Entity.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("BranchId");
+
                     b.HasIndex("OrderStatusId");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.ToTable("Orders");
                 });
@@ -715,6 +797,9 @@ namespace Store.Entity.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ColorId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint");
@@ -734,8 +819,8 @@ namespace Store.Entity.Migrations
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
@@ -748,7 +833,11 @@ namespace Store.Entity.Migrations
 
                     b.HasKey("OrderDetailId");
 
+                    b.HasIndex("ColorId");
+
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -784,6 +873,39 @@ namespace Store.Entity.Migrations
                     b.HasKey("OrderStatusId");
 
                     b.ToTable("OrderStatuses");
+                });
+
+            modelBuilder.Entity("Store.Entity.Domains.PaymentMethod", b =>
+                {
+                    b.Property<long>("PaymentMethodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethodName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PaymentMethodId");
+
+                    b.ToTable("PaymentMethods");
                 });
 
             modelBuilder.Entity("Store.Entity.Domains.Permission", b =>
@@ -842,11 +964,8 @@ namespace Store.Entity.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<long?>("ExportStockId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ImportStockId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("IsDeleted")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,0)");
@@ -883,10 +1002,6 @@ namespace Store.Entity.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ExportStockId");
-
-                    b.HasIndex("ImportStockId");
-
                     b.HasIndex("ProductBrandId");
 
                     b.HasIndex("ProductStatusId");
@@ -898,8 +1013,9 @@ namespace Store.Entity.Migrations
                         {
                             ProductId = 1L,
                             CategoryId = 1L,
-                            CreatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 671, DateTimeKind.Utc).AddTicks(6401),
+                            CreatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 954, DateTimeKind.Utc).AddTicks(2682),
                             Description = "Mẫu xe số hiện đại bán chạy nhất tháng",
+                            IsDeleted = 0,
                             Price = 1000m,
                             ProductBrandId = 1L,
                             ProductName = "Winner",
@@ -911,8 +1027,9 @@ namespace Store.Entity.Migrations
                         {
                             ProductId = 2L,
                             CategoryId = 2L,
-                            CreatedDate = new DateTime(2020, 11, 28, 5, 16, 25, 671, DateTimeKind.Utc).AddTicks(7133),
+                            CreatedDate = new DateTime(2021, 6, 14, 8, 15, 18, 954, DateTimeKind.Utc).AddTicks(3017),
                             Description = "Specification:OK",
+                            IsDeleted = 0,
                             Price = 1500m,
                             ProductBrandId = 2L,
                             ProductName = "Air Blade 2020",
@@ -1002,6 +1119,12 @@ namespace Store.Entity.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IsDeleted")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProductBrandName")
                         .HasColumnType("nvarchar(max)");
 
@@ -1022,11 +1145,13 @@ namespace Store.Entity.Migrations
                         new
                         {
                             ProductBrandId = 1L,
+                            IsDeleted = 0,
                             ProductBrandName = "Honda"
                         },
                         new
                         {
                             ProductBrandId = 2L,
+                            IsDeleted = 0,
                             ProductBrandName = "Yamaha"
                         });
                 });
@@ -1228,6 +1353,48 @@ namespace Store.Entity.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Store.Entity.Domains.Voucher", b =>
+                {
+                    b.Property<long>("VoucherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,0)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("VoucherCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("VoucherId");
+
+                    b.ToTable("Vouchers");
+                });
+
             modelBuilder.Entity("Store.Entity.Domains.Account", b =>
                 {
                     b.HasOne("Store.Entity.Domains.AccountStatus", "AccountStatus")
@@ -1241,6 +1408,10 @@ namespace Store.Entity.Migrations
                     b.HasOne("Store.Entity.Domains.Branch", "Branch")
                         .WithMany()
                         .HasForeignKey("BranchId");
+
+                    b.HasOne("Store.Entity.Domains.Voucher", "Voucher")
+                        .WithMany("Accounts")
+                        .HasForeignKey("VoucherId");
                 });
 
             modelBuilder.Entity("Store.Entity.Domains.AccountPermission", b =>
@@ -1280,6 +1451,21 @@ namespace Store.Entity.Migrations
                         .HasForeignKey("ProvinceId");
                 });
 
+            modelBuilder.Entity("Store.Entity.Domains.ExportStockDetail", b =>
+                {
+                    b.HasOne("Store.Entity.Domains.ExportStock", "ExportStock")
+                        .WithMany()
+                        .HasForeignKey("ExportStockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Store.Entity.Domains.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Store.Entity.Domains.ImportStockDetail", b =>
                 {
                     b.HasOne("Store.Entity.Domains.ImportStock", "ImportStock")
@@ -1291,18 +1477,36 @@ namespace Store.Entity.Migrations
 
             modelBuilder.Entity("Store.Entity.Domains.Order", b =>
                 {
-                    b.HasOne("Store.Entity.Domains.OrderStatus", "OrderStatuses")
+                    b.HasOne("Store.Entity.Domains.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId");
+
+                    b.HasOne("Store.Entity.Domains.OrderStatus", "OrderStatus")
                         .WithMany("Orders")
                         .HasForeignKey("OrderStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Store.Entity.Domains.PaymentMethod", "PaymentMethod")
+                        .WithMany("Orders")
+                        .HasForeignKey("PaymentMethodId");
                 });
 
             modelBuilder.Entity("Store.Entity.Domains.OrderDetail", b =>
                 {
-                    b.HasOne("Store.Entity.Domains.Order", "Orders")
+                    b.HasOne("Store.Entity.Domains.Color", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorId");
+
+                    b.HasOne("Store.Entity.Domains.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Store.Entity.Domains.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1312,14 +1516,6 @@ namespace Store.Entity.Migrations
                     b.HasOne("Store.Entity.Domains.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("Store.Entity.Domains.ExportStock", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ExportStockId");
-
-                    b.HasOne("Store.Entity.Domains.ImportStock", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ImportStockId");
 
                     b.HasOne("Store.Entity.Domains.ProductBrand", "ProductBrand")
                         .WithMany("Products")

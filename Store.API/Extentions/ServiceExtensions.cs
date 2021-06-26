@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
+using Store.API.Services;
 using Store.Entity;
+using Store.Services.EmailServices;
 using Store.Services.Extentions;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,12 @@ namespace Store.API.Extentions
         {
             services.AddDependencyInjectionForService();
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IViewRenderService, ViewRenderService>();
+        }
+
+        public static void AddCustomOptions(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<EmailServiceOptions>(configuration.GetSection("AppSettings:SMTPSettings"));
         }
 
         public static void AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)

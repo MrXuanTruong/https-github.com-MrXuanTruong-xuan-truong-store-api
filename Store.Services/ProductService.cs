@@ -56,6 +56,7 @@ namespace Store.Services
         public Task<Product> GetById(long id)
         {
             return context.Products
+                .Include(x => x.ProductImages)
                 .Include(x => x.Category)
                 .Include(x => x.ProductStatus)
                 .Include(x => x.ProductBrand)
@@ -63,7 +64,9 @@ namespace Store.Services
                 .ThenInclude(x => x.Color)
                 .Include(x => x.ProductBranchs)
                 .ThenInclude(x => x.Branch)
-                .Where(x => x.ProductId == id && x.IsDeleted == 0)
+                .Include(x => x.ProductBranchs)
+                .ThenInclude(x => x.Color)
+                .Where(x => x.ProductId == id && x.IsDeleted == 0 )
                 //.AsNoTracking()
                 .SingleOrDefaultAsync();
         }
@@ -145,18 +148,29 @@ namespace Store.Services
                 }
                 await context.SaveChangesAsync();
 
-                foreach (var productImage in entity.ProductImages)
+                // databaseImages la tat ca hinh cua product id hien tai
+                var databaseImages = await context.ProductImages.Where(x => x.ProductId == entity.ProductId).ToListAsync();
+
+                // Xóa những tấm hình User xóa.
+                var deleteImages = databaseImages.Where(x => !entity.ProductImages.Any(y => y.ProductImageUrl == x.ProductImageUrl));
+
+                // Nhung hinh se Tao moi
+                var addImages = entity.ProductImages.Where(x => !databaseImages.Any(y => y.ProductImageUrl == x.ProductImageUrl));
+
+                // Nhung hinh Update thi khong lam gi. Boi vi update ko xay ra
+                // User chi xoa va chon hinh moi ma thoi
+
+                foreach (var image in deleteImages)
+                {
+                    context.ProductImages.Remove(image);
+                }
+
+                foreach (var productImage in addImages)
                 {
                     productImage.ProductId = entity.ProductId;
-                    if (productImage.ProductImageId <= 0)
-                    {
-                        await context.ProductImages.AddAsync(productImage);
-                    }
-                    else
-                    {
-                        context.ProductImages.Update(productImage);
-                    }
+                    await context.ProductImages.AddAsync(productImage);
                 }
+
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -184,6 +198,57 @@ namespace Store.Services
                 .AsNoTracking();
         }
 
+        public IQueryable<Product> ProductByCategory(int take)
+        {
+            return
+                context.Products
+                .Include(x => x.ProductBrand)
+                .Include(x => x.ProductStatus)
+                .Include(x => x.ProductColors)
+                .Include(x => x.Category)
+                .Include(x => x.ProductBranchs)
+                .Include(x => x.ProductImages)
+                .Where(x => x.IsDeleted == 0)
+                .AsNoTracking();
+        }
+
+        public IQueryable<Product> SellingProducts(int take)
+        {
+            var query = @"select * 
+                            from 
+	                            products 
+                            where 
+	                            ProductId in (
+	                            SELECT Products.ProductId--, SUM(Quantity) TotalQuantity
+	                            FROM Products
+	                            INNER JOIN OrderDetails ON OrderDetails.ProductId = Products.ProductId
+	                            GROUP BY Products.ProductId having SUM(Quantity) = 
+	                            (
+		                            select MAX(temp.TotalQuantity) MaxQuantity from 
+		                            (
+			                            SELECT Products.ProductId, SUM(Quantity) TotalQuantity
+			                            FROM Products
+			                            INNER JOIN OrderDetails ON OrderDetails.ProductId = Products.ProductId
+			                            GROUP BY Products.ProductId
+		                            ) as temp
+	                            )
+                            )";
+            return context.Products.FromSqlRaw(query);
+            //return
+            //    context.Products
+            //    .Include(x => x.ProductBrand)
+            //    .Include(x => x.ProductStatus)
+            //    .Include(x => x.ProductColors)
+            //    .Include(x => x.ProductBranchs)
+            //    .Include(x => x.ProductImages)
+            //    .Where(x => x.IsDeleted == 0)
+            //    .OrderByDescending(x => x.CreatedDate)
+            //    //.Skip(0)
+            //    .Take(take)
+            //    .AsNoTracking();
+
+        }
+
         public IQueryable<Product> FeatureProducts(int take)
         {
             return
@@ -199,6 +264,33 @@ namespace Store.Services
                 .AsNoTracking();
         }
 
+        public List<Product> SimilarProducts(long id)
+        {
+            var product = context.Products.Find(id);
+            if (product != null)
+            {
+                // ProductColors nó tiếp tục tham chiếu đến Color nên cứ Include tiếp Color để lấy
+                return
+                    context.Products
+                    .Include(x => x.ProductBrand)
+                    .Include(x => x.Category)
+                    .Include(x => x.ProductStatus)
+                    .Include(x => x.ProductColors)
+                    .ThenInclude(y => y.Color)
+                    .Include(x => x.ProductBranchs)
+                    .Include(x => x.ProductImages)
+                    .Where(x => x.ProductId != id && x.CategoryId == product.CategoryId && x.IsDeleted == 0)
+                    .ToList();
+            }
+            else
+            {
+                // Return ko cos phan tu nao
+                return new List<Product>();
+            }
+        }
+
+        
+
         public async Task<bool> InStocks(long branchId, string note, List<long> productIds, List<long> colorIds, List<int> quantities, List<double> prices)
         {
             var result = false;
@@ -209,6 +301,7 @@ namespace Store.Services
 
                 var importStock = new ImportStock
                 {
+                    CreatedDate = DateTime.Now,
                     ImportStockCode = DateTime.Now.ToString("yyyyMMddHHmmss"),
                     BranchId = branch.BranchId,
                     Description = note,
@@ -232,7 +325,7 @@ namespace Store.Services
                     await context.ImportStockDetails.AddAsync(importStockDetail);
                     await context.SaveChangesAsync();
 
-                    var productId = colorIds[i];
+                    var productId = productIds[i];
                     var colorId = colorIds[i];
 
                     var productBranch =
@@ -373,6 +466,13 @@ namespace Store.Services
             return context.ProductImages
                 .Where(x => x.ProductId == id)
                 .ToListAsync();
+        }
+        public List<ProductBranch> GetProductBranchesByProductId(long productId)
+        {
+                return context.ProductBranches
+                    .Include( x => x.Branch)
+                    .Where(x => x.ProductId == productId)
+                    .ToList();
         }
     }
 }

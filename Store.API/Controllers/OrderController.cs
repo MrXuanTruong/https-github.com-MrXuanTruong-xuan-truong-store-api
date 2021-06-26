@@ -10,29 +10,45 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Store.API.Models;
 using Store.API.Models.Order;
+using Store.API.Services;
 using Store.Entity.Domains;
+using Store.Entity.Enums;
 using Store.Services;
+using Store.Services.EmailServices;
 
 namespace Store.API.Controllers
 {
     public class OrderController : AdminBaseController
     {
+        private readonly IViewRenderService _viewRenderService;
         private readonly IProductService _productService;
         private readonly IOrderService _orderService;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
         private readonly ILogger<OrderController> _logger;
+        private readonly IVoucherService _voucherService;
+        private readonly IEmailService _emailService;
         //private object product;
 
         public OrderController(
             IProductService productService,
             IOrderService orderService,
+            IVoucherService voucherService,
             IMapper mapper,
+            IAccountService accountService,
+            IEmailService emailService,
+            IViewRenderService viewRenderService,
             ILogger<OrderController> logger)
         {
             _productService = productService;
             _orderService = orderService;
+            _accountService = accountService;
             _mapper = mapper;
             _logger = logger;
+            _voucherService = voucherService;
+            _emailService = emailService;
+            _viewRenderService = viewRenderService;
+
         }
 
         //api/product/id
@@ -130,20 +146,55 @@ namespace Store.API.Controllers
                 Result = false,
             };
 
+            Voucher voucher = null;
+            if (model.VoucherCode != null)
+            {
+                voucher =
+                _voucherService.GetAll()
+                .Where(x => x.VoucherCode == model.VoucherCode && x.IsDeleted == 0 && x.IsUsed == 0)
+                .FirstOrDefault();
+
+
+                if (voucher != null)
+                {
+                    if (voucher.StartDate <= DateTime.Now && voucher.EndDate >= DateTime.Now)
+                    {
+
+                    }
+                    else
+                    {
+                        voucher = null;
+                    }
+                }
+            }
+
             var order = new Order
             {
                 ContactName = model.ContactName,
                 Email = model.Email,
                 Phone = model.Phone,
                 Address = model.Address,
-                PaymentMethodId =1,
-                OrderStatusId = 1,
+                PaymentMethodId = PaymentMethodEnum.PAYMENT_AT_STORE,
+                OrderStatusId = OrderStatusEnum.WAIT,
                 Discount = 0,
                 TotalAmount = 0,
                 TotalPrice = 0,
                 Note = model.Note,
-                OrderDetails = new List<OrderDetail>()
+                OrderDetails = new List<OrderDetail>(),
             };
+
+            if(voucher != null)
+            {
+                order.VoucherId = voucher.VoucherId;
+                order.Discount = (double)voucher.Price;
+            }
+
+            //if(model.VoucherCode != null)
+            //{
+            //    var voucher = GetById from DB;
+
+            //    order.Discount = voucher.Value;
+            //}
 
             var currentUser = CurrentUser;
             if (currentUser != null)
@@ -174,13 +225,34 @@ namespace Store.API.Controllers
             }
 
             order.TotalAmount = total;
-            order.TotalPrice = total;
+            order.TotalPrice = total - order.Discount;
 
             order.OrderCode = DateTime.Now.ToString("yyyyMMddHHmmss");
 
             response.Result = await _orderService.Insert(order);
 
-            response.Messages.Add(response.Result ? SuccessMessage : FailMessage);
+            //response.Messages.Add(response.Result ? SuccessMessage : FailMessage);
+
+            if(response.Result == true)
+            {
+                response.Messages.Add(SuccessMessage);
+
+                // Send Email
+                var subject = "Đặt hàng thành công";
+                var bodyHtml = await _viewRenderService.RenderToStringAsync<Order>("EmailTemplates/OrderEmailTemplate", order);
+                var alias = "";
+                await _emailService.Send(subject, bodyHtml, alias, new List<string>() { order.Email });
+
+                if (voucher != null)
+                {
+                    voucher.IsUsed = 1;
+                    await _voucherService.Update(voucher);
+                }
+            }
+            else
+            {
+                response.Messages.Add(FailMessage);
+            }
 
             if (response.Result)
             {

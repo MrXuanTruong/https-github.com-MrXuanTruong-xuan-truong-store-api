@@ -2,62 +2,20 @@
     el: '#page-content',
     data: {
         model: vueDataJson,
-        operator: null,
+        brand: null,
         errors: [],
         urls: {
-            list: '/admin/operator/',
-            edit: '/admin/operator/edit/',
+            list: '/admin/brand/',
+            edit: '/admin/brand/edit/',
         },
         errorMessages: {
-            username: {
-                required: "Chưa nhập Tên đăng nhập"
-            },
-            dateofbirth: {
-                required: "Chưa nhập Ngày tháng năm sinh",
-            },
-            fullName: {
-                required: "Chưa nhập Họ và tên",
-            },
-            email: {
-                required: "Chưa nhập Email",
-                validate: "Email chưa đúng định dạng"
-            },
-            phone: {
-                required:"Chưa nhập Số điện thoại",
-            },
-            address: {
-                required: "Chưa nhập Địa chỉ",
-            },
-            password: {
-                required: "Chưa nhập Mật khẩu"
-            },
-            confirmedPassword: {
-                required: "Chưa nhập lại mật khẩu xác nhận",
-                match: "Xác nhận mật khẩu không chính xác"
-            },
-            
-            accountTypeId: {
-                required: "Chưa chọn Chức vụ",
-            },
-            branch: {
-                required: "Chưa chọn Chi nhánh",
-            },
-            accountStatusId: {
-                required: "Chưa nhập Trạng thái",
+            brandName: {
+                required: "Vui lòng nhập Tên nhãn hiệu"
             },
         },
-        privileges: [],
-        operatorStatuses: [],
-        operatorTypes: [],
-        operatorBranches: [],
-        operatorService: new OperatorService(),
+        brandService: new brandService(),
         populateService: new PopulateService(),
         loading: true,
-        dateOptions: {
-            dateOfBirth: {
-                dateFormat: 'd/m/Y',
-            },
-        }
     },
     components: {
         'v-select': VueSelect.VueSelect,
@@ -81,74 +39,23 @@
         },
 
         validate: function () {
-            //debugger
             this.errors = [];
-            if (isNullOrEmpty(this.operator.username)) {
-                this.errors.push(this.errorMessages.username.required);
-            }
-
-            if (isNullOrEmpty(this.operator.dateOfBirth)) {
-                this.errors.push(this.errorMessages.dateofbirth.required);
-            }
-
-            if (isNullOrEmpty(this.operator.fullname)) {
-                this.errors.push(this.errorMessages.fullName.required);
-            }
-
-            if (isNullOrEmpty(this.operator.email)) {
-                this.errors.push(this.errorMessages.email.required);
-            }
-            else if (!validEmail(this.operator.email)) {
-                this.errors.push(this.errorMessages.email.validate);
-            }
-
-            if (isNullOrEmpty(this.operator.phone)) {
-                this.errors.push(this.errorMessages.phone.required);
-            }
-
-            if (isNullOrEmpty(this.operator.address)) {
-                this.errors.push(this.errorMessages.address.required);
-            }
-
-            if (isNullOrEmpty(this.operator.password)) {
-                if (this.operator.id <= 0) {
-                    this.errors.push(this.errorMessages.password.required);
-                }
-            }
-
-            if (!isNullOrEmpty(this.operator.password) && !isNullOrEmpty(this.operator.confirmedPassword)) {
-                if (this.operator.confirmedPassword != this.operator.password) {
-                    this.errors.push(this.errorMessages.confirmedPassword.match);
-                }
-            }
-
-            if (isNullOrEmpty(this.operator.confirmedPassword)) {
-                if (this.operator.id <= 0 || !isNullOrEmpty(this.operator.password)) {
-                    this.errors.push(this.errorMessages.confirmedPassword.required);
-                }
-            }
-            
-            if (isNullOrEmpty(this.operator.accountTypeId) || this.operator.accountTypeId === 0) {// === vs == chet choc
-                this.errors.push(this.errorMessages.accountTypeId.required);
-            }
-            if (isNullOrEmpty(this.operator.branchId) || this.operator.branchId===0) {
-                this.errors.push(this.errorMessages.branch.required);
-            }
-            if (isNullOrEmpty(this.operator.accountStatusId) || this.operator.accountStatusId===0) {
-                this.errors.push(this.errorMessages.accountStatusId.required);
+            if (isNullOrEmpty(this.brand.brandName)) {
+                this.errors.push(this.errorMessages.brandName.required);
             }
             return this.errors.length == 0;
         },
 
         
 
-        getOperator: function () {
+        getBrand: function () {
             var self = this;
             this.loading = true;
-            this.operatorService.getById(this.model.Id)
+            this.brandService.getById(this.model.Id)
                 .then(function (response) {
-                    response.data.dateOfBirth = moment(response.data.dateOfBirth).format('DD/MM/YYYY');
-                    self.operator = response.data;
+                    self.product = response.data;
+                    // log thông tin brand từ api lúc get xem 
+                    console.info(self.product);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -157,38 +64,12 @@
                     self.loading = false;
                 });
         },
-        loadOperatorTypes: function () {
-            var self = this;
-
-            this.populateService.getAccountTypes()
-                .then(function (response) {
-                    self.operatorTypes = response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
-                .finally(function () {
-                });
-        },
-        loadOperatorStatuses: function () {
+        loadBrandStatuses: function () {
             var self = this;
 
             this.populateService.getUserStatuses()
                 .then(function (response) {
-                    self.operatorStatuses = response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
-                .finally(function () {
-                });
-        },
-        loadOperatorBranches: function () {
-            var self = this;
-
-            this.populateService.getBranches()
-                .then(function (response) {
-                    self.operatorBranches = response.data;
+                    self.brandStatuses = response.data;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -200,18 +81,18 @@
         getRequestData: function () {
             
             var request = {
-                Id: this.operator.id,
-                Fullname: this.operator.fullname,
-                Username: this.operator.username,
-                DateOfBirth: this.operator.dateOfBirth,
-                Email: this.operator.email,
-                Phone: this.operator.phone,
-                Address: this.operator.address,
-                AccountTypeId: this.operator.accountTypeId,
-                BranchId: this.operator.branchId,
-                AccountStatusId: this.operator.accountStatusId,
-                Password: this.operator.password,
-                ConfirmedPassword: this.operator.confirmedPassword,
+                Id: this.brand.id,
+                Fullname: this.brand.fullname,
+                Username: this.brand.username,
+                DateOfBirth: this.brand.dateOfBirth,
+                Email: this.brand.email,
+                Phone: this.brand.phone,
+                Address: this.brand.address,
+                AccountTypeId: this.brand.accountTypeId,
+                BranchId: this.brand.branchId,
+                AccountStatusId: this.brand.accountStatusId,
+                Password: this.brand.password,
+                ConfirmedPassword: this.brand.confirmedPassword,
             };
 
             request.DateOfBirth = moment(request.DateOfBirth, 'DD/MM/YYYY').format('YYYY-MM-DDTHH:mm:ss');
@@ -226,12 +107,12 @@
                 if (this.model.Id === 0) {
                     var request = this.getRequestData();
                     console.log(request);
-                    this.operatorService.save(request)
+                    this.brandService.save(request)
                         .then(function (response) {
                             if (response.data.result) {
                                 self.$showSuccessToast("Thao tác thành công");
                                 setTimeout(function () {
-                                    location.href = '/admin/operator'
+                                    location.href = '/admin/brand'
                                 }, 5000);
                             }
                             else {
@@ -248,7 +129,7 @@
                 else {
                     var request = this.getRequestData();
 
-                    this.operatorService.update(this.model.Id, request)
+                    this.brandService.update(this.model.Id, request)
                         .then(function (response) {
                             if (response.data.result) {
                                 self.$showSuccessToast("Thao tác thành công");
@@ -269,7 +150,7 @@
 
         getPrivileges: function () {
             var self = this;
-            this.operatorService.getPrivileges(this.model.Id)
+            this.brandService.getPrivileges(this.model.Id)
                 .then(function (response) {
                     if (response.data.Result) {
                         
@@ -296,7 +177,7 @@
             });
 
             var self = this;
-            this.operatorService.applyPrivileges(this.model.Id, privileges)
+            this.brandService.applyPrivileges(this.model.Id, privileges)
                 .then(function (response) {
                     if (response.data.Result) {
                         self.$showSuccessToast("Thao tác thành công");
@@ -316,11 +197,11 @@
     },
     
     mounted() {
-        this.loadOperatorStatuses();
+        this.loadbrandStatuses();
         
-        this.loadOperatorBranches();
+        this.loadbrandBranches();
         
-        this.loadOperatorTypes();
+        this.loadbrandTypes();
 
         if (this.model.Id > 0) {
             this.getPrivileges();
@@ -329,6 +210,6 @@
         this.$closePageLoading();
     },
     created: function () {
-        this.getOperator();
+        this.getbrand();
     }
 });

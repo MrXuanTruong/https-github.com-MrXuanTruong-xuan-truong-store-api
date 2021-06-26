@@ -26,6 +26,8 @@ namespace Store.API
         {
             services.ConfigureCors();
 
+            services.AddCustomOptions(Configuration);
+
             services.AddDependencyInjection();
 
             services.AddAutoMapper(this.GetType().Assembly);
@@ -42,6 +44,8 @@ namespace Store.API
 
             // DataTables.AspNet registration with default options.
             services.RegisterDataTables();
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

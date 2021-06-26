@@ -52,9 +52,8 @@ a {
   color: #00CED1;
 }
 .header-style-1 .header-nav {
-  background: #48D1CC;
-  border-bottom: 3px #008B8B solid;
-
+    background: #008B8B;
+    border-bottom: 3px #008B8B solid;
 }
 .header-style-1 .header-nav .navbar .navbar-nav > li.active {
   background: #008B8B;
